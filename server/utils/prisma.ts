@@ -2,10 +2,12 @@ import { PrismaClient } from '~~/prisma/generated/client/index.js'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 
-let prisma: PrismaClient
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined
+}
 
 export const getPrisma = () => {
-  if (!prisma) {
+  if (!globalForPrisma.prisma) {
     const databaseUrl = process.env.DATABASE_URL
     
     if (!databaseUrl) {
@@ -18,13 +20,14 @@ export const getPrisma = () => {
     // In Prisma 7, direct connections must use an adapter
     const pool = new pg.Pool({ 
       connectionString: databaseUrl,
+      max: 5, // Limit connections to avoid exhausting the pool in dev
       ssl: databaseUrl.includes('supabase.co') || databaseUrl.includes('pooler') ? { rejectUnauthorized: false } : false
     })
     const adapter = new PrismaPg(pool)
     
-    prisma = new PrismaClient({ adapter })
+    globalForPrisma.prisma = new PrismaClient({ adapter })
   }
-  return prisma
+  return globalForPrisma.prisma
 }
 
 export default getPrisma

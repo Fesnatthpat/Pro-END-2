@@ -221,8 +221,8 @@ const filteredProjects = computed(() => {
     const matchYear = p.academicYear === selectedYear.value
     
     const search = searchQuery.value.toLowerCase()
-    const matchSearch = p.titleTh.toLowerCase().includes(search) || 
-                        p.student1.fullname.toLowerCase().includes(search) || 
+    const matchSearch = (p.titleTh || '').toLowerCase().includes(search) || 
+                        (p.student1?.fullname || '').toLowerCase().includes(search) || 
                         p.student1.username.includes(search)
 
     let matchStatus = true

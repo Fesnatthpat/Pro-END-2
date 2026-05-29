@@ -165,8 +165,8 @@ const projects = computed(() => result.value?.projects || [])
 const filteredProjects = computed(() => {
   return projects.value.filter(p => {
     const search = searchQuery.value.toLowerCase()
-    const matchSearch = p.titleTh.toLowerCase().includes(search) || 
-                        p.student1.fullname.toLowerCase().includes(search)
+    const matchSearch = (p.titleTh || '').toLowerCase().includes(search) || 
+                        (p.student1?.fullname || '').toLowerCase().includes(search)
     const matchYear = selectedYear.value === '' || p.academicYear === selectedYear.value
     return matchSearch && matchYear
   })
