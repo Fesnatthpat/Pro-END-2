@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen bg-[#f8f9fa]">
     
-    <nav v-if="!hideNav" class="sticky top-0 z-50 bg-[#1a1a40]/95 backdrop-blur-md py-3 lg:py-4 shadow-[0_4px_25px_rgba(0,0,0,0.1)] border-b border-white/5 transition-all duration-300">
+    <nav v-if="!hideNav" class="sticky top-0 z-50 bg-[#1a1a40]/95 backdrop-blur-md py-3 lg:py-4 shadow-[0_4px_25px_rgba(0,0,0,0.1)] border-b border-white/5 transition-all duration-300 print:hidden">
       <div class="w-full xl:max-w-[1450px] mx-auto px-4 md:px-8 flex flex-wrap lg:flex-nowrap items-center justify-between">
         
         <!-- 1. Logo (Left) -->
