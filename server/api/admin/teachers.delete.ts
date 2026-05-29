@@ -14,10 +14,9 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
-    await prisma.user.delete({
+    await prisma.teacher.delete({
       where: {
-        id,
-        role: 'teacher'
+        id
       }
     })
 

@@ -14,10 +14,11 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
-    const user = await prisma.user.update({
+    const user = await prisma.student.update({
       where: { id: userId },
       data: { isApproved: true }
     })
+
 
     return {
       success: true,

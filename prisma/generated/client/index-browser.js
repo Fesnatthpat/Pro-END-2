@@ -120,7 +120,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.StudentScalarFieldEnum = {
   id: 'id',
   username: 'username',
   email: 'email',
@@ -130,7 +130,6 @@ exports.Prisma.UserScalarFieldEnum = {
   tel: 'tel',
   lineId: 'lineId',
   profileImage: 'profileImage',
-  role: 'role',
   isApproved: 'isApproved',
   addressNo: 'addressNo',
   moo: 'moo',
@@ -142,6 +141,19 @@ exports.Prisma.UserScalarFieldEnum = {
   zipcode: 'zipcode',
   homePhone: 'homePhone',
   emergencyContact: 'emergencyContact',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TeacherScalarFieldEnum = {
+  id: 'id',
+  username: 'username',
+  email: 'email',
+  password: 'password',
+  fullname: 'fullname',
+  tel: 'tel',
+  lineId: 'lineId',
+  profileImage: 'profileImage',
   position: 'position',
   department: 'department',
   expertise: 'expertise',
@@ -244,7 +256,8 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User',
+  Student: 'Student',
+  Teacher: 'Teacher',
   Admin: 'Admin',
   Project: 'Project',
   ProjectStepStatus: 'ProjectStepStatus',

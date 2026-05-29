@@ -3,13 +3,17 @@ import { getPrisma } from '../utils/prisma'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const { username, email, password, fullname, academicYear, tel, lineId, profileImage } = body
+  const { 
+    username, email, password, fullname, academicYear, tel, lineId, profileImage,
+    addressNo, moo, soi, road, subdistrict, district, province, zipcode,
+    homePhone, emergencyContact
+  } = body
 
   const prisma = getPrisma()
 
   try {
-    // 1. Check if user already exists
-    const existingUser = await prisma.user.findFirst({
+    // 1. Check if student already exists
+    const existingStudent = await prisma.student.findFirst({
       where: {
         OR: [
           { username: username },
@@ -18,8 +22,8 @@ export default defineEventHandler(async (event) => {
       }
     })
 
-    if (existingUser) {
-      const isUsername = existingUser.username === username
+    if (existingStudent) {
+      const isUsername = existingStudent.username === username
       throw createError({
         statusCode: 400,
         statusMessage: isUsername ? 'รหัสนักศึกษานี้ถูกใช้งานไปแล้ว' : 'อีเมลนี้ถูกใช้งานไปแล้ว'
@@ -29,8 +33,8 @@ export default defineEventHandler(async (event) => {
     // 2. Hash password
     const hashedPassword = await hash(password, 10)
 
-    // 3. Create user in database
-    const user = await prisma.user.create({
+    // 3. Create student in database
+    const student = await prisma.student.create({
       data: {
         username,
         email,
@@ -39,16 +43,26 @@ export default defineEventHandler(async (event) => {
         academicYear,
         tel,
         lineId,
-        profileImage
+        profileImage,
+        addressNo,
+        moo,
+        soi,
+        road,
+        subdistrict,
+        district,
+        province,
+        zipcode,
+        homePhone,
+        emergencyContact
       }
     })
 
     return {
       success: true,
       user: {
-        id: user.id,
-        username: user.username,
-        email: user.email
+        id: student.id,
+        username: student.username,
+        email: student.email
       }
     }
   } catch (error: any) {

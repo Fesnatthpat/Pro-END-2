@@ -114,8 +114,8 @@ export default defineEventHandler(async (event) => {
             where: { id: existingExam.id },
             data: {
               examDate: examDate ? new Date(examDate) : undefined,
-              examTime: examTime !== undefined ? examTime : undefined,
-              examLocation: examLocation !== undefined ? examLocation : undefined,
+              startTime: examTime !== undefined ? examTime : undefined,
+              location: examLocation !== undefined ? examLocation : undefined,
               status: status === 'approved' ? 'pass' : (status === 'rejected' ? 'fail' : 'pending')
             }
           })
@@ -125,8 +125,8 @@ export default defineEventHandler(async (event) => {
               projectId: updatedProject.id,
               type: examType,
               examDate: examDate ? new Date(examDate) : new Date(),
-              examTime: examTime || '-',
-              examLocation: examLocation || '-',
+              startTime: examTime || '-',
+              location: examLocation || '-',
               status: status === 'approved' ? 'pass' : (status === 'rejected' ? 'fail' : 'pending')
             }
           })

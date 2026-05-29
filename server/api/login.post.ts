@@ -41,8 +41,8 @@ export default defineEventHandler(async (event) => {
       }
       role = 'admin'
     } else {
-      // 2. If not admin, try to find in User table (Student/Teacher)
-      const user = await prisma.user.findFirst({
+      // 2. Try to find in Student table
+      let user = await prisma.student.findFirst({
         where: {
           OR: [
             { username: email_or_id },
@@ -51,6 +51,23 @@ export default defineEventHandler(async (event) => {
         }
       })
 
+      if (user) {
+        role = 'student'
+      } else {
+        // 3. Try to find in Teacher table
+        user = await prisma.teacher.findFirst({
+          where: {
+            OR: [
+              { username: email_or_id },
+              { email: email_or_id }
+            ]
+          }
+        })
+        if (user) {
+          role = 'teacher'
+        }
+      }
+
       if (!user) {
         throw createError({
           statusCode: 401,
@@ -58,7 +75,7 @@ export default defineEventHandler(async (event) => {
         })
       }
 
-      // 3. Compare password
+      // 4. Compare password
       const isPasswordValid = await compare(password, user.password)
       if (!isPasswordValid) {
         throw createError({
@@ -67,8 +84,8 @@ export default defineEventHandler(async (event) => {
         })
       }
 
-      // 4. Check approval status
-      if (!user.isApproved) {
+      // 5. Check approval status (only for students)
+      if (role === 'student' && !(user as any).isApproved) {
         throw createError({
           statusCode: 403,
           statusMessage: 'ชื่อผู้ใช้นี้ยังไม่ได้รับอนุมัติจากผู้ดูแลระบบ'
@@ -81,12 +98,22 @@ export default defineEventHandler(async (event) => {
         email: user.email,
         fullname: user.fullname,
         profileImage: user.profileImage,
+        academicYear: (user as any).academicYear,
         tel: user.tel,
         lineId: user.lineId,
-        role: user.role,
-        isApproved: user.isApproved
+        addressNo: (user as any).addressNo,
+        moo: (user as any).moo,
+        soi: (user as any).soi,
+        road: (user as any).road,
+        subdistrict: (user as any).subdistrict,
+        district: (user as any).district,
+        province: (user as any).province,
+        zipcode: (user as any).zipcode,
+        homePhone: (user as any).homePhone,
+        emergencyContact: (user as any).emergencyContact,
+        role: role,
+        isApproved: role === 'student' ? (user as any).isApproved : true
       }
-      role = user.role
     }
 
     // 5. Generate JWT Token
@@ -111,9 +138,8 @@ export default defineEventHandler(async (event) => {
     return {
       success: true,
       user: userData,
-      token // Return token for frontend if needed (though we use HttpOnly cookie)
+      token
     }
-
   } catch (error: any) {
     console.error('Login Error:', error)
     if (error.statusCode) throw error

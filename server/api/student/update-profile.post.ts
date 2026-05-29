@@ -8,18 +8,32 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
 
-  const { fullname, tel, email, lineId } = body
+  const { 
+    fullname, tel, email, lineId, 
+    addressNo, moo, soi, road, subdistrict, district, province, zipcode, 
+    homePhone, emergencyContact 
+  } = body
 
   const prisma = getPrisma()
 
   try {
-    const user = await prisma.user.update({
+    const user = await prisma.student.update({
       where: { id: auth.userId },
       data: {
         fullname: fullname !== undefined ? fullname : undefined,
         tel: tel !== undefined ? tel : undefined,
         email: email !== undefined ? email : undefined,
         lineId: lineId !== undefined ? lineId : undefined,
+        addressNo: addressNo !== undefined ? addressNo : undefined,
+        moo: moo !== undefined ? moo : undefined,
+        soi: soi !== undefined ? soi : undefined,
+        road: road !== undefined ? road : undefined,
+        subdistrict: subdistrict !== undefined ? subdistrict : undefined,
+        district: district !== undefined ? district : undefined,
+        province: province !== undefined ? province : undefined,
+        zipcode: zipcode !== undefined ? zipcode : undefined,
+        homePhone: homePhone !== undefined ? homePhone : undefined,
+        emergencyContact: emergencyContact !== undefined ? emergencyContact : undefined,
       }
     })
 

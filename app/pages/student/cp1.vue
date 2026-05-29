@@ -159,9 +159,25 @@
             <input type="text" v-model="s1.province" class="form-dotted flex-1 min-w-0 text-center">
           </div>
           
-          <div class="flex items-end mb-1.5 gap-2 w-full">
+          <div class="flex items-end mb-1.5 gap-2 w-full relative">
             <span class="shrink-0">รหัสไปรษณีย์</span>
-            <input type="text" v-model="s1.zipcode" class="form-dotted w-24 min-w-0 text-center">
+            <input 
+              type="text" 
+              v-model="s1.zipcode" 
+              @input="handleZipcodeChange(1)"
+              class="form-dotted w-24 min-w-0 text-center bg-[#fff9db] font-bold print:bg-transparent"
+            >
+            <!-- Suggestions Dropdown for S1 -->
+            <div v-if="suggestions1.length > 0" class="absolute z-50 left-24 top-8 w-64 bg-white border border-gray-200 rounded-lg shadow-xl max-h-48 overflow-y-auto print:hidden">
+              <div 
+                v-for="(s, idx) in suggestions1" 
+                :key="idx"
+                @click="selectAddress(1, s)"
+                class="p-2 hover:bg-gray-100 cursor-pointer text-xs border-b border-gray-100 last:border-0"
+              >
+                ต.{{ s.subdistrict }} อ.{{ s.district }} จ.{{ s.province }} {{ s.zipcode }}
+              </div>
+            </div>
             <span class="shrink-0">โทรศัพท์มือถือ</span>
             <input type="text" v-model="s1.tel" class="form-dotted flex-1 min-w-0 text-center">
             <span class="shrink-0">E-mail</span>
@@ -211,9 +227,25 @@
             <input type="text" v-model="s2.province" class="form-dotted flex-1 min-w-0 text-center">
           </div>
           
-          <div class="flex items-end mb-1.5 gap-2 w-full">
+          <div class="flex items-end mb-1.5 gap-2 w-full relative">
             <span class="shrink-0">รหัสไปรษณีย์</span>
-            <input type="text" v-model="s2.zipcode" class="form-dotted w-24 min-w-0 text-center">
+            <input 
+              type="text" 
+              v-model="s2.zipcode" 
+              @input="handleZipcodeChange(2)"
+              class="form-dotted w-24 min-w-0 text-center bg-[#fff9db] font-bold print:bg-transparent"
+            >
+            <!-- Suggestions Dropdown for S2 -->
+            <div v-if="suggestions2.length > 0" class="absolute z-50 left-24 top-8 w-64 bg-white border border-gray-200 rounded-lg shadow-xl max-h-48 overflow-y-auto print:hidden">
+              <div 
+                v-for="(s, idx) in suggestions2" 
+                :key="idx"
+                @click="selectAddress(2, s)"
+                class="p-2 hover:bg-gray-100 cursor-pointer text-xs border-b border-gray-100 last:border-0"
+              >
+                ต.{{ s.subdistrict }} อ.{{ s.district }} จ.{{ s.province }} {{ s.zipcode }}
+              </div>
+            </div>
             <span class="shrink-0">โทรศัพท์มือถือ</span>
             <input type="text" v-model="s2.tel" class="form-dotted flex-1 min-w-0 text-center">
             <span class="shrink-0">E-mail</span>
@@ -445,6 +477,49 @@ const s2 = reactive({
   homePhone: '',
   emergencyContact: ''
 })
+
+// Address Auto-fill logic
+import { getProvinces, getDistricts, getSubdistricts } from '~/utils/thaiAddress'
+import { getDataForZipCode } from 'thai-data'
+
+const suggestions1 = ref([])
+const suggestions2 = ref([])
+
+const handleZipcodeChange = (num) => {
+  const code = num === 1 ? s1.zipcode : s2.zipcode
+  if (code.length === 5) {
+    const data = getDataForZipCode(code)
+    if (data) {
+      // If found, we can show suggestions or just take the first one?
+      // Thai-data returns a list of subdistricts for a zip code.
+      if (num === 1) suggestions1.value = data.subDistrictList.map(s => ({
+        subdistrict: s.subDistrictName,
+        district: data.districtList.find(d => d.districtId === s.districtId)?.districtName || '',
+        province: data.provinceList.find(p => p.provinceId === s.provinceId)?.provinceName || '',
+        zipcode: data.zipCode
+      }))
+      else suggestions2.value = data.subDistrictList.map(s => ({
+        subdistrict: s.subDistrictName,
+        district: data.districtList.find(d => d.districtId === s.districtId)?.districtName || '',
+        province: data.provinceList.find(p => p.provinceId === s.provinceId)?.provinceName || '',
+        zipcode: data.zipCode
+      }))
+    }
+  } else {
+    if (num === 1) suggestions1.value = []
+    else suggestions2.value = []
+  }
+}
+
+const selectAddress = (num, addr) => {
+  const target = num === 1 ? s1 : s2
+  target.subdistrict = addr.subdistrict
+  target.district = addr.district
+  target.province = addr.province
+  target.zipcode = addr.zipcode
+  if (num === 1) suggestions1.value = []
+  else suggestions2.value = []
+}
 
 const printDocument = () => window.print()
 

@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     // ตรวจสอบ Username/Email ซ้ำ (ยกเว้นของตัวเอง)
-    const existingUser = await prisma.user.findFirst({
+    const existingTeacher = await prisma.teacher.findFirst({
       where: {
         OR: [
           { username: username },
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
       }
     })
 
-    if (existingUser) {
+    if (existingTeacher) {
       throw createError({
         statusCode: 400,
         statusMessage: 'ชื่อผู้ใช้หรืออีเมลนี้ถูกใช้งานโดยผู้อื่นแล้ว'
@@ -46,8 +46,8 @@ export default defineEventHandler(async (event) => {
       updateData.password = await hash(password, 10)
     }
 
-    const teacher = await prisma.user.update({
-      where: { id: parseInt(id), role: 'teacher' },
+    const teacher = await prisma.teacher.update({
+      where: { id: parseInt(id) },
       data: updateData
     })
 

@@ -29,10 +29,9 @@ export default defineEventHandler(async (event) => {
     })
 
     // 2. ลบตัวนักศึกษา
-    await prisma.user.delete({
+    await prisma.student.delete({
       where: {
-        id,
-        role: 'student'
+        id
       }
     })
 

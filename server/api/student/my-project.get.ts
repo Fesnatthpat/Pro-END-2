@@ -68,9 +68,22 @@ export default defineEventHandler(async (event) => {
       }
     }
 
+    let mappedProject = null
+    if (project) {
+      mappedProject = {
+        ...project,
+        percentage,
+        exams: project.exams.map(e => ({
+          ...e,
+          examTime: e.startTime,
+          examLocation: e.location
+        }))
+      }
+    }
+
     return {
       success: true,
-      project: project ? { ...project, percentage } : null
+      project: mappedProject
     }
   } catch (error: any) {
     console.error('Fetch Student Project Error:', error)

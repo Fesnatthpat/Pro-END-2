@@ -4,9 +4,8 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
-    const students = await prisma.user.findMany({
+    const students = await prisma.student.findMany({
       where: {
-        role: 'student',
         isApproved: true
       },
       select: {
@@ -18,7 +17,6 @@ export default defineEventHandler(async (event) => {
         tel: true,
         lineId: true,
         profileImage: true,
-        role: true,
         isApproved: true,
         createdAt: true,
         updatedAt: true

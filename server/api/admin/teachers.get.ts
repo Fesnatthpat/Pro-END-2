@@ -4,21 +4,18 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
-    const teachers = await prisma.user.findMany({
-      where: {
-        role: 'teacher'
-      },
+    const teachers = await prisma.teacher.findMany({
       select: {
         id: true,
         username: true,
         email: true,
         fullname: true,
-        academicYear: true,
         tel: true,
         lineId: true,
         profileImage: true,
-        role: true,
-        isApproved: true,
+        position: true,
+        department: true,
+        expertise: true,
         createdAt: true,
         updatedAt: true
       },

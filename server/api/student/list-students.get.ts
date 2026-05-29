@@ -5,9 +5,8 @@ export default defineEventHandler(async (event) => {
   const auth = event.context.auth
 
   try {
-    const students = await prisma.user.findMany({
+    const students = await prisma.student.findMany({
       where: {
-        role: 'student',
         isApproved: true,
         // Optional: Exclude the current user
         id: {

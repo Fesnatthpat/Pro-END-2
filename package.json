@@ -23,6 +23,7 @@
     "pinia": "^3.0.4",
     "sweetalert2": "^11.26.25",
     "tailwindcss": "^4.3.0",
+    "thai-data": "^3.0.2",
     "ws": "^8.21.0"
   },
   "devDependencies": {

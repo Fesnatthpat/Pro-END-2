@@ -7,7 +7,7 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
+model Student {
   id           Int     @id @default(autoincrement())
   username     String  @unique
   email        String  @unique
@@ -17,10 +17,9 @@ model User {
   tel          String?
   lineId       String?
   profileImage String?
-  role         String  @default("student") // teacher, student
   isApproved   Boolean @default(false)
 
-  // Additional Profile Fields (for CP1 and documents)
+  // Profile Fields
   addressNo        String?
   moo              String?
   soi              String?
@@ -32,14 +31,30 @@ model User {
   homePhone        String?
   emergencyContact String?
 
+  // Relations
+  projects1 Project[] @relation("Student1")
+  projects2 Project[] @relation("Student2")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Teacher {
+  id           Int     @id @default(autoincrement())
+  username     String  @unique
+  email        String  @unique
+  password     String
+  fullname     String?
+  tel          String?
+  lineId       String?
+  profileImage String?
+
   // Teacher specific fields
   position   String?
   department String?
   expertise  String?
 
   // Relations
-  projects1         Project[] @relation("Student1")
-  projects2         Project[] @relation("Student2")
   advisedProjects   Project[] @relation("Advisor")
   coAdvisedProjects Project[] @relation("CoAdvisor")
 
@@ -77,16 +92,16 @@ model Project {
   manualUrl  String? // ลิงก์คู่มือการใช้งาน
 
   student1Id Int
-  student1   User @relation("Student1", fields: [student1Id], references: [id])
+  student1   Student @relation("Student1", fields: [student1Id], references: [id])
 
   student2Id Int?
-  student2   User? @relation("Student2", fields: [student2Id], references: [id])
+  student2   Student? @relation("Student2", fields: [student2Id], references: [id])
 
   advisorId Int?
-  advisor   User? @relation("Advisor", fields: [advisorId], references: [id])
+  advisor   Teacher? @relation("Advisor", fields: [advisorId], references: [id])
 
   coAdvisorId Int?
-  coAdvisor   User? @relation("CoAdvisor", fields: [coAdvisorId], references: [id])
+  coAdvisor   Teacher? @relation("CoAdvisor", fields: [coAdvisorId], references: [id])
 
   reports      ProgressReport[]
   exams        ExamSchedule[]

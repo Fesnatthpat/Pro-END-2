@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     // 1. Update Student 1 Profile
-    await prisma.user.update({
+    await prisma.student.update({
       where: { id: student1.id },
       data: {
         fullname: student1.fullname,
@@ -39,13 +39,13 @@ export default defineEventHandler(async (event) => {
     // 2. Update Student 2 Profile (if exists)
     let s2Id = null
     if (student2 && student2.username) {
-      const s2User = await prisma.user.findUnique({
+      const s2User = await prisma.student.findUnique({
         where: { username: student2.username }
       })
       
       if (s2User) {
         s2Id = s2User.id
-        await prisma.user.update({
+        await prisma.student.update({
           where: { id: s2Id },
           data: {
             fullname: student2.fullname,

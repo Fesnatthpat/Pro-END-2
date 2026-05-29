@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
-    const existingUser = await prisma.user.findFirst({
+    const existingTeacher = await prisma.teacher.findFirst({
       where: {
         OR: [
           { username: username },
@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
       }
     })
 
-    if (existingUser) {
+    if (existingTeacher) {
       throw createError({
         statusCode: 400,
         statusMessage: 'ชื่อผู้ใช้หรืออีเมลนี้ถูกใช้งานไปแล้ว'
@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
 
     const hashedPassword = await hash(password, 10)
 
-    const teacher = await prisma.user.create({
+    const teacher = await prisma.teacher.create({
       data: {
         username,
         email,
@@ -41,9 +41,7 @@ export default defineEventHandler(async (event) => {
         fullname,
         tel: tel || '-',
         lineId: lineId || '-',
-        role: 'teacher',
-        isApproved: true,
-        academicYear: '-' // Teachers don't specifically have academic year but it's required in schema
+        // role and academicYear removed as they are not in Teacher model
       }
     })
 

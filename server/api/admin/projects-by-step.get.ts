@@ -29,9 +29,19 @@ export default defineEventHandler(async (event) => {
       }
     })
 
+    // Map Prisma fields to match frontend expectations
+    const mappedProjects = projects.map(p => ({
+      ...p,
+      exams: p.exams.map(e => ({
+        ...e,
+        examTime: e.startTime,
+        examLocation: e.location
+      }))
+    }))
+
     return {
       success: true,
-      projects
+      projects: mappedProjects
     }
   } catch (error: any) {
     if (error.statusCode) {

@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
-    const studentCount = await prisma.user.count({ where: { role: 'student', isApproved: true } })
+    const studentCount = await prisma.student.count({ where: { isApproved: true } })
     const projectCount = await prisma.project.count()
     const cp1PendingCount = await prisma.project.count({ where: { step: 1, status: 'pending' } })
     const cp2PendingCount = await prisma.project.count({ where: { step: 4, status: 'pending' } })
@@ -17,8 +17,8 @@ export default defineEventHandler(async (event) => {
       }
     })
 
-    const pendingStudents = await prisma.user.findMany({
-      where: { role: 'student', isApproved: false },
+    const pendingStudents = await prisma.student.findMany({
+      where: { isApproved: false },
       take: 5,
       orderBy: { createdAt: 'desc' }
     })

@@ -45,9 +45,19 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 404, statusMessage: `Project not found with ID: ${id}` })
     }
 
+    // Map Prisma fields to match frontend expectations
+    const mappedProject = {
+      ...project,
+      exams: project.exams.map(e => ({
+        ...e,
+        examTime: e.startTime,
+        examLocation: e.location
+      }))
+    }
+
     return {
       success: true,
-      project
+      project: mappedProject
     }
   } catch (error: any) {
     if (error.statusCode) {
