@@ -45,6 +45,16 @@ export default defineEventHandler(async (event) => {
         tel: user.tel,
         email: user.email,
         lineId: user.lineId,
+        addressNo: user.addressNo,
+        moo: user.moo,
+        soi: user.soi,
+        road: user.road,
+        subdistrict: user.subdistrict,
+        district: user.district,
+        province: user.province,
+        zipcode: user.zipcode,
+        homePhone: user.homePhone,
+        emergencyContact: user.emergencyContact
       }
     }
   } catch (error: any) {

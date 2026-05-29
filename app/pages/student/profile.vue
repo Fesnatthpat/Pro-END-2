@@ -135,6 +135,91 @@
                 </div>
               </div>
 
+              <hr class="border-slate-100 my-4">
+              <h4 class="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <span class="material-symbols-rounded text-indigo-500 text-lg">location_on</span> ข้อมูลติดต่อและที่อยู่
+              </h4>
+
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="md:col-span-1">
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">บ้านเลขที่</label>
+                  <input type="text" v-model="user.addressNo" :disabled="!isEditing" 
+                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
+                </div>
+                <div class="md:col-span-1">
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">หมู่ที่</label>
+                  <input type="text" v-model="user.moo" :disabled="!isEditing" 
+                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
+                </div>
+                <div class="md:col-span-1">
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">ซอย</label>
+                  <input type="text" v-model="user.soi" :disabled="!isEditing" 
+                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
+                </div>
+                <div class="md:col-span-1">
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">ถนน</label>
+                  <input type="text" v-model="user.road" :disabled="!isEditing" 
+                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">จังหวัด</label>
+                  <select v-model="user.province" @change="handleProvinceChange" :disabled="!isEditing" 
+                          :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none appearance-none transition-all">
+                    <option value="">-- เลือกจังหวัด --</option>
+                    <option v-for="p in provinces" :key="p" :value="p">{{ p }}</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">อำเภอ/เขต</label>
+                  <select v-model="user.district" @change="handleDistrictChange" :disabled="!isEditing || !user.province" 
+                          :class="isEditing && user.province ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none appearance-none transition-all">
+                    <option value="">-- เลือกอำเภอ --</option>
+                    <option v-for="d in districts" :key="d" :value="d">{{ d }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">ตำบล/แขวง</label>
+                  <select v-model="user.subdistrict" @change="handleSubdistrictChange" :disabled="!isEditing || !user.district" 
+                          :class="isEditing && user.district ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none appearance-none transition-all">
+                    <option value="">-- เลือกตำบล --</option>
+                    <option v-for="s in subdistricts" :key="s.subdistrict" :value="s.subdistrict">{{ s.subdistrict }}</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">รหัสไปรษณีย์</label>
+                  <input type="text" v-model="user.zipcode" :disabled="true" 
+                         class="bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all" readonly>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">โทรศัพท์บ้าน</label>
+                  <input type="text" v-model="user.homePhone" :disabled="!isEditing" 
+                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all" placeholder="ถ้ามี">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">เบอร์โทรกรณีฉุกเฉิน</label>
+                  <input type="text" v-model="user.emergencyContact" :disabled="!isEditing" 
+                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
+                </div>
+              </div>
+
               <div v-if="isEditing" class="pt-6 animate-[fadeIn_0.3s_ease-in-out]">
                 <button @click="saveProfile" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
                   <span class="material-symbols-rounded">check_circle</span> บันทึกข้อมูลที่แก้ไข
@@ -160,7 +245,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { getProvinces, getDistricts, getSubdistricts } from '~/utils/thaiAddress'
 
 useHead({
   title: 'My Profile | Student Panel',
@@ -183,6 +269,46 @@ const { success: alertSuccess, error: alertError } = useAlerts()
 const { data: projectData } = await useFetch("/api/student/my-project")
 const project = computed(() => projectData.value?.project)
 
+const provinces = computed(() => getProvinces())
+const districts = ref([])
+const subdistricts = ref([])
+
+onMounted(() => {
+  if (user.value?.province) {
+    districts.value = getDistricts(user.value.province)
+  }
+  if (user.value?.province && user.value?.district) {
+    subdistricts.value = getSubdistricts(user.value.province, user.value.district)
+  }
+})
+
+const handleProvinceChange = () => {
+  if (user.value) {
+    user.value.district = ''
+    user.value.subdistrict = ''
+    user.value.zipcode = ''
+    districts.value = getDistricts(user.value.province)
+    subdistricts.value = []
+  }
+}
+
+const handleDistrictChange = () => {
+  if (user.value) {
+    user.value.subdistrict = ''
+    user.value.zipcode = ''
+    subdistricts.value = getSubdistricts(user.value.province, user.value.district)
+  }
+}
+
+const handleSubdistrictChange = () => {
+  if (user.value) {
+    const selected = subdistricts.value.find(s => s.subdistrict === user.value.subdistrict)
+    if (selected) {
+      user.value.zipcode = selected.zipcode
+    }
+  }
+}
+
 const saveProfile = async () => {
   try {
     const data = await $fetch('/api/student/update-profile', {
@@ -191,7 +317,17 @@ const saveProfile = async () => {
         fullname: user.value.fullname,
         tel: user.value.tel,
         email: user.value.email,
-        lineId: user.value.lineId
+        lineId: user.value.lineId,
+        addressNo: user.value.addressNo,
+        moo: user.value.moo,
+        soi: user.value.soi,
+        road: user.value.road,
+        subdistrict: user.value.subdistrict,
+        district: user.value.district,
+        province: user.value.province,
+        zipcode: user.value.zipcode,
+        homePhone: user.value.homePhone,
+        emergencyContact: user.value.emergencyContact
       }
     })
 
