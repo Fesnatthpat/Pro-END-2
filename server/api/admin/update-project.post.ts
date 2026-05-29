@@ -32,10 +32,11 @@ export default defineEventHandler(async (event) => {
       const stepToApprove = currentProject.step
       
       if (stepToApprove === 1) {
-        const cp1Pass = currentProject.exams.some(e => e.type === 'CP1' && e.status === 'pass')
-        if (!cp1Pass) {
-          throw createError({ statusCode: 400, statusMessage: 'นักศึกษายังไม่ผ่านการสอบหัวข้อ (CP1)' })
+        const hasExam = currentProject.exams.some(e => e.type === 'CP1')
+        if (!hasExam) {
+          throw createError({ statusCode: 400, statusMessage: 'ยังไม่มีการนัดสอบหัวข้อ (CP1)' })
         }
+        // ไม่ต้องเช็ค cp1Pass แล้ว เพราะถ้า status='approved' ระบบจะไปแก้สถานะสอบให้เองใน transaction
       } else if (stepToApprove === 2) {
         const hasProgress = currentProject.reports.some(r => r.reportType === 'progress')
         if (!hasProgress) {
@@ -46,10 +47,11 @@ export default defineEventHandler(async (event) => {
           throw createError({ statusCode: 400, statusMessage: 'นักศึกษายังไม่ได้ส่งเล่มวิทยานิพนธ์ (ฉบับร่าง)' })
         }
       } else if (stepToApprove === 4) {
-        const cp2Pass = currentProject.exams.some(e => e.type === 'CP2' && e.status === 'pass')
-        if (!cp2Pass) {
-          throw createError({ statusCode: 400, statusMessage: 'นักศึกษายังไม่ผ่านการสอบจบ (CP2/CP3)' })
+        const hasExam = currentProject.exams.some(e => e.type === 'CP2')
+        if (!hasExam) {
+          throw createError({ statusCode: 400, statusMessage: 'ยังไม่มีการนัดสอบจบ (CP2/CP3)' })
         }
+        // ไม่ต้องเช็ค cp2Pass เช่นกัน
       } else if (stepToApprove === 5) {
         // อนุมัติจบโครงการ ต้องมีครบทั้ง 3 อย่าง
         if (!currentProject.thesisUrl || !currentProject.programUrl || !currentProject.manualUrl) {

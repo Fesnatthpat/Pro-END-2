@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen bg-[#f8fafc] font-['Prompt',_sans-serif] text-slate-800">
+  <div class="flex min-h-screen bg-[#f8fafc] text-slate-800">
 
     <!-- Desktop Sidebar -->
     <aside

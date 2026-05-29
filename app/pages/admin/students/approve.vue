@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 md:p-10 font-['Prompt',_sans-serif]">
+  <div class="p-4 md:p-10">
     
     <div class="mb-8">
       <NuxtLink to="/admin" class="group inline-flex items-center gap-2 text-slate-400 hover:text-indigo-600 font-bold text-sm transition-all">

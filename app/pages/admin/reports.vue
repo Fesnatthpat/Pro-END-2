@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 md:p-10 font-['Prompt',_sans-serif]">
+  <div class="p-4 md:p-10">
     
     <div class="mb-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 print:hidden">
       <div class="relative">
@@ -187,7 +187,7 @@ const formatDate = (date) => {
 
 @media print {
   @page { margin: 1cm; size: A4 portrait; }
-  body { background-color: white !important; font-family: 'Sarabun', sans-serif !important; }
+  body { background-color: white !important; font-family: 'Kanit', sans-serif !important; }
   
   /* ซ่อน Sidebar ของ Layout Admin ตอนพิมพ์ */
   aside { display: none !important; }

@@ -39,8 +39,8 @@ const updateProject = async (step, status) => {
   // --- ส่วนของการตรวจสอบความพร้อม (Validation) ---
   if (status === 'approved') {
     if (step === 1) {
-      if (!cp1Exam.value || cp1Exam.value.status !== 'pass') {
-        return alerts.error('ไม่สามารถอนุมัติได้', 'นักศึกษายังไม่ผ่านการสอบหัวข้อ (CP1)')
+      if (!cp1Exam.value) {
+        return alerts.error('ไม่สามารถอนุมัติได้', 'ยังไม่มีการนัดสอบหัวข้อ (CP1)')
       }
     } else if (step === 2) {
       if (progressReports.value.length === 0) {
@@ -52,8 +52,8 @@ const updateProject = async (step, status) => {
       }
     } else if (step === 4) {
       // ตรวจสอบการสอบจบ (CP2)
-      if (!finalExam.value || finalExam.value.status !== 'pass') {
-        return alerts.error('ไม่สามารถอนุมัติได้', 'นักศึกษายังไม่ผ่านการสอบจบ (CP2/CP3)')
+      if (!finalExam.value) {
+        return alerts.error('ไม่สามารถอนุมัติได้', 'ยังไม่มีการนัดสอบจบ (CP2/CP3)')
       }
     } else if (step === 5) {
       // ขั้นตอนสุดท้าย ต้องส่งเอกสารครบถ้วน
@@ -169,7 +169,7 @@ const formatDate = (date) => {
 </script>
 
 <template>
-  <div class="p-4 md:p-10 font-['Prompt',_sans-serif]">
+  <div class="p-4 md:p-10">
 
     <div class="mb-8">
       <NuxtLink to="/admin/projects"
@@ -535,7 +535,7 @@ const formatDate = (date) => {
                     </NuxtLink>
                   </div>
 
-                  <div v-if="project.step >= 4 && project.examDate"
+                  <div v-if="project.step === 4 && project.examDate"
                     class="bg-gradient-to-br from-indigo-600 to-indigo-700 p-6 rounded-[32px] text-white shadow-xl shadow-indigo-100 mb-4 relative overflow-hidden">
                     <span
                       class="material-symbols-rounded absolute -right-4 -bottom-4 text-8xl text-white/10">event_available</span>
@@ -546,7 +546,7 @@ const formatDate = (date) => {
                         นัดหมายการสอบจบโครงงาน
                       </div>
                       <div class="text-lg font-black mb-1">วันที่: {{ formatDate(project.examDate) }}</div>
-                      <div class="text-sm font-bold opacity-90">เวลา: {{ project.examTime }} น. | สถานที่: {{
+                      <div class="text-sm font-bold opacity-90 mb-4">เวลา: {{ project.examTime }} น. | สถานที่: {{
                         project.examLocation }}</div>
                     </div>
                   </div>
