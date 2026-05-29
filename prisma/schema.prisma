@@ -1,0 +1,161 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               Int      @id @default(autoincrement())
+  username         String   @unique
+  email            String   @unique
+  password         String
+  fullname         String?
+  academicYear     String?
+  tel              String?
+  lineId           String?
+  profileImage     String?
+  role             String   @default("student") // teacher, student
+  isApproved       Boolean  @default(false)
+  
+  // Additional Profile Fields (for CP1 and documents)
+  addressNo        String?
+  moo              String?
+  soi              String?
+  road             String?
+  subdistrict      String?
+  district         String?
+  province         String?
+  zipcode          String?
+  homePhone        String?
+  emergencyContact String?
+
+  // Teacher specific fields
+  position         String?
+  department       String?
+  expertise        String?
+
+  // Relations
+  projects1       Project[] @relation("Student1")
+  projects2       Project[] @relation("Student2")
+  advisedProjects Project[] @relation("Advisor")
+  coAdvisedProjects Project[] @relation("CoAdvisor")
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  fullname  String?
+  email     String   @unique
+  role      String   @default("admin") // superadmin, admin
+  
+  approvedSteps ProjectStepStatus[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id            Int      @id @default(autoincrement())
+  titleTh       String
+  titleEn       String?
+  semester      String?
+  academicYear  String?
+  step          Int      @default(1) // 1: CP1, 2: Progress, 3: Thesis, 4: Exam, 5: Finished
+  status        String   @default("pending") // pending, approved, rejected, revision
+  feedback      String?  // สำหรับคอมเมนท์จากอาจารย์
+  thesisUrl     String?  // ลิงก์หรือชื่อไฟล์เล่มวิทยานิพนธ์
+  
+  // ข้อมูลส่งเล่มและโปรแกรมฉบับสมบูรณ์ (Step 5)
+  programUrl    String?  // ลิงก์ซอร์สโค้ดโปรแกรม
+  manualUrl     String?  // ลิงก์คู่มือการใช้งาน
+  
+  student1Id    Int
+  student1      User     @relation("Student1", fields: [student1Id], references: [id])
+  
+  student2Id    Int?
+  student2      User?    @relation("Student2", fields: [student2Id], references: [id])
+  
+  advisorId     Int?
+  advisor       User?    @relation("Advisor", fields: [advisorId], references: [id])
+  
+  coAdvisorId   Int?
+  coAdvisor     User?    @relation("CoAdvisor", fields: [coAdvisorId], references: [id])
+  
+  reports       ProgressReport[]
+  exams         ExamSchedule[]
+  activities    ProjectActivity[]
+  stepStatuses  ProjectStepStatus[]
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model ProjectStepStatus {
+  id          Int      @id @default(autoincrement())
+  projectId   Int
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  step        Int      // 1, 2, 3, 4, 5
+  status      String   @default("pending") // pending, approved, rejected, revision
+  feedback    String?
+  
+  approvedById Int?
+  approvedBy   Admin?  @relation(fields: [approvedById], references: [id])
+  
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  
+  @@unique([projectId, step]) // 1 โปรเจกต์ มี 1 สถานะต่อ 1 ขั้นตอนเท่านั้น
+}
+
+model ProjectActivity {
+  id          Int      @id @default(autoincrement())
+  projectId   Int
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  type        String   // CP1_SUBMIT, PROGRESS_SUBMIT, EXAM_SCHEDULE, EXAM_RESULT, FINAL_SUBMIT, ADMIN_FEEDBACK
+  title       String
+  description String?
+  status      String?  // pending, success, error, info
+  icon        String?
+  actorName   String?
+  
+  createdAt   DateTime @default(now())
+}
+
+model ProgressReport {
+  id          Int      @id @default(autoincrement())
+  projectId   Int
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  title       String
+  description String?
+  fileUrl     String?
+  status      String   @default("pending")
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ExamSchedule {
+  id        Int      @id @default(autoincrement())
+  projectId Int
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  type      String   // TOPIC, PROGRESS, FINAL
+  examDate  DateTime?
+  startTime String?
+  endTime   String?
+  location  String?
+  status    String   @default("scheduled")
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
