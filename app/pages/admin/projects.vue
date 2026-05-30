@@ -41,18 +41,35 @@
       </div>
     </div>
 
-    <div v-if="pending" class="flex flex-col items-center justify-center py-32">
-      <div class="relative w-20 h-20">
-        <div class="absolute inset-0 border-4 border-indigo-100 rounded-full"></div>
-        <div class="absolute inset-0 border-4 border-indigo-600 rounded-full border-t-transparent animate-spin"></div>
+    <div v-if="pending" class="grid grid-cols-1 gap-6">
+      <!-- Skeleton Loading -->
+      <div v-for="i in 3" :key="i" class="admin-card bg-white p-8 animate-pulse border border-slate-100">
+        <div class="flex flex-col xl:flex-row gap-8">
+          <div class="flex-grow">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="h-6 w-24 bg-slate-100 rounded-lg"></div>
+              <div class="h-4 w-32 bg-slate-50 rounded"></div>
+            </div>
+            <div class="h-8 w-3/4 bg-slate-100 rounded-xl mb-6"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div v-for="j in 3" :key="j" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-slate-100 rounded-xl"></div>
+                <div class="flex-grow space-y-2">
+                  <div class="h-2 w-12 bg-slate-50"></div>
+                  <div class="h-4 w-20 bg-slate-100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full xl:w-48 h-32 bg-slate-50 rounded-2xl"></div>
+        </div>
       </div>
-      <p class="mt-6 text-slate-400 font-bold animate-pulse">กำลังดึงข้อมูลโครงงาน...</p>
     </div>
 
     <div v-else class="grid grid-cols-1 gap-6">
       
       <div v-for="project in filteredProjects" :key="project.id" 
-           class="admin-card bg-white overflow-hidden group/card hover:border-indigo-200 transition-all duration-500 animate-[fadeIn_0.4s_ease-out]">
+           class="admin-card bg-white overflow-hidden group/card hover:border-indigo-200 transition-all duration-500 animate-[fadeIn_0.4s_ease-out] mobile-optimize">
         
         <div class="flex flex-col xl:flex-row">
           <!-- Main Content -->
@@ -145,21 +162,65 @@
         <button @click="searchQuery = ''; selectedYear = ''" class="mt-6 text-indigo-600 font-black hover:underline">แสดงโครงงานทั้งหมด</button>
       </div>
 
+      <!-- Pagination Controls -->
+      <div v-if="result?.pagination && result.pagination.totalPages > 1" class="mt-8 flex items-center justify-center gap-2">
+        <button 
+          @click="currentPage--" 
+          :disabled="currentPage === 1"
+          class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+        >
+          <span class="material-symbols-rounded text-xl">chevron_left</span>
+        </button>
+        
+        <div class="flex items-center gap-1">
+          <button 
+            v-for="p in result.pagination.totalPages" 
+            :key="p"
+            @click="currentPage = p"
+            class="w-10 h-10 rounded-xl font-bold text-sm transition-all"
+            :class="currentPage === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-white border border-slate-200 text-slate-500 hover:border-indigo-300'"
+          >
+            {{ p }}
+          </button>
+        </div>
+
+        <button 
+          @click="currentPage++" 
+          :disabled="currentPage === result.pagination.totalPages"
+          class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+        >
+          <span class="material-symbols-rounded text-xl">chevron_right</span>
+        </button>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 definePageMeta({ layout: 'admin' })
 
 const searchQuery = ref('')
 const selectedYear = ref('')
+const currentPage = ref(1)
 const availableYears = ['2568', '2567', '2566', '2565']
 
-// ดึงข้อมูลจริงจาก API
-const { data: result, pending } = await useFetch('/api/admin/all-projects')
+// ดึงข้อมูลจริงจาก API พร้อม Pagination
+const { data: result, pending, refresh } = await useFetch('/api/admin/all-projects', {
+  query: {
+    page: currentPage,
+    limit: 10
+  },
+  watch: [currentPage]
+})
+
+// Reset page when filtering
+watch([searchQuery, selectedYear], () => {
+  currentPage.value = 1
+})
+
 const projects = computed(() => result.value?.projects || [])
 
 const filteredProjects = computed(() => {
@@ -199,5 +260,14 @@ const formatDate = (date) => new Date(date).toLocaleDateString('th-TH', {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Optimization for mobile: disable heavy shadows/animations if needed */
+@media (max-width: 768px) {
+  .mobile-optimize {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 </style>

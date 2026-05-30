@@ -43,12 +43,15 @@
         </div>
       </div>
 
-      <div v-if="pending" class="flex flex-col items-center justify-center py-32">
-        <div class="relative w-20 h-20">
-          <div class="absolute inset-0 border-4 border-indigo-100 rounded-full"></div>
-          <div class="absolute inset-0 border-4 border-indigo-600 rounded-full border-t-transparent animate-spin"></div>
+      <div v-if="pending" class="p-8 space-y-4">
+        <!-- Skeleton Table -->
+        <div v-for="i in 5" :key="i" class="flex items-center gap-6 animate-pulse border-b border-slate-50 pb-4">
+          <div class="w-12 h-12 bg-slate-100 rounded-2xl"></div>
+          <div class="h-4 w-24 bg-slate-100 rounded"></div>
+          <div class="h-4 w-48 bg-slate-100 rounded"></div>
+          <div class="h-4 w-16 bg-slate-100 rounded"></div>
+          <div class="h-4 w-32 bg-slate-100 rounded ml-auto"></div>
         </div>
-        <p class="mt-6 text-slate-400 font-bold animate-pulse">กำลังดึงข้อมูลนักศึกษา...</p>
       </div>
 
       <div v-else class="overflow-x-auto pb-4 animate-[fadeIn_0.3s_ease-out]">
@@ -66,10 +69,10 @@
             </tr>
           </thead>
           <tbody class="text-sm divide-y divide-slate-50">
-            <tr v-for="student in filteredStudents" :key="student.id" class="admin-table-row group/row">
+            <tr v-for="student in filteredStudents" :key="student.id" class="admin-table-row group/row mobile-optimize">
               <td class="px-8 py-6 text-center">
                 <div v-if="student.profileImage" class="w-12 h-12 rounded-2xl mx-auto overflow-hidden border-2 border-white shadow-md group-hover/row:scale-110 transition-transform">
-                  <img :src="student.profileImage" class="w-full h-full object-cover" />
+                  <img :src="student.profileImage" class="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div v-else class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-500 font-black text-lg flex items-center justify-center border border-indigo-200 mx-auto group-hover/row:scale-110 transition-transform">
                   {{ student.fullname.substring(0, 1) }}
@@ -117,12 +120,43 @@
         </div>
       </div>
 
+      <!-- Pagination Controls -->
+      <div v-if="result?.pagination && result.pagination.totalPages > 1" class="px-8 py-6 border-t border-slate-50 flex items-center justify-center gap-2">
+        <button 
+          @click="currentPage--" 
+          :disabled="currentPage === 1"
+          class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+        >
+          <span class="material-symbols-rounded text-xl">chevron_left</span>
+        </button>
+        
+        <div class="flex items-center gap-1">
+          <button 
+            v-for="p in result.pagination.totalPages" 
+            :key="p"
+            @click="currentPage = p"
+            class="w-10 h-10 rounded-xl font-bold text-sm transition-all"
+            :class="currentPage === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-white border border-slate-200 text-slate-500 hover:border-indigo-300'"
+          >
+            {{ p }}
+          </button>
+        </div>
+
+        <button 
+          @click="currentPage++" 
+          :disabled="currentPage === result.pagination.totalPages"
+          class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+        >
+          <span class="material-symbols-rounded text-xl">chevron_right</span>
+        </button>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useAlerts } from '~/composables/useAlerts'
 
 definePageMeta({ layout: 'admin' })
@@ -130,12 +164,25 @@ definePageMeta({ layout: 'admin' })
 const alerts = useAlerts()
 const searchQuery = ref('')
 const selectedYear = ref('')
+const currentPage = ref(1)
 
-// ดึงข้อมูลนักศึกษาจาก API
-const { data: studentsData, pending, refresh } = await useFetch('/api/admin/students')
-const students = computed(() => studentsData.value?.students || [])
+// ดึงข้อมูลนักศึกษาจาก API พร้อม Pagination
+const { data: result, pending, refresh } = await useFetch('/api/admin/students', {
+  query: {
+    page: currentPage,
+    limit: 10
+  },
+  watch: [currentPage]
+})
 
-// ดึงรายการปีการศึกษาที่มีทั้งหมดมาทำเป็น filter
+// Reset page when filtering
+watch([searchQuery, selectedYear], () => {
+  currentPage.value = 1
+})
+
+const students = computed(() => result.value?.students || [])
+
+// ดึงรายการปีการศึกษาที่มีทั้งหมดมาทำเป็น filter (ดึงจากข้อมูลที่มีในหน้านั้น)
 const availableYears = computed(() => {
   const years = students.value.map(s => s.academicYear)
   return [...new Set(years)].sort((a, b) => b.localeCompare(a))
@@ -152,8 +199,8 @@ const filteredStudents = computed(() => {
 })
 
 const confirmDelete = async (student) => {
-  const result = await alerts.confirm('ยืนยันการลบ', `คุณยืนยันที่จะลบข้อมูลของ "${student.fullname}" ทิ้งถาวรหรือไม่?\n* การกระทำนี้ไม่สามารถกู้คืนได้`, 'warning');
-  if (result.isConfirmed) {
+  const confirmResult = await alerts.confirm('ยืนยันการลบ', `คุณยืนยันที่จะลบข้อมูลของ "${student.fullname}" ทิ้งถาวรหรือไม่?\n* การกระทำนี้ไม่สามารถกู้คืนได้`, 'warning');
+  if (confirmResult.isConfirmed) {
     try {
       const response = await $fetch(`/api/admin/students?id=${student.id}`, {
         method: 'DELETE'
@@ -173,5 +220,12 @@ const confirmDelete = async (student) => {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .mobile-optimize {
+    box-shadow: none !important;
+    transform: none !important;
+  }
 }
 </style>

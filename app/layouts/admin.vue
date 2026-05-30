@@ -61,13 +61,13 @@
     <!-- Mobile Sidebar Drawer Overlay -->
     <Transition name="fade">
       <div v-if="isMobileMenuOpen" @click="isMobileMenuOpen = false"
-        class="fixed inset-0 z-[101] bg-slate-900/60 backdrop-blur-md lg:hidden transition-opacity">
+        class="fixed inset-0 z-[101] bg-slate-900/40 lg:hidden transition-opacity">
       </div>
     </Transition>
 
     <!-- Mobile Sidebar Drawer -->
     <aside :class="isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'"
-      class="fixed top-0 left-0 bottom-0 z-[102] w-[300px] bg-[#0f172a] text-white flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] lg:hidden shadow-2xl">
+      class="fixed top-0 left-0 bottom-0 z-[102] w-[300px] bg-[#0f172a] text-white flex flex-col transition-transform duration-300 ease-out lg:hidden shadow-2xl">
 
       <div class="p-6 border-b border-white/5 flex items-center justify-between">
         <div class="flex items-center gap-4">
