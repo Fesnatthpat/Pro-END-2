@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
         email,
         password: hashedPassword,
         fullname,
-        academicYear,
+        academicYear: academicYear?.toString(),
         tel,
         lineId,
         profileImage,
