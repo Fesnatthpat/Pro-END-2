@@ -7,7 +7,7 @@
         <span class="material-symbols-rounded align-middle mr-2">person_add</span> ลงทะเบียน
       </h2>
 
-      <form @submit.prevent="handleRegister">
+      <form @submit.prevent="handleRegister" method="POST">
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>

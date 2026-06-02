@@ -15,11 +15,13 @@ import { ref, onMounted } from 'vue'
 const isDark = ref(false)
 
 const toggleTheme = () => {
+  console.log('ThemeToggle: Button clicked, current dark state:', isDark.value)
   isDark.value = !isDark.value
   updateTheme()
 }
 
 const updateTheme = () => {
+  console.log('ThemeToggle: Updating theme, isDark should be:', isDark.value)
   if (isDark.value) {
     document.documentElement.classList.add('dark')
     localStorage.setItem('theme', 'dark')
@@ -30,7 +32,9 @@ const updateTheme = () => {
 }
 
 onMounted(() => {
-  if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  const savedTheme = localStorage.getItem('theme')
+  console.log('ThemeToggle: Mounted, saved theme:', savedTheme)
+  if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     isDark.value = true
   } else {
     isDark.value = false

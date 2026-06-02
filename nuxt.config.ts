@@ -38,20 +38,5 @@ export default defineNuxtConfig({
     transpile: ['@prisma/client']
   },
   compatibilityDate: "2025-07-15",
-  devtools: { enabled: true },
-  nitro: {
-    routeRules: {
-      '/**': {
-        headers: {
-          'Content-Security-Policy': "default-src 'self'; script-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self';",
-          'X-Frame-Options': 'SAMEORIGIN',
-          'X-Content-Type-Options': 'nosniff',
-          'Referrer-Policy': 'strict-origin-when-cross-origin',
-          'X-XSS-Protection': '1; mode=block',
-          'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-          'Server': ''
-        }
-      }
-    }
-  }
+  devtools: { enabled: true }
 })

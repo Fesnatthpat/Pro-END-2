@@ -14,18 +14,23 @@ export const useAuthStore = defineStore('auth', () => {
   const userRole = computed(() => user.value?.role || '')
 
   async function login(credentials) {
+    console.log('Store: Initiating login request...')
     try {
       const data = await $fetch('/api/login', {
         method: 'POST',
         body: credentials
       })
 
+      console.log('Store: Login response received:', data?.success ? 'SUCCESS' : 'FAILURE')
+
       if (data?.success) {
         user.value = data.user
         userCookie.value = data.user
+        console.log('Store: User state updated, role:', data.user.role)
         return data.user
       }
     } catch (err) {
+      console.error('Store: Login error details:', err)
       const errorMessage = err.data?.statusMessage || 'เข้าสู่ระบบล้มเหลว'
       throw new Error(errorMessage)
     }
