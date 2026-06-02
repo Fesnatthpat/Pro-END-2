@@ -14,13 +14,13 @@
         Account Registration Control
       </div>
       <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">อนุมัติบัญชีนักศึกษาใหม่</h2>
-      <div class="flex items-center gap-2 text-slate-500">
+      <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
         <span class="w-8 h-px bg-slate-200"></span>
         <p class="text-sm font-medium">ตรวจสอบและเปิดใช้งานบัญชีผู้ใช้งานสำหรับนักศึกษาที่เพิ่งลงทะเบียน</p>
       </div>
     </div>
 
-    <div class="admin-card bg-white overflow-hidden">
+    <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden">
       <div class="bg-indigo-600 p-8 text-white relative overflow-hidden">
         <!-- Background Decoration -->
         <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
@@ -32,16 +32,16 @@
               <span class="material-symbols-rounded">group_add</span>
             </div>
             <span>รายการที่รออนุมัติทั้งหมด</span> 
-            <span class="bg-white text-indigo-600 px-4 py-1 rounded-2xl text-2xl font-black ml-2 shadow-lg">{{ pendingList.length }}</span>
+            <span class="bg-white dark:bg-slate-800 text-indigo-600 px-4 py-1 rounded-2xl text-2xl font-black ml-2 shadow-lg">{{ pendingList.length }}</span>
           </div>
         </div>
       </div>
 
       <div v-if="!pendingList || pendingList.length === 0" class="py-32 text-center animate-[fadeIn_0.5s_ease-out]">
-        <div class="w-24 h-24 bg-slate-50 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
+        <div class="w-24 h-24 bg-slate-50 dark:bg-slate-900 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
           <span class="material-symbols-rounded text-6xl">how_to_reg</span>
         </div>
-        <h3 class="text-2xl font-bold text-slate-800 mb-2">ไม่มีบัญชีที่รอการอนุมัติ</h3>
+        <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">ไม่มีบัญชีที่รอการอนุมัติ</h3>
         <p class="text-slate-400 font-medium max-w-xs mx-auto text-sm">นักศึกษาทุกคนที่ลงทะเบียนได้รับการตรวจสอบเรียบร้อยแล้ว</p>
       </div>
 
@@ -68,9 +68,9 @@
                     {{ student.fullname.substring(0, 1) }}
                   </div>
                 </td>
-                <td class="px-8 py-6 font-bold text-slate-500 tracking-tight">{{ student.username }}</td>
-                <td class="px-8 py-6 font-black text-slate-800 text-base">{{ student.fullname }}</td>
-                <td class="px-8 py-6 text-slate-500 font-medium italic">{{ student.email }}</td>
+                <td class="px-8 py-6 font-bold text-slate-500 dark:text-slate-400 tracking-tight">{{ student.username }}</td>
+                <td class="px-8 py-6 font-black text-slate-800 dark:text-slate-200 text-base">{{ student.fullname }}</td>
+                <td class="px-8 py-6 text-slate-500 dark:text-slate-400 font-medium italic">{{ student.email }}</td>
                 <td class="px-8 py-6 text-center">
                   <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 text-[10px] font-black uppercase tracking-widest">
                     <span class="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span> รอตรวจสอบ

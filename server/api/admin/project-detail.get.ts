@@ -3,6 +3,7 @@ import { getPrisma } from '~~/server/utils/prisma'
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const id = query.id ? parseInt(query.id as string) : null
+  const auth = event.context.auth
 
   if (!id || isNaN(id)) {
     throw createError({ statusCode: 400, statusMessage: 'Missing or invalid project id' })
@@ -53,6 +54,28 @@ export default defineEventHandler(async (event) => {
         examTime: e.startTime,
         examLocation: e.location
       }))
+    }
+
+    // RBAC check: Only Admins, Teachers, and the project owners can see personal details
+    const isOwner = auth?.role === 'student' && (project.student1?.id === auth.userId || project.student2?.id === auth.userId)
+    const isAuthorized = auth?.role === 'admin' || auth?.role === 'teacher' || isOwner
+
+    if (!isAuthorized) {
+      const redactStudent = (student: any) => {
+        if (!student) return null
+        return {
+          id: student.id,
+          username: student.username,
+          fullname: student.fullname,
+          email: student.email,
+          // Redact all personal info
+          tel: null, lineId: null, addressNo: null, moo: null,
+          soi: null, road: null, subdistrict: null, district: null,
+          province: null, zipcode: null, homePhone: null, emergencyContact: null
+        }
+      }
+      mappedProject.student1 = redactStudent(mappedProject.student1)
+      mappedProject.student2 = redactStudent(mappedProject.student2)
     }
 
     return {

@@ -4,7 +4,7 @@
     <div class="mb-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 print:hidden">
       <div class="relative">
         <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">รายงานสรุปผล</h2>
-        <div class="flex items-center gap-2 text-slate-500">
+        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">สถิติภาพรวมโครงงานนักศึกษา แยกตามปีการศึกษา</p>
         </div>
@@ -17,7 +17,7 @@
           </div>
           <select 
             v-model="selectedYear" 
-            class="w-full bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-2xl pl-14 pr-12 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none cursor-pointer shadow-sm"
+            class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-bold rounded-2xl pl-14 pr-12 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none cursor-pointer shadow-sm"
           >
             <option value="all">ทุกปีการศึกษา</option>
             <option v-for="year in availableYears" :key="year" :value="year">ปีการศึกษา {{ year }}</option>
@@ -74,12 +74,12 @@
 
     </div>
 
-    <div class="admin-card bg-white overflow-hidden print:shadow-none print:border-none print:p-0">
+    <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden print:shadow-none print:border-none print:p-0">
       <div class="p-8 border-b border-slate-50 flex items-center gap-4 bg-slate-50/30 print:hidden">
         <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
           <span class="material-symbols-rounded">format_list_bulleted</span>
         </div>
-        <h5 class="font-black text-slate-800 text-xl tracking-tight">รายชื่อโครงงาน</h5>
+        <h5 class="font-black text-slate-800 dark:text-slate-200 text-xl tracking-tight">รายชื่อโครงงาน</h5>
       </div>
       
       <div class="overflow-x-auto animate-[fadeIn_0.3s_ease-out]">
@@ -96,19 +96,19 @@
           </thead>
           <tbody class="text-sm divide-y divide-slate-50">
             <tr v-for="project in filteredProjects" :key="project.id" class="admin-table-row group/row print:border-b print:border-black">
-              <td class="px-8 py-6 text-center font-bold text-slate-500 tracking-tight print:text-black print:border-r print:border-black">{{ project.student1.username }}</td>
-              <td class="px-8 py-6 font-black text-slate-800 text-base print:text-black print:border-r print:border-black">{{ project.student1.fullname }}</td>
-              <td class="px-8 py-6 text-slate-600 font-medium leading-relaxed print:text-black print:border-r print:border-black">{{ project.titleTh || '-' }}</td>
-              <td class="px-8 py-6 text-center font-black text-slate-500 print:text-black print:border-r print:border-black">{{ project.academicYear }}</td>
+              <td class="px-8 py-6 text-center font-bold text-slate-500 dark:text-slate-400 tracking-tight print:text-black print:border-r print:border-black">{{ project.student1.username }}</td>
+              <td class="px-8 py-6 font-black text-slate-800 dark:text-slate-200 text-base print:text-black print:border-r print:border-black">{{ project.student1.fullname }}</td>
+              <td class="px-8 py-6 text-slate-600 dark:text-slate-400 font-medium leading-relaxed print:text-black print:border-r print:border-black">{{ project.titleTh || '-' }}</td>
+              <td class="px-8 py-6 text-center font-black text-slate-500 dark:text-slate-400 print:text-black print:border-r print:border-black">{{ project.academicYear }}</td>
               <td class="px-8 py-6 text-center print:border-r print:border-black">
                 <span v-if="project.step === 5 && project.status === 'approved'" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] font-black uppercase tracking-widest print:bg-transparent print:border-none print:text-black">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 print:hidden"></span> COMPLETED
                 </span>
-                <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-500 border border-slate-200 text-[10px] font-black uppercase tracking-widest print:bg-transparent print:border-none print:text-black">
+                <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 text-[10px] font-black uppercase tracking-widest print:bg-transparent print:border-none print:text-black">
                   <span class="w-1.5 h-1.5 rounded-full bg-slate-400 print:hidden"></span> IN PROGRESS
                 </span>
               </td>
-              <td class="px-8 py-6 text-center text-slate-500 font-bold italic print:text-black">{{ project.examDate ? formatDate(project.examDate) : '-' }}</td>
+              <td class="px-8 py-6 text-center text-slate-500 dark:text-slate-400 font-bold italic print:text-black">{{ project.examDate ? formatDate(project.examDate) : '-' }}</td>
             </tr>
             <tr v-if="filteredProjects.length === 0">
               <td colspan="6" class="px-8 py-24 text-center text-slate-400 font-bold italic">ไม่พบข้อมูลโครงงานในปีการศึกษานี้</td>

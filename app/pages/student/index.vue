@@ -4,10 +4,10 @@
     <div class="w-full lg:w-1/3 xl:w-1/4 lg:h-full flex flex-col">
       <div v-if="user" class="w-full lg:h-full">
         <div
-          class="lg:h-full bg-white rounded-[20px] shadow-[0_4px_25px_rgba(0,0,0,0.05)] p-6 lg:p-8 lg:pt-10 flex flex-col justify-start items-center gap-4 border border-gray-100 text-center lg:overflow-y-auto custom-scrollbar"
+          class="lg:h-full bg-white dark:bg-slate-800 rounded-[20px] shadow-[0_4px_25px_rgba(0,0,0,0.05)] dark:shadow-none p-6 lg:p-8 lg:pt-10 flex flex-col justify-start items-center gap-4 border border-gray-100 dark:border-slate-700 text-center lg:overflow-y-auto custom-scrollbar transition-colors duration-300"
         >
           <div
-            class="w-24 h-24 lg:w-32 lg:h-32 rounded-full bg-indigo-50 border-4 border-white shadow-sm overflow-hidden shrink-0 flex items-center justify-center"
+            class="w-24 h-24 lg:w-32 lg:h-32 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border-4 border-white dark:border-slate-700 shadow-sm overflow-hidden shrink-0 flex items-center justify-center transition-colors duration-300"
           >
             <img
               v-if="user.profileImage"
@@ -18,13 +18,13 @@
             <i v-else class="bi bi-person-fill text-5xl lg:text-6xl text-indigo-200"></i>
           </div>
           <div class="w-full flex flex-col items-center">
-            <h2 class="text-2xl font-bold text-[#1a1a40] mb-1">
+            <h2 class="text-2xl font-bold text-[#1a1a40] dark:text-white mb-1">
               สวัสดีครับ,
               <div class="mt-1 text-xl">{{ user.fullname }}</div>
             </h2>
             <p class="text-slate-400 text-sm font-medium mb-4">รหัส: {{ user.username }}</p>
             
-            <div class="inline-flex items-center justify-center gap-1 bg-emerald-50 text-emerald-600 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-100 mb-6">
+            <div class="inline-flex items-center justify-center gap-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-100 dark:border-emerald-800/50 mb-6 transition-colors duration-300">
               <i class="bi bi-shield-check text-[14px]"></i>
               <span>นักศึกษาปัจจุบัน</span>
             </div>
@@ -63,34 +63,34 @@
               </div>
             </div>
             <!-- Contact Info -->
-            <div class="w-full text-left mt-5 border-t border-slate-100 pt-5 space-y-4">
+            <div class="w-full text-left mt-5 border-t border-slate-100 dark:border-slate-700 pt-5 space-y-4 transition-colors duration-300">
               <div class="flex items-center gap-3 text-sm">
-                <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 shrink-0">
+                <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-700 flex items-center justify-center text-slate-400 shrink-0 transition-colors duration-300">
                   <i class="bi bi-telephone-fill"></i>
                 </div>
                 <div class="flex-grow">
                   <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">เบอร์โทรศัพท์</div>
-                  <div class="text-slate-700 font-medium">{{ user.tel || '-' }}</div>
+                  <div class="text-slate-700 dark:text-slate-300 font-medium transition-colors duration-300">{{ user.tel || '-' }}</div>
                 </div>
               </div>
 
               <div class="flex items-center gap-3 text-sm">
-                <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 shrink-0">
+                <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-700 flex items-center justify-center text-slate-400 shrink-0 transition-colors duration-300">
                   <i class="bi bi-envelope-fill"></i>
                 </div>
                 <div class="flex-grow overflow-hidden">
                   <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">อีเมล</div>
-                  <div class="text-slate-700 font-medium truncate">{{ user.email || '-' }}</div>
+                  <div class="text-slate-700 dark:text-slate-300 font-medium truncate transition-colors duration-300">{{ user.email || '-' }}</div>
                 </div>
               </div>
 
               <div class="flex items-center gap-3 text-sm">
-                <div class="w-8 h-8 rounded-full bg-[#06C755]/10 flex items-center justify-center text-[#06C755] shrink-0">
+                <div class="w-8 h-8 rounded-full bg-[#06C755]/10 dark:bg-[#06C755]/20 flex items-center justify-center text-[#06C755] shrink-0 transition-colors duration-300">
                   <i class="bi bi-line"></i>
                 </div>
                 <div class="flex-grow">
                   <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">LINE ID</div>
-                  <div class="text-slate-700 font-medium">{{ user.lineId || '-' }}</div>
+                  <div class="text-slate-700 dark:text-slate-300 font-medium transition-colors duration-300">{{ user.lineId || '-' }}</div>
                 </div>
               </div>
             </div>
@@ -103,24 +103,24 @@
     <div class="w-full lg:w-2/3 xl:w-3/4 lg:h-full lg:overflow-hidden pr-2">
       <div
         v-if="isApproved"
-        class="bg-white rounded-[20px] shadow-[0_4px_25px_rgba(0,0,0,0.05)] p-6 md:p-8 w-full border border-gray-100 lg:h-full lg:flex lg:flex-col"
+        class="bg-white dark:bg-slate-800 rounded-[20px] shadow-[0_4px_25px_rgba(0,0,0,0.05)] dark:shadow-none p-6 md:p-8 w-full border border-gray-100 dark:border-slate-700 lg:h-full lg:flex lg:flex-col transition-colors duration-300"
       >
-        <div class="text-center md:text-left mb-8 border-b border-gray-100 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 lg:shrink-0">
+        <div class="text-center md:text-left mb-8 border-b border-gray-100 dark:border-slate-700 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 lg:shrink-0 transition-colors duration-300">
           <div>
-            <h3 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] mb-2">
+            <h3 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] dark:text-white mb-2 transition-colors duration-300">
               สถานะการดำเนินงาน
             </h3>
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-500 dark:text-slate-400 dark:text-gray-400 text-sm transition-colors duration-300">
               ติดตามความคืบหน้าโครงงานคอมพิวเตอร์ของคุณ
             </p>
           </div>
           
-          <div class="w-full md:w-[300px] bg-gray-50 rounded-xl p-4 border border-gray-100 shadow-sm">
+          <div class="w-full md:w-[300px] bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-700 dark:border-slate-600 shadow-sm transition-colors duration-300">
             <div class="flex justify-between items-end mb-2">
-              <span class="text-sm font-bold text-[#1a1a40]">ความคืบหน้าโดยรวม</span>
-              <span class="text-xl font-bold text-blue-600">{{ projectPercentage }}%</span>
+              <span class="text-sm font-bold text-[#1a1a40] dark:text-white">ความคืบหน้าโดยรวม</span>
+              <span class="text-xl font-bold text-blue-600 dark:text-blue-400">{{ projectPercentage }}%</span>
             </div>
-            <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div class="w-full bg-gray-200 dark:bg-slate-600 rounded-full h-2.5 transition-colors duration-300">
               <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-1000" :style="`width: ${projectPercentage}%`"></div>
             </div>
           </div>
@@ -138,10 +138,10 @@
                 class="w-[50px] h-[50px] rounded-full flex items-center justify-center font-bold text-[18px] border-2 z-10 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-sm"
                 :class="
                   step.isLocked
-                    ? 'border-gray-200 bg-gray-50 text-gray-400'
+                    ? 'border-gray-200 dark:border-slate-700 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-gray-400 dark:text-slate-500'
                     : step.isCompleted
                       ? 'border-blue-600 bg-blue-600 text-white'
-                      : 'border-[#1a1a40] bg-[#1a1a40] text-white'
+                      : 'border-[#1a1a40] bg-[#1a1a40] dark:border-indigo-500 dark:bg-indigo-500 text-white'
                 "
               >
                 <i v-if="step.isCompleted" class="bi bi-check-lg text-[24px]"></i>
@@ -155,7 +155,7 @@
                 :class="
                   step.isCompleted
                     ? 'bg-blue-600'
-                    : 'bg-gray-200 group-hover:bg-gray-300'
+                    : 'bg-gray-200 dark:bg-slate-700 group-hover:bg-gray-300 dark:group-hover:bg-slate-600'
                 "
               ></div>
             </div>
@@ -165,15 +165,15 @@
               class="flex-grow ml-4 md:ml-8 flex flex-col" 
               :class="index !== steps.length - 1 ? 'pb-8 md:pb-4' : ''"
             >
-              <div class="flex flex-col md:flex-row md:items-center justify-between min-h-[50px] bg-gray-50 md:bg-transparent p-4 md:p-0 rounded-xl md:rounded-none">
+              <div class="flex flex-col md:flex-row md:items-center justify-between min-h-[50px] bg-gray-50 dark:bg-slate-800/50 md:bg-transparent md:dark:bg-transparent p-4 md:p-0 rounded-xl md:rounded-none transition-colors duration-300">
                 <div
-                  class="font-bold text-lg mb-3 md:mb-0 flex items-center gap-2"
-                  :class="step.isLocked ? 'text-gray-400' : 'text-[#1a1a40]'"
+                  class="font-bold text-lg mb-3 md:mb-0 flex items-center gap-2 transition-colors duration-300"
+                  :class="step.isLocked ? 'text-gray-400 dark:text-slate-500' : 'text-[#1a1a40] dark:text-white'"
                 >
                   {{ step.title }}
                   <span 
-                    class="text-xs font-semibold px-2.5 py-0.5 rounded-full" 
-                    :class="step.isCompleted ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500'"
+                    class="text-xs font-semibold px-2.5 py-0.5 rounded-full transition-colors duration-300" 
+                    :class="step.isCompleted ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400'"
                   >
                     {{ step.percentage }}%
                   </span>
@@ -181,28 +181,28 @@
 
                 <!-- แสดงข้อมูลนัดสอบสำหรับขั้นตอนที่ 1 (ถ้ามี) -->
                 <div v-if="step.id === 1 && cp1Exam && !isCp1Passed" class="mb-4 md:mb-0 md:mr-6 flex-grow max-w-md animate-pulse">
-                  <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-lg bg-amber-500 text-white flex items-center justify-center shrink-0">
+                  <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-xl p-3 flex items-center gap-3 transition-colors duration-300">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500 dark:bg-amber-600 text-white flex items-center justify-center shrink-0">
                       <i class="bi bi-calendar-event"></i>
                     </div>
-                    <div class="text-xs">
-                      <div class="font-bold text-amber-800">นัดหมายสอบหัวข้อ</div>
-                      <div class="text-amber-600">{{ formatDate(cp1Exam.examDate) }} | {{ cp1Exam.examTime || '-' }} น.</div>
-                      <div class="text-amber-600 font-medium">สถานที่: {{ cp1Exam.examLocation || '-' }}</div>
+                    <div class="text-xs transition-colors duration-300">
+                      <div class="font-bold text-amber-800 dark:text-amber-500">นัดหมายสอบหัวข้อ</div>
+                      <div class="text-amber-600 dark:text-amber-400">{{ formatDate(cp1Exam.examDate) }} | {{ cp1Exam.examTime || '-' }} น.</div>
+                      <div class="text-amber-600 dark:text-amber-400 font-medium">สถานที่: {{ cp1Exam.examLocation || '-' }}</div>
                     </div>
                   </div>
                 </div>
 
                 <!-- แสดงข้อมูลนัดสอบสำหรับขั้นตอนอื่นๆ (ถ้ามี) -->
                 <div v-if="step.examInfo" class="mb-4 md:mb-0 md:mr-6 flex-grow max-w-md animate-pulse">
-                  <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-3 flex items-center gap-3">
+                  <div class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800/50 rounded-xl p-3 flex items-center gap-3 transition-colors duration-300">
                     <div class="w-10 h-10 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0">
                       <i class="bi bi-calendar-check"></i>
                     </div>
-                    <div class="text-xs">
-                      <div class="font-bold text-indigo-800">นัดหมายสอบจบโครงงาน</div>
-                      <div class="text-indigo-600">{{ step.examInfo.date }} | {{ step.examInfo.time }} น.</div>
-                      <div class="text-indigo-600 font-medium">สถานที่: {{ step.examInfo.location }}</div>
+                    <div class="text-xs transition-colors duration-300">
+                      <div class="font-bold text-indigo-800 dark:text-indigo-400">นัดหมายสอบจบโครงงาน</div>
+                      <div class="text-indigo-600 dark:text-indigo-300">{{ step.examInfo.date }} | {{ step.examInfo.time }} น.</div>
+                      <div class="text-indigo-600 dark:text-indigo-300 font-medium">สถานที่: {{ step.examInfo.location }}</div>
                     </div>
                   </div>
                 </div>
@@ -219,7 +219,7 @@
 
                   <div
                     v-if="step.isLocked"
-                    class="w-[42px] h-[42px] rounded-full border-2 border-gray-200 bg-gray-50 flex items-center justify-center text-gray-400 shadow-sm cursor-not-allowed shrink-0"
+                    class="w-[42px] h-[42px] rounded-full border-2 border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 flex items-center justify-center text-gray-400 dark:text-slate-600 shadow-sm cursor-not-allowed shrink-0 transition-colors duration-300"
                   >
                     <i class="bi bi-lock-fill text-lg"></i>
                   </div>
@@ -227,11 +227,11 @@
                   <NuxtLink
                     v-else
                     :to="step.link"
-                    class="w-[42px] h-[42px] rounded-full border-2 bg-white flex items-center justify-center transition-all duration-300 shadow-sm shrink-0"
+                    class="w-[42px] h-[42px] rounded-full border-2 bg-white dark:bg-slate-800 flex items-center justify-center transition-all duration-300 shadow-sm shrink-0"
                     :class="
                       step.isCompleted
                         ? 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
-                        : 'border-[#1a1a40] text-[#1a1a40] hover:bg-[#1a1a40] hover:text-white'
+                        : 'border-[#1a1a40] dark:border-indigo-500 text-[#1a1a40] dark:text-white dark:text-indigo-400 hover:bg-[#1a1a40] dark:hover:bg-indigo-500 hover:text-white dark:hover:text-white'
                     "
                   >
                     <i class="bi text-lg" :class="step.icon"></i>
@@ -245,17 +245,17 @@
 
       <div
         v-else
-        class="bg-white rounded-[20px] shadow-[0_4px_25px_rgba(0,0,0,0.05)] p-8 md:p-[60px] w-full text-center lg:h-full lg:flex lg:flex-col lg:justify-center lg:items-center"
+        class="bg-white dark:bg-slate-800 rounded-[20px] shadow-[0_4px_25px_rgba(0,0,0,0.05)] p-8 md:p-[60px] w-full text-center lg:h-full lg:flex lg:flex-col lg:justify-center lg:items-center"
       >
         <div
           class="w-[100px] h-[100px] bg-[#fff3cd] text-[#ffc107] rounded-full flex items-center justify-center mx-auto mb-6"
         >
           <i class="bi bi-hourglass-split text-[50px]"></i>
         </div>
-        <h3 class="font-bold text-[24px] text-[#1a1a40] mb-3">
+        <h3 class="font-bold text-[24px] text-[#1a1a40] dark:text-white mb-3">
           รอการอนุมัติจากผู้ดูแลระบบ
         </h3>
-        <p class="text-[#6c757d] mb-8 leading-relaxed max-w-[500px] mx-auto">
+        <p class="text-[#6c757d] dark:text-slate-400 mb-8 leading-relaxed max-w-[500px] mx-auto">
           บัญชีของคุณกำลังรอการตรวจสอบจากแอดมิน<br />
           เมื่อได้รับการอนุมัติแล้ว
           คุณถึงจะสามารถเริ่มต้นยื่นเสนอหัวข้อและทำโครงงานได้ครับ
@@ -362,7 +362,7 @@ const steps = computed(() => [
         ? "text-emerald-600 font-bold"
         : project.value
           ? "text-blue-600"
-          : "text-[#1a1a40]",
+          : "text-[#1a1a40] dark:text-white",
     icon: isCp1Passed.value ? "bi-eye" : "bi-pencil-square",
     link: "/student/cp1",
     isLocked: false,

@@ -7,6 +7,6 @@ onMounted(() => {
 
 <template>
   <div class="flex items-center justify-center min-h-screen">
-    <p class="text-gray-500 animate-pulse ">กำลังเข้าสู่ระบบ Student Panel...</p>
+    <p class="text-gray-500 dark:text-slate-400 animate-pulse ">กำลังเข้าสู่ระบบ Student Panel...</p>
   </div>
 </template>

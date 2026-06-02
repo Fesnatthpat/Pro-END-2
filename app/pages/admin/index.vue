@@ -4,12 +4,12 @@
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
       <div class="relative">
         <h3 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">Dashboard</h3>
-        <div class="flex items-center gap-2 text-slate-500">
+        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">ยินดีต้อนรับกลับ, Admin System 👋</p>
         </div>
       </div>
-      <div class="glass-card px-6 py-3 rounded-2xl shadow-sm text-slate-700 font-bold text-sm flex items-center gap-3 border border-slate-200/50">
+      <div class="glass-card px-6 py-3 rounded-2xl shadow-sm text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center gap-3 border border-slate-200/50">
         <div class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center">
           <span class="material-symbols-rounded text-lg">calendar_today</span>
         </div>
@@ -41,9 +41,9 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
       
       <div class="lg:col-span-8">
-        <div class="admin-card bg-white overflow-hidden group">
+        <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden group">
           <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
-            <h5 class="font-bold text-slate-800 text-xl flex items-center gap-3">
+            <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xl flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-500 flex items-center justify-center">
                 <span class="material-symbols-rounded">history_edu</span>
               </div>
@@ -66,10 +66,10 @@
               </thead>
               <tbody class="text-sm">
                 <tr v-for="(item, index) in recentProjects" :key="index" class="admin-table-row group/row">
-                  <td class="px-8 py-5 font-bold text-slate-700 max-w-[240px]">
+                  <td class="px-8 py-5 font-bold text-slate-700 dark:text-slate-300 max-w-[240px]">
                     <div class="truncate" :title="item.title">{{ item.title }}</div>
                   </td>
-                  <td class="px-8 py-5 text-slate-500 font-medium">{{ item.student }}</td>
+                  <td class="px-8 py-5 text-slate-500 dark:text-slate-400 font-medium">{{ item.student }}</td>
                   <td class="px-8 py-5">
                     <span v-if="item.step === 1" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-600 border border-blue-100">
                       <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> สอบหัวข้อ
@@ -77,12 +77,12 @@
                     <span v-else-if="item.step === 4" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-100">
                       <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span> สอบจบ
                     </span>
-                    <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500 border border-slate-200">
+                    <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
                       <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> ดำเนินการ
                     </span>
                   </td>
                   <td class="px-8 py-5 text-center">
-                    <NuxtLink :to="`/admin/project/${item.id}`" class="w-10 h-10 inline-flex items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-indigo-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-indigo-200 group-hover/row:scale-110">
+                    <NuxtLink :to="`/admin/project/${item.id}`" class="w-10 h-10 inline-flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-indigo-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-indigo-200 group-hover/row:scale-110">
                       <span class="material-symbols-rounded">arrow_forward</span>
                     </NuxtLink>
                   </td>
@@ -100,7 +100,7 @@
         
         <div class="admin-card p-8 bg-gradient-to-br from-white to-slate-50">
           <div class="flex justify-between items-center mb-8">
-            <h5 class="font-bold text-slate-800 text-xl flex items-center gap-3">
+            <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xl flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
                 <span class="material-symbols-rounded">how_to_reg</span>
               </div>
@@ -110,13 +110,13 @@
           </div>
 
           <div v-if="pendingStudents.length > 0" class="space-y-4">
-            <div v-for="student in pendingStudents" :key="student.id" class="flex items-center justify-between p-4 rounded-2xl border border-slate-100 bg-white hover:border-indigo-200 hover:shadow-md transition-all duration-300 group">
+            <div v-for="student in pendingStudents" :key="student.id" class="flex items-center justify-between p-4 rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-indigo-200 hover:shadow-md transition-all duration-300 group">
               <div class="flex items-center gap-4 overflow-hidden">
                 <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center font-bold text-lg shrink-0 border border-indigo-100">
                   {{ student.name.substring(0, 1) }}
                 </div>
                 <div class="overflow-hidden">
-                  <div class="font-bold text-slate-700 text-sm truncate">{{ student.name }}</div>
+                  <div class="font-bold text-slate-700 dark:text-slate-300 text-sm truncate">{{ student.name }}</div>
                   <div class="text-xs text-slate-400 font-medium tracking-tight">{{ student.code }}</div>
                 </div>
               </div>
@@ -127,7 +127,7 @@
             </div>
 
             <div class="pt-4">
-              <NuxtLink to="/admin/students/approve" class="group flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-slate-100 text-slate-600 font-bold text-sm hover:bg-slate-900 hover:text-white transition-all duration-300">
+              <NuxtLink to="/admin/students/approve" class="group flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-slate-900 hover:text-white transition-all duration-300">
                 จัดการทั้งหมด 
                 <span class="material-symbols-rounded text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
               </NuxtLink>
@@ -138,13 +138,13 @@
             <div class="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-4 border-2 border-emerald-100/50">
               <span class="material-symbols-rounded">check_circle</span>
             </div>
-            <div class="text-base font-bold text-slate-700 mb-1">ไม่มีคำร้องใหม่</div>
+            <div class="text-base font-bold text-slate-700 dark:text-slate-300 mb-1">ไม่มีคำร้องใหม่</div>
             <div class="text-sm text-slate-400">นักศึกษาทุกคนได้รับการอนุมัติแล้ว</div>
           </div>
         </div>
 
-        <div class="admin-card bg-white p-8">
-          <h5 class="font-bold text-slate-800 text-xl mb-8 flex items-center gap-3">
+        <div class="admin-card bg-white dark:bg-slate-800 p-8">
+          <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xl mb-8 flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
               <span class="material-symbols-rounded">bolt</span>
             </div>
@@ -152,18 +152,18 @@
           </h5>
           
           <div class="grid grid-cols-1 gap-4">
-            <NuxtLink to="/admin/exam-topic" class="flex items-center p-5 rounded-[24px] border border-slate-100 hover:border-amber-400 bg-white hover:bg-amber-50/30 transition-all group">
+            <NuxtLink to="/admin/exam-topic" class="flex items-center p-5 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-amber-400 bg-white dark:bg-slate-800 hover:bg-amber-50/30 transition-all group">
               <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mr-5 group-hover:scale-110 group-hover:rotate-6 transition-all"><span class="material-symbols-rounded">calendar_month</span></div>
               <div>
-                <div class="font-bold text-slate-700 group-hover:text-amber-700 text-[15px]">จัดตารางสอบหัวข้อ</div>
+                <div class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-amber-700 text-[15px]">จัดตารางสอบหัวข้อ</div>
                 <div class="text-[12px] text-slate-400 font-medium">จัดการคำร้อง CP1</div>
               </div>
             </NuxtLink>
 
-            <NuxtLink to="/admin/reports" class="flex items-center p-5 rounded-[24px] border border-slate-100 hover:border-indigo-400 bg-white hover:bg-indigo-50/30 transition-all group">
+            <NuxtLink to="/admin/reports" class="flex items-center p-5 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-indigo-400 bg-white dark:bg-slate-800 hover:bg-indigo-50/30 transition-all group">
               <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl mr-5 group-hover:scale-110 group-hover:rotate-6 transition-all"><span class="material-symbols-rounded">analytics</span></div>
               <div>
-                <div class="font-bold text-slate-700 group-hover:text-indigo-700 text-[15px]">ดูรายงานสรุปผล</div>
+                <div class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-700 text-[15px]">ดูรายงานสรุปผล</div>
                 <div class="text-[12px] text-slate-400 font-medium">สถิติภาพรวมประจำปี</div>
               </div>
             </NuxtLink>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen bg-[#f8f9fa]">
+  <div class="flex flex-col min-h-screen bg-[#f8f9fa] dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
     
     <nav class="sticky top-0 z-50 bg-[#252243] py-3 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
       <div class="w-full xl:max-w-[1400px] mx-auto px-4 md:px-8 flex flex-wrap items-center justify-between">
@@ -43,7 +43,7 @@
           <div class="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-3 w-full lg:w-auto shrink-0 py-4 lg:py-0 border-t border-white/10 lg:border-none mt-2 lg:mt-0">
             
             <NuxtLink v-if="user" to="/student/profile" class="flex items-center gap-[10px] text-white bg-white/10 hover:bg-white/20 cursor-pointer transition-colors duration-300 pr-[18px] pl-[6px] py-[6px] rounded-full no-underline w-full lg:w-auto">
-              <div class="w-[32px] h-[32px] bg-white text-[#1a1a40] rounded-full flex items-center justify-center font-bold text-[0.9rem] overflow-hidden">
+              <div class="w-[32px] h-[32px] bg-white dark:bg-slate-800 text-[#1a1a40] dark:text-white rounded-full flex items-center justify-center font-bold text-[0.9rem] overflow-hidden">
                 <img v-if="user.profileImage" :src="user.profileImage" alt="Profile" class="w-full h-full object-cover">
                 <span v-else>{{ user.fullname?.charAt(0) || 'U' }}</span>
               </div>

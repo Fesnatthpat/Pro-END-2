@@ -1,16 +1,16 @@
 <template>
-  <div class="min-h-screen py-8 px-4 bg-[#f8f9fa]">
+  <div class="min-h-screen py-8 px-4 bg-[#f8f9fa] dark:bg-slate-900">
     <div class="max-w-[1000px] mx-auto w-full">
       
       <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 hover:text-[#1a1a40] transition-colors mb-2 font-medium w-fit">
+          <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-[#1a1a40] transition-colors mb-2 font-medium w-fit">
             <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
           </NuxtLink>
-          <h2 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] flex items-center gap-3">
+          <h2 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] dark:text-white flex items-center gap-3">
             <span class="material-symbols-rounded text-indigo-600">history_edu</span> ประวัติกิจกรรมและสถานะโครงงาน
           </h2>
-          <p class="text-gray-500 mt-1">ติดตามทุกความเคลื่อนไหวและการอัปเดตของโครงงานคุณได้ที่นี่</p>
+          <p class="text-gray-500 dark:text-slate-400 mt-1">ติดตามทุกความเคลื่อนไหวและการอัปเดตของโครงงานคุณได้ที่นี่</p>
         </div>
       </div>
 
@@ -18,27 +18,27 @@
         <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600"></div>
       </div>
 
-      <div v-else-if="!project" class="bg-white rounded-[32px] p-16 text-center shadow-sm border border-gray-100">
-        <div class="w-20 h-20 bg-gray-50 text-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
+      <div v-else-if="!project" class="bg-white dark:bg-slate-800 rounded-[32px] p-16 text-center shadow-sm border border-gray-100 dark:border-slate-700">
+        <div class="w-20 h-20 bg-gray-50 dark:bg-slate-800 text-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
           <span class="material-symbols-rounded">folder_off</span>
         </div>
-        <h3 class="text-xl font-bold text-gray-700 mb-2">ไม่พบข้อมูลโครงงาน</h3>
+        <h3 class="text-xl font-bold text-gray-700 dark:text-slate-300 mb-2">ไม่พบข้อมูลโครงงาน</h3>
         <p class="text-gray-400 text-sm">คุณยังไม่ได้ยื่นเสนอหัวข้อโครงงานเข้าสู่ระบบครับ</p>
       </div>
 
       <div v-else>
         <!-- สรุปสถานะปัจจุบัน -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div class="bg-white p-6 rounded-[28px] shadow-sm border border-gray-100 flex items-center gap-4">
+          <div class="bg-white dark:bg-slate-800 p-6 rounded-[28px] shadow-sm border border-gray-100 dark:border-slate-700 flex items-center gap-4">
             <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
               <span class="material-symbols-rounded">ads_click</span>
             </div>
             <div>
               <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">ขั้นตอนปัจจุบัน</div>
-              <div class="text-sm font-bold text-[#1a1a40]">{{ getStepName(project.step) }}</div>
+              <div class="text-sm font-bold text-[#1a1a40] dark:text-white">{{ getStepName(project.step) }}</div>
             </div>
           </div>
-          <div class="bg-white p-6 rounded-[28px] shadow-sm border border-gray-100 flex items-center gap-4">
+          <div class="bg-white dark:bg-slate-800 p-6 rounded-[28px] shadow-sm border border-gray-100 dark:border-slate-700 flex items-center gap-4">
             <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
               <span class="material-symbols-rounded">sync</span>
             </div>
@@ -49,13 +49,13 @@
               </div>
             </div>
           </div>
-          <div class="bg-white p-6 rounded-[28px] shadow-sm border border-gray-100 flex items-center gap-4">
+          <div class="bg-white dark:bg-slate-800 p-6 rounded-[28px] shadow-sm border border-gray-100 dark:border-slate-700 flex items-center gap-4">
             <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
               <span class="material-symbols-rounded">update</span>
             </div>
             <div>
               <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">อัปเดตเมื่อ</div>
-              <div class="text-sm font-bold text-[#1a1a40]">{{ formatDateShort(project.updatedAt) }}</div>
+              <div class="text-sm font-bold text-[#1a1a40] dark:text-white">{{ formatDateShort(project.updatedAt) }}</div>
             </div>
           </div>
         </div>

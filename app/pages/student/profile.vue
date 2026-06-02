@@ -1,9 +1,9 @@
 <template>
-  <div class="min-h-screen bg-slate-50 py-10 px-4 md:px-8  text-slate-800">
+  <div class="min-h-screen bg-slate-50 dark:bg-slate-900 py-10 px-4 md:px-8  text-slate-800 dark:text-slate-200">
     <div v-if="user" class="max-w-[900px] mx-auto w-full">
       
       <div class="mb-6">
-        <NuxtLink to="/student" class="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-600 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-200 transition-all text-sm font-bold w-fit hover:-translate-x-1">
+        <NuxtLink to="/student" class="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm border border-slate-200 dark:border-slate-700 transition-all text-sm font-bold w-fit hover:-translate-x-1">
           <span class="material-symbols-rounded">arrow_back</span> ย้อนกลับไปหน้าหลัก
         </NuxtLink>
       </div>
@@ -16,7 +16,7 @@
           โปรไฟล์ของฉัน
         </h2>
         <button @click="isEditing = !isEditing" 
-                :class="isEditing ? 'bg-rose-500 text-white hover:bg-rose-600' : 'bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50'"
+                :class="isEditing ? 'bg-rose-500 text-white hover:bg-rose-600' : 'bg-white dark:bg-slate-800 text-indigo-600 border border-indigo-200 hover:bg-indigo-50'"
                 class="px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-sm flex items-center gap-2 w-fit">
           <span class="material-symbols-rounded">{{ isEditing ? 'close' : 'edit' }}</span>
           {{ isEditing ? 'ยกเลิกการแก้ไข' : 'แก้ไขข้อมูล' }}
@@ -26,7 +26,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
         <div class="md:col-span-1 space-y-6">
-          <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-200 text-center relative overflow-hidden">
+          <div class="bg-white dark:bg-slate-800 rounded-[32px] p-8 shadow-sm border border-slate-200 dark:border-slate-700 text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-3 bg-indigo-600"></div>
             
             <div v-if="user.profileImage" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white shadow-md overflow-hidden">
@@ -80,7 +80,7 @@
         </div>
 
         <div class="md:col-span-2 space-y-6">
-          <div class="bg-white rounded-[32px] p-8 md:p-10 shadow-sm border border-slate-200">
+          <div class="bg-white dark:bg-slate-800 rounded-[32px] p-8 md:p-10 shadow-sm border border-slate-200 dark:border-slate-700">
             
             <h4 class="text-lg font-bold text-slate-900 mb-8 flex items-center gap-2">
               <span class="material-symbols-rounded text-indigo-500">assessment</span> รายละเอียดข้อมูลส่วนตัว
@@ -91,17 +91,17 @@
                 <div>
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">ชื่อ-นามสกุล</label>
                   <input type="text" v-model="user.fullname" :disabled="!isEditing" 
-                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">รหัสนักศึกษา</label>
                   <input type="text" v-model="user.username" :disabled="true" 
-                         class="bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
+                         class="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
                 </div>
               </div>
 
-              <hr class="border-slate-100 my-4">
+              <hr class="border-slate-100 dark:border-slate-700 my-4">
 
               <div class="space-y-6">
                 <div>
@@ -109,8 +109,8 @@
                   <div class="relative">
                     <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">phone</span>
                     <input type="text" v-model="user.tel" :disabled="!isEditing" 
-                           :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10' : 'bg-slate-50 border-slate-200'"
-                           class="w-full border text-sm font-medium text-slate-700 rounded-2xl pl-11 pr-4 py-3 outline-none transition-all">
+                           :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700'"
+                           class="w-full border text-sm font-medium text-slate-700 dark:text-slate-300 rounded-2xl pl-11 pr-4 py-3 outline-none transition-all">
                   </div>
                 </div>
 
@@ -119,8 +119,8 @@
                   <div class="relative">
                     <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">mail</span>
                     <input type="email" v-model="user.email" :disabled="!isEditing" 
-                           :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10' : 'bg-slate-50 border-slate-200'"
-                           class="w-full border text-sm font-medium text-slate-700 rounded-2xl pl-11 pr-4 py-3 outline-none transition-all">
+                           :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700'"
+                           class="w-full border text-sm font-medium text-slate-700 dark:text-slate-300 rounded-2xl pl-11 pr-4 py-3 outline-none transition-all">
                   </div>
                 </div>
 
@@ -129,13 +129,13 @@
                   <div class="relative">
                     <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">chat</span>
                     <input type="text" v-model="user.lineId" :disabled="!isEditing" 
-                           :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10' : 'bg-slate-50 border-slate-200'"
-                           class="w-full border text-sm font-medium text-slate-700 rounded-2xl pl-11 pr-4 py-3 outline-none transition-all">
+                           :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700'"
+                           class="w-full border text-sm font-medium text-slate-700 dark:text-slate-300 rounded-2xl pl-11 pr-4 py-3 outline-none transition-all">
                   </div>
                 </div>
               </div>
 
-              <hr class="border-slate-100 my-4">
+              <hr class="border-slate-100 dark:border-slate-700 my-4">
               <h4 class="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
                 <span class="material-symbols-rounded text-indigo-500 text-lg">location_on</span> ข้อมูลติดต่อและที่อยู่
               </h4>
@@ -144,25 +144,25 @@
                 <div class="md:col-span-1">
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">บ้านเลขที่</label>
                   <input type="text" v-model="user.addressNo" :disabled="!isEditing" 
-                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
                 </div>
                 <div class="md:col-span-1">
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">หมู่ที่</label>
                   <input type="text" v-model="user.moo" :disabled="!isEditing" 
-                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
                 </div>
                 <div class="md:col-span-1">
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">ซอย</label>
                   <input type="text" v-model="user.soi" :disabled="!isEditing" 
-                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
                 </div>
                 <div class="md:col-span-1">
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">ถนน</label>
                   <input type="text" v-model="user.road" :disabled="!isEditing" 
-                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
                 </div>
               </div>
@@ -171,7 +171,7 @@
                 <div>
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">จังหวัด</label>
                   <select v-model="user.province" @change="handleProvinceChange" :disabled="!isEditing" 
-                          :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                          :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                           class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none appearance-none transition-all">
                     <option value="">-- เลือกจังหวัด --</option>
                     <option v-for="p in provinces" :key="p" :value="p">{{ p }}</option>
@@ -180,7 +180,7 @@
                 <div>
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">อำเภอ/เขต</label>
                   <select v-model="user.district" @change="handleDistrictChange" :disabled="!isEditing || !user.province" 
-                          :class="isEditing && user.province ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                          :class="isEditing && user.province ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                           class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none appearance-none transition-all">
                     <option value="">-- เลือกอำเภอ --</option>
                     <option v-for="d in districts" :key="d" :value="d">{{ d }}</option>
@@ -192,7 +192,7 @@
                 <div>
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">ตำบล/แขวง</label>
                   <select v-model="user.subdistrict" @change="handleSubdistrictChange" :disabled="!isEditing || !user.district" 
-                          :class="isEditing && user.district ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                          :class="isEditing && user.district ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                           class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none appearance-none transition-all">
                     <option value="">-- เลือกตำบล --</option>
                     <option v-for="s in subdistricts" :key="s.subdistrict" :value="s.subdistrict">{{ s.subdistrict }}</option>
@@ -201,7 +201,7 @@
                 <div>
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">รหัสไปรษณีย์</label>
                   <input type="text" v-model="user.zipcode" :disabled="true" 
-                         class="bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all" readonly>
+                         class="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all" readonly>
                 </div>
               </div>
 
@@ -209,13 +209,13 @@
                 <div>
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">โทรศัพท์บ้าน</label>
                   <input type="text" v-model="user.homePhone" :disabled="!isEditing" 
-                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all" placeholder="ถ้ามี">
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">เบอร์โทรกรณีฉุกเฉิน</label>
                   <input type="text" v-model="user.emergencyContact" :disabled="!isEditing" 
-                         :class="isEditing ? 'bg-white border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700' : 'bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed'"
+                         :class="isEditing ? 'bg-white dark:bg-slate-800 border-indigo-200 focus:ring-4 focus:ring-indigo-500/10 text-slate-700 dark:text-slate-300' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'"
                          class="w-full border text-sm font-medium rounded-2xl px-4 py-3 outline-none transition-all">
                 </div>
               </div>
@@ -228,7 +228,7 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-200">
+          <div class="bg-white dark:bg-slate-800 rounded-[32px] p-8 shadow-sm border border-slate-200 dark:border-slate-700">
              <h4 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
               <span class="material-symbols-rounded text-amber-500">key</span> เปลี่ยนรหัสผ่านใหม่
             </h4>

@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gray-100 py-8 px-4  print:bg-white print:py-0 print:px-0">
+  <div class="min-h-screen bg-gray-100 dark:bg-slate-700 py-8 px-4  print:bg-white print:py-0 print:px-0">
     
     <!-- แถบเครื่องมือและเลือกอาจารย์ (เฉพาะหน้าจอ) -->
     <div class="max-w-[210mm] mx-auto mb-6 flex flex-col gap-4 print:hidden">
       <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <NuxtLink to="/student" class="flex items-center gap-2 text-gray-600 hover:text-[#1a1a40] transition-colors font-medium bg-white px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
+        <NuxtLink to="/student" class="flex items-center gap-2 text-gray-600 dark:text-slate-400 hover:text-[#1a1a40] transition-colors font-medium bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
           <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
         </NuxtLink>
         
@@ -19,34 +19,34 @@
       </div>
 
       <!-- เลือกอาจารย์ที่ปรึกษาและเพื่อนร่วมกลุ่ม (แสดงเฉพาะหน้าจอ) -->
-      <div v-if="!isAdmin && !isSubmitted" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div v-if="!isAdmin && !isSubmitted" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label class="block text-sm font-bold text-gray-700 mb-2">เลือกอาจารย์ที่ปรึกษาหลัก</label>
-          <select v-model="advisorId" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 outline-none focus:border-[#1a1a40] transition-all">
+          <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">เลือกอาจารย์ที่ปรึกษาหลัก</label>
+          <select v-model="advisorId" class="w-full bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-4 py-2.5 outline-none focus:border-[#1a1a40] transition-all">
             <option value="">-- กรุณาเลือกอาจารย์ --</option>
             <option v-for="t in teachers" :key="t.id" :value="t.id">{{ t.fullname }}</option>
           </select>
         </div>
         <div>
-          <label class="block text-sm font-bold text-gray-700 mb-2">เลือกอาจารย์ที่ปรึกษาร่วม (ถ้ามี)</label>
-          <select v-model="coAdvisorId" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 outline-none focus:border-[#1a1a40] transition-all">
+          <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">เลือกอาจารย์ที่ปรึกษาร่วม (ถ้ามี)</label>
+          <select v-model="coAdvisorId" class="w-full bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-4 py-2.5 outline-none focus:border-[#1a1a40] transition-all">
             <option value="">-- ไม่มีอาจารย์ที่ปรึกษาร่วม --</option>
             <option v-for="t in teachers" :key="t.id" :value="t.id">{{ t.fullname }}</option>
           </select>
         </div>
         <div>
-          <label class="block text-sm font-bold text-gray-700 mb-2">เลือกเพื่อนร่วมกลุ่ม (ถ้ามี)</label>
+          <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">เลือกเพื่อนร่วมกลุ่ม (ถ้ามี)</label>
           <select v-model="selectedStudentId" class="w-full bg-indigo-50 border border-indigo-100 text-indigo-700 rounded-xl px-4 py-2.5 outline-none focus:border-indigo-500 transition-all font-bold">
             <option value="">-- ทำโครงงานคนเดียว --</option>
             <option v-for="s in students" :key="s.id" :value="s.id">{{ s.fullname }} ({{ s.username }})</option>
           </select>
         </div>
       </div>
-      <div v-else-if="isSubmitted && !isAdmin" class="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm animate-[fadeIn_0.5s_ease-out]">
-        <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
+      <div v-else-if="isSubmitted && !isAdmin" class="bg-white dark:bg-slate-800 p-8 rounded-[32px] border border-gray-100 dark:border-slate-700 shadow-sm animate-[fadeIn_0.5s_ease-out]">
+        <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-100 dark:border-slate-700">
           <div>
-            <h3 class="text-xl font-bold text-[#1a1a40]">รายการประวัติการยื่นเสนอหัวข้อ</h3>
-            <p class="text-sm text-gray-500">ข้อมูลล่าสุดที่บันทึกไว้ในระบบ</p>
+            <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">รายการประวัติการยื่นเสนอหัวข้อ</h3>
+            <p class="text-sm text-gray-500 dark:text-slate-400">ข้อมูลล่าสุดที่บันทึกไว้ในระบบ</p>
           </div>
           <div :class="project?.status === 'approved' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'" class="px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span>
@@ -55,44 +55,44 @@
         </div>
 
         <div class="space-y-4">
-          <div class="flex flex-col md:flex-row md:items-center gap-6 p-6 rounded-2xl bg-gray-50/50 border border-gray-100">
-            <div class="w-14 h-14 rounded-2xl bg-white text-indigo-600 shadow-sm flex items-center justify-center text-2xl shrink-0">
+          <div class="flex flex-col md:flex-row md:items-center gap-6 p-6 rounded-2xl bg-gray-50/50 border border-gray-100 dark:border-slate-700">
+            <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-800 text-indigo-600 shadow-sm flex items-center justify-center text-2xl shrink-0">
               <span class="material-symbols-rounded">title</span>
             </div>
             <div class="flex-grow">
               <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">ชื่อโครงงาน (ภาษาไทย)</div>
-              <div class="text-base font-bold text-[#1a1a40]">{{ project?.titleTh }}</div>
+              <div class="text-base font-bold text-[#1a1a40] dark:text-white">{{ project?.titleTh }}</div>
             </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="flex items-center gap-4 p-5 rounded-2xl bg-gray-50/50 border border-gray-100">
-              <div class="w-12 h-12 rounded-xl bg-white text-blue-600 shadow-sm flex items-center justify-center text-xl shrink-0">
+            <div class="flex items-center gap-4 p-5 rounded-2xl bg-gray-50/50 border border-gray-100 dark:border-slate-700">
+              <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 text-blue-600 shadow-sm flex items-center justify-center text-xl shrink-0">
                 <span class="material-symbols-rounded">person_pin</span>
               </div>
               <div>
                 <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">อาจารย์ที่ปรึกษาหลัก</div>
-                <div class="text-sm font-bold text-[#1a1a40]">{{ advisorName || '-' }}</div>
+                <div class="text-sm font-bold text-[#1a1a40] dark:text-white">{{ advisorName || '-' }}</div>
               </div>
             </div>
-            <div class="flex items-center gap-4 p-5 rounded-2xl bg-gray-50/50 border border-gray-100">
-              <div class="w-12 h-12 rounded-xl bg-white text-emerald-600 shadow-sm flex items-center justify-center text-xl shrink-0">
+            <div class="flex items-center gap-4 p-5 rounded-2xl bg-gray-50/50 border border-gray-100 dark:border-slate-700">
+              <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 text-emerald-600 shadow-sm flex items-center justify-center text-xl shrink-0">
                 <span class="material-symbols-rounded">group</span>
               </div>
               <div>
                 <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">อาจารย์ที่ปรึกษาร่วม</div>
-                <div class="text-sm font-bold text-[#1a1a40]">{{ coAdvisorName || '-' }}</div>
+                <div class="text-sm font-bold text-[#1a1a40] dark:text-white">{{ coAdvisorName || '-' }}</div>
               </div>
             </div>
           </div>
 
-          <div class="flex flex-col md:flex-row md:items-center gap-6 p-6 rounded-2xl bg-gray-50/50 border border-gray-100">
-            <div class="w-14 h-14 rounded-2xl bg-white text-amber-600 shadow-sm flex items-center justify-center text-2xl shrink-0">
+          <div class="flex flex-col md:flex-row md:items-center gap-6 p-6 rounded-2xl bg-gray-50/50 border border-gray-100 dark:border-slate-700">
+            <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-800 text-amber-600 shadow-sm flex items-center justify-center text-2xl shrink-0">
               <span class="material-symbols-rounded">history</span>
             </div>
             <div class="flex-grow">
               <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">ข้อมูลการบันทึกล่าสุด</div>
-              <div class="text-sm font-bold text-[#1a1a40]">แก้ไขเมื่อ: {{ currentDate }}</div>
+              <div class="text-sm font-bold text-[#1a1a40] dark:text-white">แก้ไขเมื่อ: {{ currentDate }}</div>
             </div>
             <button @click="printDocument" class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#1a1a40] text-white font-bold text-sm hover:bg-indigo-600 transition-all shadow-md">
               <span class="material-symbols-rounded text-base">print</span> พิมพ์ใบ CP1
@@ -108,7 +108,7 @@
 
     <div class="flex flex-col items-center gap-8 print:block print:w-full print:gap-0" :class="isSubmitted ? 'pointer-events-none' : ''">
       
-      <div class="paper-a4 page-break bg-white shadow-lg relative text-black text-[16px] leading-relaxed print:shadow-none">
+      <div class="paper-a4 page-break bg-white dark:bg-slate-800 shadow-lg relative text-black text-[16px] leading-relaxed print:shadow-none">
         
         <div class="text-center mb-5">
           <img src="/bsru_logo.jpg" alt="BSRU Logo" class="w-[80px] mx-auto mb-1 print:w-[70px]">
@@ -168,12 +168,12 @@
               class="form-dotted w-24 min-w-0 text-center bg-[#fff9db] font-bold print:bg-transparent"
             >
             <!-- Suggestions Dropdown for S1 -->
-            <div v-if="suggestions1.length > 0" class="absolute z-50 left-24 top-8 w-64 bg-white border border-gray-200 rounded-lg shadow-xl max-h-48 overflow-y-auto print:hidden">
+            <div v-if="suggestions1.length > 0" class="absolute z-50 left-24 top-8 w-64 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-xl max-h-48 overflow-y-auto print:hidden">
               <div 
                 v-for="(s, idx) in suggestions1" 
                 :key="idx"
                 @click="selectAddress(1, s)"
-                class="p-2 hover:bg-gray-100 cursor-pointer text-xs border-b border-gray-100 last:border-0"
+                class="p-2 hover:bg-gray-100 cursor-pointer text-xs border-b border-gray-100 dark:border-slate-700 last:border-0"
               >
                 ต.{{ s.subdistrict }} อ.{{ s.district }} จ.{{ s.province }} {{ s.zipcode }}
               </div>
@@ -236,12 +236,12 @@
               class="form-dotted w-24 min-w-0 text-center bg-[#fff9db] font-bold print:bg-transparent"
             >
             <!-- Suggestions Dropdown for S2 -->
-            <div v-if="suggestions2.length > 0" class="absolute z-50 left-24 top-8 w-64 bg-white border border-gray-200 rounded-lg shadow-xl max-h-48 overflow-y-auto print:hidden">
+            <div v-if="suggestions2.length > 0" class="absolute z-50 left-24 top-8 w-64 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-xl max-h-48 overflow-y-auto print:hidden">
               <div 
                 v-for="(s, idx) in suggestions2" 
                 :key="idx"
                 @click="selectAddress(2, s)"
-                class="p-2 hover:bg-gray-100 cursor-pointer text-xs border-b border-gray-100 last:border-0"
+                class="p-2 hover:bg-gray-100 cursor-pointer text-xs border-b border-gray-100 dark:border-slate-700 last:border-0"
               >
                 ต.{{ s.subdistrict }} อ.{{ s.district }} จ.{{ s.province }} {{ s.zipcode }}
               </div>
@@ -274,7 +274,7 @@
             </div>
             <div class="flex items-end gap-1 w-full justify-center">
               <span class="shrink-0">(</span>
-              <span class="form-dotted min-w-[150px] px-2 text-center text-gray-700">{{ s1.fullname }}</span>
+              <span class="form-dotted min-w-[150px] px-2 text-center text-gray-700 dark:text-slate-300">{{ s1.fullname }}</span>
               <span class="shrink-0">)</span>
             </div>
           </div>
@@ -287,7 +287,7 @@
             </div>
             <div class="flex items-end gap-1 w-full justify-center">
               <span class="shrink-0">(</span>
-              <span class="form-dotted min-w-[150px] px-2 text-center text-gray-700">{{ s2.fullname }}</span>
+              <span class="form-dotted min-w-[150px] px-2 text-center text-gray-700 dark:text-slate-300">{{ s2.fullname }}</span>
               <span class="shrink-0">)</span>
             </div>
           </div>
@@ -295,7 +295,7 @@
 
         <div class="flex justify-center items-end gap-2 mb-6 w-full break-inside-avoid">
           <span class="shrink-0">วันที่</span>
-          <input type="text" :value="currentDate" class="form-dotted w-[180px] min-w-0 text-center text-gray-600" readonly>
+          <input type="text" :value="currentDate" class="form-dotted w-[180px] min-w-0 text-center text-gray-600 dark:text-slate-400" readonly>
         </div>
 
         <div class="flex justify-between px-4 w-full break-inside-avoid">
@@ -307,7 +307,7 @@
             </div>
             <div class="flex items-end gap-1 w-full justify-center">
               <span class="shrink-0">(</span>
-              <span class="form-dotted min-w-[180px] px-2 text-center text-gray-700">{{ advisorName }}</span>
+              <span class="form-dotted min-w-[180px] px-2 text-center text-gray-700 dark:text-slate-300">{{ advisorName }}</span>
               <span class="shrink-0">)</span>
             </div>
           </div>
@@ -320,7 +320,7 @@
             </div>
             <div class="flex items-end gap-1 w-full justify-center">
               <span class="shrink-0">(</span>
-              <span class="form-dotted min-w-[180px] px-2 text-center text-gray-700">{{ coAdvisorName }}</span>
+              <span class="form-dotted min-w-[180px] px-2 text-center text-gray-700 dark:text-slate-300">{{ coAdvisorName }}</span>
               <span class="shrink-0">)</span>
             </div>
           </div>
@@ -328,7 +328,7 @@
 
       </div>
 
-      <div class="paper-a4 bg-white shadow-lg relative text-black text-[16px] leading-relaxed flex flex-col justify-between print:shadow-none">
+      <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[16px] leading-relaxed flex flex-col justify-between print:shadow-none">
         
         <div>
           <div class="text-right mb-4 text-sm font-bold">CP-1</div>
@@ -361,7 +361,7 @@
                 <input type="text" class="form-dotted flex-1 min-w-0 text-center" readonly>
                 <span class="shrink-0">กรรมการ</span>
               </div>
-              <div class="text-center w-[250px] text-gray-500">(........................................................)</div>
+              <div class="text-center w-[250px] text-gray-500 dark:text-slate-400">(........................................................)</div>
             </div>
           </div>
         </div>

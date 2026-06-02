@@ -15,22 +15,22 @@
           CP1 Request Management
         </div>
         <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">คำร้องขอสอบหัวข้อ (CP1)</h2>
-        <div class="flex items-center gap-2 text-slate-500">
+        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-slate-200"></span>
           <p class="text-sm font-medium">จัดการคำร้องและจัดตารางสอบหัวข้อโครงงาน</p>
         </div>
       </div>
       
-      <div class="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200 shadow-inner">
+      <div class="flex bg-slate-100 dark:bg-slate-700 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-inner">
         <button @click="activeTab = 'waiting'" 
-                :class="activeTab === 'waiting' ? 'bg-white text-indigo-600 shadow-md font-bold' : 'text-slate-500 hover:text-slate-700'"
+                :class="activeTab === 'waiting' ? 'bg-white dark:bg-slate-800 text-indigo-600 shadow-md font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'"
                 class="px-8 py-3 rounded-xl text-sm transition-all flex items-center gap-2 text-nowrap">
           <span class="material-symbols-rounded text-[20px]">inbox</span> 
           <span>รอดำเนินการ</span>
           <span v-if="waitList.length" class="ml-1 w-5 h-5 flex items-center justify-center rounded-full bg-amber-500 text-white text-[10px] font-black">{{ waitList.length }}</span>
         </button>
         <button @click="activeTab = 'scheduled'" 
-                :class="activeTab === 'scheduled' ? 'bg-white text-indigo-600 shadow-md font-bold' : 'text-slate-500 hover:text-slate-700'"
+                :class="activeTab === 'scheduled' ? 'bg-white dark:bg-slate-800 text-indigo-600 shadow-md font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'"
                 class="px-8 py-3 rounded-xl text-sm transition-all flex items-center gap-2 text-nowrap">
           <span class="material-symbols-rounded text-[20px]">calendar_month</span> 
           <span>ตารางนัดสอบ</span>
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="admin-card bg-white overflow-hidden">
+    <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden">
       
       <!-- Waiting List Tab -->
       <div v-if="activeTab === 'waiting'" class="animate-[fadeIn_0.3s_ease-out]">
@@ -55,7 +55,7 @@
             <tbody class="divide-y divide-slate-50 text-sm">
               <tr v-for="item in waitList" :key="item.id" class="admin-table-row group/row">
                 <td class="px-8 py-6 max-w-[300px]">
-                  <div class="font-bold text-slate-800 text-base mb-1 truncate" :title="item.titleTh">{{ item.titleTh }}</div>
+                  <div class="font-bold text-slate-800 dark:text-slate-200 text-base mb-1 truncate" :title="item.titleTh">{{ item.titleTh }}</div>
                   <div class="text-xs text-slate-400 font-medium truncate">{{ item.titleEn }}</div>
                 </td>
                 <td class="px-8 py-6">
@@ -64,18 +64,18 @@
                       <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-[10px] border border-indigo-100 shrink-0">
                         {{ item.student1.fullname.charAt(0) }}
                       </div>
-                      <span class="font-bold text-slate-700 text-sm">{{ item.student1.fullname }}</span>
+                      <span class="font-bold text-slate-700 dark:text-slate-300 text-sm">{{ item.student1.fullname }}</span>
                     </div>
                     <div v-if="item.student2" class="flex items-center gap-3">
                       <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-[10px] border border-emerald-100 shrink-0">
                         {{ item.student2.fullname.charAt(0) }}
                       </div>
-                      <span class="font-bold text-slate-700 text-sm">{{ item.student2.fullname }}</span>
+                      <span class="font-bold text-slate-700 dark:text-slate-300 text-sm">{{ item.student2.fullname }}</span>
                     </div>
                   </div>
                 </td>
                 <td class="px-8 py-6">
-                  <div class="flex items-center gap-2 text-slate-500 font-medium">
+                  <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium">
                     <span class="material-symbols-rounded text-slate-300 text-[18px]">event</span>
                     {{ formatDate(item.createdAt) }}
                   </div>
@@ -89,7 +89,7 @@
               </tr>
               <tr v-if="waitList.length === 0">
                 <td colspan="4" class="px-8 py-24 text-center">
-                  <div class="w-20 h-20 bg-slate-50 text-slate-200 rounded-[28px] flex items-center justify-center mx-auto mb-6">
+                  <div class="w-20 h-20 bg-slate-50 dark:bg-slate-900 text-slate-200 rounded-[28px] flex items-center justify-center mx-auto mb-6">
                     <span class="material-symbols-rounded text-6xl">inbox</span>
                   </div>
                   <p class="font-bold text-slate-400 text-lg">ไม่มีรายการคำร้องใหม่</p>
@@ -121,7 +121,7 @@
                       <span class="text-xl font-black text-indigo-600 leading-none">{{ new Date(item.exams.find(e => e.type === 'CP1' && e.status === 'pending').examDate).getDate() }}</span>
                     </div>
                     <div>
-                      <div class="font-black text-slate-800 text-base">{{ formatDate(item.exams.find(e => e.type === 'CP1' && e.status === 'pending').examDate) }}</div>
+                      <div class="font-black text-slate-800 dark:text-slate-200 text-base">{{ formatDate(item.exams.find(e => e.type === 'CP1' && e.status === 'pending').examDate) }}</div>
                       <div class="text-indigo-500 font-bold text-xs flex items-center gap-1">
                         <span class="material-symbols-rounded text-sm">schedule</span>
                         {{ item.exams.find(e => e.type === 'CP1' && e.status === 'pending')?.examTime || '-' }} น.
@@ -136,13 +136,13 @@
                   </div>
                 </td>
                 <td class="px-8 py-6">
-                  <div class="font-bold text-slate-800 mb-2 truncate max-w-[250px]" :title="item.titleTh">{{ item.titleTh }}</div>
+                  <div class="font-bold text-slate-800 dark:text-slate-200 mb-2 truncate max-w-[250px]" :title="item.titleTh">{{ item.titleTh }}</div>
                   <div class="flex flex-col gap-1">
-                    <div class="text-slate-500 font-bold text-xs flex items-center gap-1.5">
+                    <div class="text-slate-500 dark:text-slate-400 font-bold text-xs flex items-center gap-1.5">
                       <span class="material-symbols-rounded text-sm">person</span>
                       {{ item.student1.fullname }}
                     </div>
-                    <div v-if="item.student2" class="text-slate-500 font-bold text-xs flex items-center gap-1.5">
+                    <div v-if="item.student2" class="text-slate-500 dark:text-slate-400 font-bold text-xs flex items-center gap-1.5">
                       <span class="material-symbols-rounded text-sm">person</span>
                       {{ item.student2.fullname }}
                     </div>
@@ -157,7 +157,7 @@
               </tr>
               <tr v-if="scheduleList.length === 0">
                 <td colspan="4" class="px-8 py-24 text-center">
-                  <div class="w-20 h-20 bg-slate-50 text-slate-200 rounded-[28px] flex items-center justify-center mx-auto mb-6">
+                  <div class="w-20 h-20 bg-slate-50 dark:bg-slate-900 text-slate-200 rounded-[28px] flex items-center justify-center mx-auto mb-6">
                     <span class="material-symbols-rounded text-6xl">event_busy</span>
                   </div>
                   <p class="font-bold text-slate-400 text-lg">ยังไม่มีตารางนัดสอบ</p>

@@ -1,13 +1,13 @@
 <template>
-  <div class="min-h-screen bg-[#f8f9fa] py-8 px-4 ">
+  <div class="min-h-screen bg-[#f8f9fa] dark:bg-slate-900 py-8 px-4 ">
     <div class="max-w-[900px] mx-auto w-full">
       
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
-          <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 hover:text-[#1a1a40] transition-colors mb-2 font-medium text-sm">
+          <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-[#1a1a40] transition-colors mb-2 font-medium text-sm">
             <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
           </NuxtLink>
-          <h2 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40]">
+          <h2 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] dark:text-white">
             💻 รายงานความก้าวหน้าโครงงาน
           </h2>
         </div>
@@ -32,40 +32,40 @@
         <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-[#1a1a40]"></div>
       </div>
 
-      <div v-else-if="reports.length === 0" class="bg-white rounded-[32px] p-16 text-center shadow-sm border border-gray-100">
-        <div class="w-20 h-20 bg-gray-50 text-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
+      <div v-else-if="reports.length === 0" class="bg-white dark:bg-slate-800 rounded-[32px] p-16 text-center shadow-sm border border-gray-100 dark:border-slate-700">
+        <div class="w-20 h-20 bg-gray-50 dark:bg-slate-800 text-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
           <span class="material-symbols-rounded">assignment_late</span>
         </div>
-        <h3 class="text-xl font-bold text-gray-700 mb-2">ยังไม่มีรายงานความก้าวหน้า</h3>
+        <h3 class="text-xl font-bold text-gray-700 dark:text-slate-300 mb-2">ยังไม่มีรายงานความก้าวหน้า</h3>
         <p class="text-gray-400 text-sm">คุณสามารถเริ่มส่งรายงานความก้าวหน้าครั้งแรกได้โดยกดปุ่มด้านบนครับ</p>
       </div>
 
       <div v-else class="space-y-6">
-        <div v-for="report in reports" :key="report.id" class="bg-white rounded-[28px] p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div v-for="report in reports" :key="report.id" class="bg-white dark:bg-slate-800 rounded-[28px] p-6 md:p-8 shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-4">
             <div>
               <div class="text-xs text-gray-400 font-bold mb-1 uppercase tracking-wider">
                 {{ formatDate(report.createdAt) }}
               </div>
-              <h3 class="text-xl font-bold text-[#1a1a40]">{{ report.title }}</h3>
+              <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">{{ report.title }}</h3>
             </div>
             <span :class="getStatusBadgeClass(report.status)" class="px-4 py-1.5 rounded-full text-xs font-bold border">
               {{ getStatusText(report.status) }}
             </span>
           </div>
           
-          <p class="text-gray-600 text-[15px] mb-6 whitespace-pre-line">{{ report.description }}</p>
+          <p class="text-gray-600 dark:text-slate-400 text-[15px] mb-6 whitespace-pre-line">{{ report.description }}</p>
 
-          <div v-if="report.fileUrl" class="mb-6 p-3 rounded-xl bg-gray-50 border border-gray-100 flex items-center gap-2 w-fit">
+          <div v-if="report.fileUrl" class="mb-6 p-3 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700 flex items-center gap-2 w-fit">
             <span class="material-symbols-rounded text-lg text-indigo-400">link</span>
             <a :href="report.fileUrl" target="_blank" class="text-xs text-blue-600 hover:underline font-bold">ดูไฟล์แนบ (PDF)</a>
           </div>
 
-          <div v-if="report.feedback" class="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+          <div v-if="report.feedback" class="mt-6 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700">
             <div class="text-xs font-bold text-indigo-600 mb-2 flex items-center gap-2">
               <span class="material-symbols-rounded">chat</span> ความเห็นจากอาจารย์:
             </div>
-            <p class="text-sm text-slate-700">{{ report.feedback }}</p>
+            <p class="text-sm text-slate-700 dark:text-slate-300">{{ report.feedback }}</p>
           </div>
         </div>
       </div>
@@ -74,9 +74,9 @@
 
     <!-- Modal เพิ่มรายงาน -->
     <div v-if="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden animate-[fadeIn_0.2s_ease-out]">
-        <div class="p-8 border-b border-gray-100 flex justify-between items-center">
-          <h3 class="text-xl font-bold text-[#1a1a40]">รายงานความก้าวหน้าใหม่</h3>
+      <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden animate-[fadeIn_0.2s_ease-out]">
+        <div class="p-8 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center">
+          <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">รายงานความก้าวหน้าใหม่</h3>
           <button @click="showAddModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
             <span class="material-symbols-rounded">close</span>
           </button>
@@ -84,19 +84,19 @@
         
         <form @submit.prevent="handleSubmit" class="p-8 space-y-5">
           <div>
-            <label class="block text-sm font-bold text-gray-700 mb-2">หัวข้อรายงาน (เช่น ความคืบหน้าสัปดาห์ที่ 1)</label>
-            <input v-model="newReport.title" type="text" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 focus:border-[#1a1a40] outline-none transition-all text-sm bg-gray-50" placeholder="ระบุหัวข้อ...">
+            <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">หัวข้อรายงาน (เช่น ความคืบหน้าสัปดาห์ที่ 1)</label>
+            <input v-model="newReport.title" type="text" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-[#1a1a40] outline-none transition-all text-sm bg-gray-50 dark:bg-slate-800" placeholder="ระบุหัวข้อ...">
           </div>
           <div>
-            <label class="block text-sm font-bold text-gray-700 mb-2">รายละเอียดการดำเนินงาน</label>
-            <textarea v-model="newReport.description" rows="4" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 focus:border-[#1a1a40] outline-none transition-all text-sm bg-gray-50" placeholder="อธิบายงานที่ทำไป..."></textarea>
+            <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">รายละเอียดการดำเนินงาน</label>
+            <textarea v-model="newReport.description" rows="4" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-[#1a1a40] outline-none transition-all text-sm bg-gray-50 dark:bg-slate-800" placeholder="อธิบายงานที่ทำไป..."></textarea>
           </div>
 
           <div>
-            <label class="block text-sm font-bold text-gray-700 mb-2">แนบไฟล์ PDF (ถ้ามี - สูงสุด 10MB)</label>
+            <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">แนบไฟล์ PDF (ถ้ามี - สูงสุด 10MB)</label>
             <div class="relative">
               <input type="file" accept=".pdf" @change="onFileChange" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
-              <div class="px-5 py-3 rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center gap-3 text-sm text-gray-500 overflow-hidden">
+              <div class="px-5 py-3 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 flex items-center gap-3 text-sm text-gray-500 dark:text-slate-400 overflow-hidden">
                 <span class="material-symbols-rounded text-indigo-400">picture_as_pdf</span>
                 <span class="truncate">{{ selectedFile ? selectedFile.name : 'เลือกไฟล์ PDF...' }}</span>
               </div>
@@ -107,7 +107,7 @@
             <button 
               type="button" 
               @click="showAddModal = false"
-              class="flex-1 px-6 py-3 rounded-full border border-gray-200 text-gray-500 font-bold text-sm hover:bg-gray-50 transition-all"
+              class="flex-1 px-6 py-3 rounded-full border border-gray-200 dark:border-slate-700 text-gray-500 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 transition-all"
             >
               ยกเลิก
             </button>

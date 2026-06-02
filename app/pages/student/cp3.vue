@@ -1,9 +1,9 @@
 <template>
   <NuxtLayout :name="layoutName">
-    <div class="min-h-screen bg-gray-100 py-8 px-4  print:bg-white print:p-0">
+    <div class="min-h-screen bg-gray-100 dark:bg-slate-700 py-8 px-4  print:bg-white print:p-0">
       
       <div class="max-w-[210mm] mx-auto mb-6 flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
-        <button @click="$router.back()" class="flex items-center gap-2 text-gray-600 hover:text-[#1a1a40] transition-colors font-medium bg-white px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
+        <button @click="$router.back()" class="flex items-center gap-2 text-gray-600 dark:text-slate-400 hover:text-[#1a1a40] transition-colors font-medium bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
           <span class="material-symbols-rounded">arrow_back</span> ย้อนกลับ
         </button>
         
@@ -23,7 +23,7 @@
       <div class="flex flex-col items-center gap-8 print:block print:w-full print:gap-0 print:m-0 print:p-0">
         
         <div class="print-page-wrapper w-full overflow-x-auto flex justify-center pb-4 print:overflow-visible print:pb-0">
-          <div class="paper-a4 bg-white shadow-lg relative text-black text-[15px] md:text-[16px] leading-[1.8] print:leading-[1.4] print:shadow-none">
+          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[15px] md:text-[16px] leading-[1.8] print:leading-[1.4] print:shadow-none">
             
             <div class="absolute top-8 right-8 text-sm font-bold print:top-2 print:right-4">CP-3</div>
 
@@ -158,7 +158,7 @@
                   </div>
                   <div class="flex items-end w-full">
                     <span class="whitespace-nowrap">(</span>
-                    <div class="flex-grow border-b-[1.5px] border-dotted border-black mx-2 h-5 print:h-4 text-center leading-5 print:leading-4 text-gray-600">
+                    <div class="flex-grow border-b-[1.5px] border-dotted border-black mx-2 h-5 print:h-4 text-center leading-5 print:leading-4 text-gray-600 dark:text-slate-400">
                       {{ s1.name }}
                     </div>
                     <span class="whitespace-nowrap">)</span>
@@ -173,7 +173,7 @@
                   </div>
                   <div class="flex items-end w-full">
                     <span class="whitespace-nowrap">(</span>
-                    <div class="flex-grow border-b-[1.5px] border-dotted border-black mx-2 h-5 print:h-4 text-center leading-5 print:leading-4 text-gray-600">
+                    <div class="flex-grow border-b-[1.5px] border-dotted border-black mx-2 h-5 print:h-4 text-center leading-5 print:leading-4 text-gray-600 dark:text-slate-400">
                       {{ s2.name }}
                     </div>
                     <span class="whitespace-nowrap">)</span>
@@ -197,7 +197,7 @@
                   </div>
                   <div class="flex items-end w-full">
                     <span class="whitespace-nowrap">(</span>
-                    <input type="text" v-model="form.advisorName" placeholder="พิมพ์ชื่ออาจารย์ที่ปรึกษาหลัก" class="form-line flex-grow mx-2 text-center text-gray-600 bg-transparent outline-none print:placeholder-transparent">
+                    <input type="text" v-model="form.advisorName" placeholder="พิมพ์ชื่ออาจารย์ที่ปรึกษาหลัก" class="form-line flex-grow mx-2 text-center text-gray-600 dark:text-slate-400 bg-transparent outline-none print:placeholder-transparent">
                     <span class="whitespace-nowrap">)</span>
                   </div>
                 </div>
@@ -210,7 +210,7 @@
                   </div>
                   <div class="flex items-end w-full">
                     <span class="whitespace-nowrap">(</span>
-                    <input type="text" v-model="form.coAdvisorName" placeholder="พิมพ์ชื่ออาจารย์ที่ปรึกษาร่วม" class="form-line flex-grow mx-2 text-center text-gray-600 bg-transparent outline-none print:placeholder-transparent">
+                    <input type="text" v-model="form.coAdvisorName" placeholder="พิมพ์ชื่ออาจารย์ที่ปรึกษาร่วม" class="form-line flex-grow mx-2 text-center text-gray-600 dark:text-slate-400 bg-transparent outline-none print:placeholder-transparent">
                     <span class="whitespace-nowrap">)</span>
                   </div>
                 </div>
@@ -221,12 +221,12 @@
         </div>
 
         <div class="print-page-wrapper w-full overflow-x-auto flex justify-center pb-4 print:overflow-visible print:pb-0">
-          <div class="paper-a4 bg-white shadow-lg relative text-black text-[15px] md:text-[16px] leading-[1.8] print:shadow-none">
+          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[15px] md:text-[16px] leading-[1.8] print:shadow-none">
             
             <div class="text-right mb-4 text-sm font-bold">CP-3</div>
 
             <div class="border-[2px] border-black relative mb-12 print:mb-8">
-              <div class="absolute top-0 right-0 border-l-[2px] border-b-[2px] border-black px-4 py-2 bg-white font-bold">
+              <div class="absolute top-0 right-0 border-l-[2px] border-b-[2px] border-black px-4 py-2 bg-white dark:bg-slate-800 font-bold">
                 สำหรับคณะกรรมการสอบ
               </div>
               
@@ -249,7 +249,7 @@
                 <div class="mb-6 print:mb-4 pl-10 flex items-center gap-2">
                   <span>( &nbsp;&nbsp;&nbsp; )</span>
                   <span class="font-bold">มีเงื่อนไข</span>
-                  <span class="italic text-gray-600 print:text-[13px]">(ให้แก้ไขตามบันทึกผลการสอบปากเปล่าโครงงานคอมพิวเตอร์)</span>
+                  <span class="italic text-gray-600 dark:text-slate-400 print:text-[13px]">(ให้แก้ไขตามบันทึกผลการสอบปากเปล่าโครงงานคอมพิวเตอร์)</span>
                 </div>
 
                 <div class="flex items-end w-full mb-3 print:mb-2 mt-4">
@@ -335,7 +335,7 @@
         </div>
 
         <div class="print-page-wrapper w-full overflow-x-auto flex justify-center pb-4 print:overflow-visible print:pb-0">
-          <div class="paper-a4 bg-white shadow-lg relative text-black text-[15px] md:text-[16px] leading-[1.8] print:shadow-none">
+          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[15px] md:text-[16px] leading-[1.8] print:shadow-none">
             <div class="text-right mb-6 text-sm font-bold">CP-3</div>
             <h3 class="font-bold text-[18px] mb-8 print:mb-6">บันทึกผลการสอบโครงงานคอมพิวเตอร์</h3>
             

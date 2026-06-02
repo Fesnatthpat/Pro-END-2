@@ -4,7 +4,7 @@
     <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="relative">
         <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">ข้อมูลโครงงานทั้งหมด</h2>
-        <div class="flex items-center gap-2 text-slate-500">
+        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">ค้นหา, ติดตามสถานะ และจัดการข้อมูลโครงงานทั้งหมดในระบบ</p>
         </div>
@@ -20,7 +20,7 @@
           type="text" 
           v-model="searchQuery" 
           placeholder="ค้นหาชื่อโครงงาน, ชื่อนักศึกษา..." 
-          class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-2xl pl-14 pr-6 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm"
+          class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm rounded-2xl pl-14 pr-6 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm"
         >
       </div>
       
@@ -30,7 +30,7 @@
         </div>
         <select 
           v-model="selectedYear" 
-          class="w-full bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-2xl pl-14 pr-12 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none cursor-pointer shadow-sm"
+          class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-bold rounded-2xl pl-14 pr-12 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none cursor-pointer shadow-sm"
         >
           <option value="">ทุกปีการศึกษา</option>
           <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
@@ -43,25 +43,25 @@
 
     <div v-if="pending" class="grid grid-cols-1 gap-6">
       <!-- Skeleton Loading -->
-      <div v-for="i in 3" :key="i" class="admin-card bg-white p-8 animate-pulse border border-slate-100">
+      <div v-for="i in 3" :key="i" class="admin-card bg-white dark:bg-slate-800 p-8 animate-pulse border border-slate-100 dark:border-slate-700">
         <div class="flex flex-col xl:flex-row gap-8">
           <div class="flex-grow">
             <div class="flex items-center gap-4 mb-6">
-              <div class="h-6 w-24 bg-slate-100 rounded-lg"></div>
-              <div class="h-4 w-32 bg-slate-50 rounded"></div>
+              <div class="h-6 w-24 bg-slate-100 dark:bg-slate-700 rounded-lg"></div>
+              <div class="h-4 w-32 bg-slate-50 dark:bg-slate-900 rounded"></div>
             </div>
-            <div class="h-8 w-3/4 bg-slate-100 rounded-xl mb-6"></div>
+            <div class="h-8 w-3/4 bg-slate-100 dark:bg-slate-700 rounded-xl mb-6"></div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div v-for="j in 3" :key="j" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-slate-100 rounded-xl"></div>
+                <div class="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-xl"></div>
                 <div class="flex-grow space-y-2">
-                  <div class="h-2 w-12 bg-slate-50"></div>
-                  <div class="h-4 w-20 bg-slate-100"></div>
+                  <div class="h-2 w-12 bg-slate-50 dark:bg-slate-900"></div>
+                  <div class="h-4 w-20 bg-slate-100 dark:bg-slate-700"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="w-full xl:w-48 h-32 bg-slate-50 rounded-2xl"></div>
+          <div class="w-full xl:w-48 h-32 bg-slate-50 dark:bg-slate-900 rounded-2xl"></div>
         </div>
       </div>
     </div>
@@ -69,7 +69,7 @@
     <div v-else class="grid grid-cols-1 gap-6">
       
       <div v-for="project in filteredProjects" :key="project.id" 
-           class="admin-card bg-white overflow-hidden group/card hover:border-indigo-200 transition-all duration-500 animate-[fadeIn_0.4s_ease-out] mobile-optimize">
+           class="admin-card bg-white dark:bg-slate-800 overflow-hidden group/card hover:border-indigo-200 transition-all duration-500 animate-[fadeIn_0.4s_ease-out] mobile-optimize">
         
         <div class="flex flex-col xl:flex-row">
           <!-- Main Content -->
@@ -90,18 +90,18 @@
               </div>
             </div>
 
-            <h3 class="text-xl md:text-2xl font-black text-slate-800 mb-6 leading-tight group-hover/card:text-indigo-600 transition-colors">
+            <h3 class="text-xl md:text-2xl font-black text-slate-800 dark:text-slate-200 mb-6 leading-tight group-hover/card:text-indigo-600 transition-colors">
               {{ project.titleTh }}
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div class="flex items-start gap-4">
-                <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 shrink-0 border border-slate-100">
+                <div class="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-400 shrink-0 border border-slate-100 dark:border-slate-700">
                   <span class="material-symbols-rounded">groups</span>
                 </div>
                 <div>
                   <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">ผู้วิจัย</div>
-                  <div class="text-sm font-bold text-slate-700 leading-tight">
+                  <div class="text-sm font-bold text-slate-700 dark:text-slate-300 leading-tight">
                     {{ project.student1.fullname }}
                     <div v-if="project.student2" class="mt-1">{{ project.student2.fullname }}</div>
                   </div>
@@ -109,14 +109,14 @@
               </div>
 
               <div class="flex items-start gap-4">
-                <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 shrink-0 border border-slate-100">
+                <div class="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-400 shrink-0 border border-slate-100 dark:border-slate-700">
                   <span class="material-symbols-rounded">person_pin</span>
                 </div>
                 <div>
                   <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">อาจารย์ที่ปรึกษา</div>
-                  <div class="text-sm font-bold text-slate-700 leading-tight">
+                  <div class="text-sm font-bold text-slate-700 dark:text-slate-300 leading-tight">
                     {{ project.advisor?.fullname || 'ยังไม่ระบุ' }}
-                    <div v-if="project.coAdvisor" class="mt-1 text-slate-500 font-medium">(ร่วม: {{ project.coAdvisor.fullname }})</div>
+                    <div v-if="project.coAdvisor" class="mt-1 text-slate-500 dark:text-slate-400 font-medium">(ร่วม: {{ project.coAdvisor.fullname }})</div>
                   </div>
                 </div>
               </div>
@@ -131,7 +131,7 @@
           </div>
 
           <!-- Status Bar -->
-          <div class="shrink-0 bg-slate-50/50 p-8 border-t xl:border-t-0 xl:border-l border-slate-100 flex flex-col justify-center items-center gap-4">
+          <div class="shrink-0 bg-slate-50/50 p-8 border-t xl:border-t-0 xl:border-l border-slate-100 dark:border-slate-700 flex flex-col justify-center items-center gap-4">
             <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">ความคืบหน้า (Steps)</div>
             <div class="flex items-center gap-2">
               <div v-for="s in 5" :key="s" 
@@ -153,11 +153,11 @@
         </div>
       </div>
 
-      <div v-if="filteredProjects.length === 0" class="admin-card bg-white py-32 text-center">
-        <div class="w-24 h-24 bg-slate-50 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
+      <div v-if="filteredProjects.length === 0" class="admin-card bg-white dark:bg-slate-800 py-32 text-center">
+        <div class="w-24 h-24 bg-slate-50 dark:bg-slate-900 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
           <span class="material-symbols-rounded text-6xl">search_off</span>
         </div>
-        <h3 class="text-2xl font-black text-slate-800 mb-2">ไม่พบข้อมูลโครงงาน</h3>
+        <h3 class="text-2xl font-black text-slate-800 dark:text-slate-200 mb-2">ไม่พบข้อมูลโครงงาน</h3>
         <p class="text-slate-400 font-medium max-w-xs mx-auto">ลองเปลี่ยนคำค้นหา หรือเลือกปีการศึกษาอื่น</p>
         <button @click="searchQuery = ''; selectedYear = ''" class="mt-6 text-indigo-600 font-black hover:underline">แสดงโครงงานทั้งหมด</button>
       </div>
@@ -167,7 +167,7 @@
         <button 
           @click="currentPage--" 
           :disabled="currentPage === 1"
-          class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+          class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
         >
           <span class="material-symbols-rounded text-xl">chevron_left</span>
         </button>
@@ -178,7 +178,7 @@
             :key="p"
             @click="currentPage = p"
             class="w-10 h-10 rounded-xl font-bold text-sm transition-all"
-            :class="currentPage === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-white border border-slate-200 text-slate-500 hover:border-indigo-300'"
+            :class="currentPage === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-300'"
           >
             {{ p }}
           </button>
@@ -187,7 +187,7 @@
         <button 
           @click="currentPage++" 
           :disabled="currentPage === result.pagination.totalPages"
-          class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+          class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
         >
           <span class="material-symbols-rounded text-xl">chevron_right</span>
         </button>
@@ -236,7 +236,7 @@ const filteredProjects = computed(() => {
 const getBoxClass = (stepCheck, project) => {
   if (isProjectComplete(project) || stepCheck < project.step) return 'bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-100'
   if (stepCheck === project.step) return 'bg-amber-400 border-amber-400 text-white shadow-lg shadow-amber-100 animate-pulse'
-  return 'bg-white border-slate-100 text-slate-300'
+  return 'bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-300'
 }
 
 const getStepName = (step) => {

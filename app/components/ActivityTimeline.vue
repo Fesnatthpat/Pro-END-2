@@ -1,12 +1,12 @@
 <template>
-  <div class="mt-12 bg-white rounded-[32px] p-6 md:p-10 shadow-sm border border-gray-100">
+  <div class="mt-12 bg-white dark:bg-slate-800 rounded-[32px] p-6 md:p-10 shadow-sm border border-gray-100 dark:border-slate-700">
     <div class="flex items-center gap-3 mb-8">
       <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
         <span class="material-symbols-rounded">history</span>
       </div>
       <div>
-        <h3 class="text-xl font-bold text-[#1a1a40]">ประวัติกิจกรรมและไทม์ไลน์</h3>
-        <p class="text-sm text-gray-500">บันทึกการทำรายการทั้งหมดของโครงงาน</p>
+        <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">ประวัติกิจกรรมและไทม์ไลน์</h3>
+        <p class="text-sm text-gray-500 dark:text-slate-400">บันทึกการทำรายการทั้งหมดของโครงงาน</p>
       </div>
     </div>
 
@@ -29,18 +29,18 @@
         </div>
         
         <!-- Content card -->
-        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all">
+        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-md transition-all">
           <div class="flex items-center justify-between mb-2">
             <time class="font-black text-[10px] text-indigo-400 uppercase tracking-widest">{{ formatDate(item.date) }}</time>
-            <span :class="getStatusTextClass(item.status)" class="text-[9px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-full bg-gray-50 border">
+            <span :class="getStatusTextClass(item.status)" class="text-[9px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-full bg-gray-50 dark:bg-slate-800 border">
               {{ getStatusLabel(item.status) }}
             </span>
           </div>
-          <div class="text-base font-black text-[#1a1a40] mb-1">{{ item.title }}</div>
-          <p class="text-sm text-gray-500 leading-relaxed mb-4">{{ item.description }}</p>
+          <div class="text-base font-black text-[#1a1a40] dark:text-white mb-1">{{ item.title }}</div>
+          <p class="text-sm text-gray-500 dark:text-slate-400 leading-relaxed mb-4">{{ item.description }}</p>
 
           <!-- Extra details based on type -->
-          <div v-if="item.type === 'final_submit' && item.details" class="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-2">
+          <div v-if="item.type === 'final_submit' && item.details" class="p-4 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700 space-y-2">
             <a v-if="item.details.thesisUrl" :href="item.details.thesisUrl" target="_blank" class="flex items-center gap-2 text-xs text-blue-600 font-bold hover:underline">
               <span class="material-symbols-rounded text-sm">link</span> เล่มวิทยานิพนธ์
             </a>

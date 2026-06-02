@@ -4,14 +4,14 @@
     <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="relative">
         <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">ข้อมูลนักศึกษา</h2>
-        <div class="flex items-center gap-2 text-slate-500">
+        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">รายชื่อนักศึกษาทั้งหมดที่ได้รับการอนุมัติสิทธิ์เข้าใช้งานแล้ว</p>
         </div>
       </div>
     </div>
 
-    <div class="admin-card bg-white overflow-hidden">
+    <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden">
       
       <div class="p-8 border-b border-slate-50 bg-slate-50/30 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
         <div class="w-full lg:w-[450px] relative group">
@@ -22,7 +22,7 @@
             type="text" 
             v-model="searchQuery" 
             placeholder="ค้นหาชื่อ หรือ รหัสนักศึกษา..." 
-            class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-2xl pl-14 pr-6 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm"
+            class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm rounded-2xl pl-14 pr-6 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm"
           >
         </div>
 
@@ -32,7 +32,7 @@
           </div>
           <select 
             v-model="selectedYear" 
-            class="w-full bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-2xl pl-14 pr-12 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none cursor-pointer shadow-sm"
+            class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-bold rounded-2xl pl-14 pr-12 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none cursor-pointer shadow-sm"
           >
             <option value="">ทุกปีการศึกษา</option>
             <option v-for="year in availableYears" :key="year" :value="year">ปีการศึกษา {{ year }}</option>
@@ -46,11 +46,11 @@
       <div v-if="pending" class="p-8 space-y-4">
         <!-- Skeleton Table -->
         <div v-for="i in 5" :key="i" class="flex items-center gap-6 animate-pulse border-b border-slate-50 pb-4">
-          <div class="w-12 h-12 bg-slate-100 rounded-2xl"></div>
-          <div class="h-4 w-24 bg-slate-100 rounded"></div>
-          <div class="h-4 w-48 bg-slate-100 rounded"></div>
-          <div class="h-4 w-16 bg-slate-100 rounded"></div>
-          <div class="h-4 w-32 bg-slate-100 rounded ml-auto"></div>
+          <div class="w-12 h-12 bg-slate-100 dark:bg-slate-700 rounded-2xl"></div>
+          <div class="h-4 w-24 bg-slate-100 dark:bg-slate-700 rounded"></div>
+          <div class="h-4 w-48 bg-slate-100 dark:bg-slate-700 rounded"></div>
+          <div class="h-4 w-16 bg-slate-100 dark:bg-slate-700 rounded"></div>
+          <div class="h-4 w-32 bg-slate-100 dark:bg-slate-700 rounded ml-auto"></div>
         </div>
       </div>
 
@@ -78,14 +78,14 @@
                   {{ student.fullname.substring(0, 1) }}
                 </div>
               </td>
-              <td class="px-8 py-6 font-bold text-slate-500 tracking-tight">{{ student.username }}</td>
-              <td class="px-8 py-6 font-black text-slate-800 text-base">{{ student.fullname }}</td>
+              <td class="px-8 py-6 font-bold text-slate-500 dark:text-slate-400 tracking-tight">{{ student.username }}</td>
+              <td class="px-8 py-6 font-black text-slate-800 dark:text-slate-200 text-base">{{ student.fullname }}</td>
               <td class="px-8 py-6 text-center">
-                <span class="inline-flex items-center px-3 py-1 rounded-xl bg-slate-100 text-slate-600 font-black text-[10px] tracking-widest border border-slate-200 uppercase">
+                <span class="inline-flex items-center px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-black text-[10px] tracking-widest border border-slate-200 dark:border-slate-700 uppercase">
                   {{ student.academicYear }}
                 </span>
               </td>
-              <td class="px-8 py-6 text-slate-600 font-medium italic">{{ student.tel || '-' }}</td>
+              <td class="px-8 py-6 text-slate-600 dark:text-slate-400 font-medium italic">{{ student.tel || '-' }}</td>
               <td class="px-8 py-6">
                 <div class="inline-flex items-center gap-2 text-[#00B900] font-bold bg-[#00B900]/5 px-4 py-1.5 rounded-full border border-[#00B900]/10">
                   <span class="w-2 h-2 rounded-full bg-[#00B900]"></span>
@@ -112,7 +112,7 @@
         </table>
 
         <div v-if="filteredStudents.length === 0" class="py-32 text-center">
-          <div class="w-24 h-24 bg-slate-50 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
+          <div class="w-24 h-24 bg-slate-50 dark:bg-slate-900 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
             <span class="material-symbols-rounded text-6xl">person_off</span>
           </div>
           <p class="font-bold text-slate-400 text-lg">ไม่พบข้อมูลนักศึกษา</p>
@@ -125,7 +125,7 @@
         <button 
           @click="currentPage--" 
           :disabled="currentPage === 1"
-          class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+          class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
         >
           <span class="material-symbols-rounded text-xl">chevron_left</span>
         </button>
@@ -136,7 +136,7 @@
             :key="p"
             @click="currentPage = p"
             class="w-10 h-10 rounded-xl font-bold text-sm transition-all"
-            :class="currentPage === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-white border border-slate-200 text-slate-500 hover:border-indigo-300'"
+            :class="currentPage === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-300'"
           >
             {{ p }}
           </button>
@@ -145,7 +145,7 @@
         <button 
           @click="currentPage++" 
           :disabled="currentPage === result.pagination.totalPages"
-          class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+          class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
         >
           <span class="material-symbols-rounded text-xl">chevron_right</span>
         </button>

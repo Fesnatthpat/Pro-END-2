@@ -1,22 +1,22 @@
 <template>
-  <div class="min-h-screen bg-slate-50 ">
+  <div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
     
-    <nav class="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center shadow-sm print:hidden sticky top-0 z-50">
+    <nav class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-3 flex justify-between items-center shadow-sm print:hidden sticky top-0 z-50">
       
       <NuxtLink to="/teacher" class="flex items-center gap-3 text-indigo-600 no-underline">
         <span class="material-symbols-rounded text-2xl">desktop_windows</span>
-        <span class="font-bold text-[18px] tracking-wide text-slate-800">Teacher<span class="text-indigo-600">Panel</span></span>
+        <span class="font-bold text-[18px] tracking-wide text-slate-800 dark:text-slate-200">Teacher<span class="text-indigo-600">Panel</span></span>
       </NuxtLink>
 
       <div class="flex items-center gap-4">
         
-        <div v-if="teacher" class="hidden md:flex items-center gap-3 px-3 py-1.5 rounded-full border border-slate-100 bg-slate-50">
+        <div v-if="teacher" class="hidden md:flex items-center gap-3 px-3 py-1.5 rounded-full border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
           <div class="w-8 h-8 bg-gradient-to-tr from-indigo-500 to-purple-500 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-inner overflow-hidden">
             <img v-if="teacher.profileImage" :src="teacher.profileImage" alt="Profile" class="w-full h-full object-cover">
             <span v-else>{{ teacher.fullname?.charAt(0) || 'T' }}</span>
           </div>
           <div class="flex flex-col pr-2">
-            <span class="text-sm font-bold text-slate-800 leading-none mt-1">{{ teacher.fullname }}</span>
+            <span class="text-sm font-bold text-slate-800 dark:text-slate-200 leading-none mt-1">{{ teacher.fullname }}</span>
             <span class="text-[10px] text-slate-400 font-medium capitalize">{{ teacher.role }}</span>
           </div>
         </div>

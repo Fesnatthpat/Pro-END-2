@@ -4,7 +4,7 @@
     <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="relative">
         <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">ข้อมูลอาจารย์ที่ปรึกษา</h2>
-        <div class="flex items-center gap-2 text-slate-500">
+        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">รายชื่อและช่องทางการติดต่อของอาจารย์ทั้งหมดในระบบ</p>
         </div>
@@ -20,7 +20,7 @@
       </button>
     </div>
 
-    <div class="admin-card bg-white overflow-hidden">
+    <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden">
       
       <div class="p-8 border-b border-slate-50 bg-slate-50/30">
         <div class="w-full xl:w-[450px] relative group">
@@ -31,7 +31,7 @@
             type="text" 
             v-model="searchQuery" 
             placeholder="ค้นหาชื่อ หรือ ชื่อผู้ใช้อาจารย์..." 
-            class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-2xl pl-14 pr-6 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm"
+            class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm rounded-2xl pl-14 pr-6 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm"
           >
         </div>
       </div>
@@ -68,7 +68,7 @@
               </td>
 
               <td class="px-8 py-6">
-                <div class="font-bold text-slate-800 text-base mb-0.5">{{ teacher.fullname }}</div>
+                <div class="font-bold text-slate-800 dark:text-slate-200 text-base mb-0.5">{{ teacher.fullname }}</div>
                 <div class="inline-flex items-center gap-1.5 text-indigo-500 font-bold text-xs bg-indigo-50 px-2 py-0.5 rounded-md">
                   <span class="material-symbols-rounded text-[14px]">alternate_email</span>
                   {{ teacher.username }}
@@ -77,11 +77,11 @@
 
               <td class="px-8 py-6">
                 <div class="flex flex-col gap-1">
-                  <div class="flex items-center gap-2 text-slate-600 font-medium">
+                  <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400 font-medium">
                     <span class="material-symbols-rounded text-slate-400 text-sm">mail</span>
                     {{ teacher.email }}
                   </div>
-                  <div class="flex items-center gap-2 text-slate-600 font-medium">
+                  <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400 font-medium">
                     <span class="material-symbols-rounded text-slate-400 text-sm">call</span>
                     {{ teacher.tel || '-' }}
                   </div>
@@ -111,7 +111,7 @@
         </table>
 
         <div v-if="filteredTeachers.length === 0" class="py-32 text-center">
-          <div class="w-24 h-24 bg-slate-50 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
+          <div class="w-24 h-24 bg-slate-50 dark:bg-slate-900 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
             <span class="material-symbols-rounded text-6xl">badge</span>
           </div>
           <p class="font-bold text-slate-400 text-lg">ไม่พบข้อมูลอาจารย์</p>
@@ -124,7 +124,7 @@
     <!-- Modal เพิ่ม/แก้ไขอาจารย์ -->
     <Transition name="fade">
       <div v-if="showModal" class="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
-        <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-lg overflow-hidden animate-[fadeIn_0.3s_ease-out] border border-white/20">
+        <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-lg overflow-hidden animate-[fadeIn_0.3s_ease-out] border border-white/20">
           <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-200">
@@ -141,34 +141,34 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-1.5">
                 <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">ชื่อผู้ใช้ (Username)</label>
-                <input v-model="form.username" type="text" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="เช่น teacher_jane">
+                <input v-model="form.username" type="text" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="เช่น teacher_jane">
               </div>
               <div class="space-y-1.5">
                 <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">
                   รหัสผ่าน {{ isEditing ? '(เว้นว่าง)' : '' }}
                 </label>
-                <input v-model="form.password" type="password" :required="!isEditing" class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="••••••••">
+                <input v-model="form.password" type="password" :required="!isEditing" class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="••••••••">
               </div>
             </div>
 
             <div class="space-y-1.5">
               <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">ชื่อ - นามสกุล</label>
-              <input v-model="form.fullname" type="text" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="เช่น อ. สมชาย ใจดี">
+              <input v-model="form.fullname" type="text" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="เช่น อ. สมชาย ใจดี">
             </div>
 
             <div class="space-y-1.5">
               <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">อีเมล</label>
-              <input v-model="form.email" type="email" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="example@bsru.ac.th">
+              <input v-model="form.email" type="email" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="example@bsru.ac.th">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-1.5">
                 <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">เบอร์โทรศัพท์</label>
-                <input v-model="form.tel" type="text" class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="08x-xxx-xxxx">
+                <input v-model="form.tel" type="text" class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="08x-xxx-xxxx">
               </div>
               <div class="space-y-1.5">
                 <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">LINE ID</label>
-                <input v-model="form.lineId" type="text" class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="ID LINE">
+                <input v-model="form.lineId" type="text" class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="ID LINE">
               </div>
             </div>
 
@@ -176,7 +176,7 @@
               <button 
                 type="button" 
                 @click="closeModal"
-                class="flex-1 px-8 py-4 rounded-2xl border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all active:scale-95"
+                class="flex-1 px-8 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-slate-50 transition-all active:scale-95"
               >
                 ยกเลิก
               </button>

@@ -74,7 +74,7 @@ export default defineEventHandler(async (event) => {
     // ถ้าเป็น Error อื่นๆ จาก Database (เช่น Table not found)
     throw createError({
       statusCode: 500,
-      statusMessage: error.message || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาลองใหม่อีกครั้ง'
+      statusMessage: 'เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาลองใหม่อีกครั้ง'
     })
   }
 })

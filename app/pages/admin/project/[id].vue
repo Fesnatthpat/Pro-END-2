@@ -106,7 +106,7 @@ const getBoxClass = (stepCheck, currentStep) => {
   if (stepCheck === currentStep) {
     return 'bg-amber-400 border-amber-400 text-white shadow-lg shadow-amber-100 animate-pulse'
   }
-  return 'bg-white border-slate-100 text-slate-300'
+  return 'bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-300'
 }
 
 // ฟังก์ชันหาคลาสสีของจุดไข่ปลา
@@ -192,7 +192,7 @@ const formatDate = (date) => {
         class="w-24 h-24 bg-rose-50 text-rose-500 rounded-[32px] flex items-center justify-center mb-6 border-2 border-rose-100/50 shadow-xl shadow-rose-100/20">
         <span class="material-symbols-rounded text-6xl">search_off</span>
       </div>
-      <h3 class="text-2xl font-black text-slate-800 mb-2">ไม่พบข้อมูลโครงงาน</h3>
+      <h3 class="text-2xl font-black text-slate-800 dark:text-slate-200 mb-2">ไม่พบข้อมูลโครงงาน</h3>
       <p class="text-slate-400 font-medium mb-8 text-center max-w-xs">
         ขออภัย ไม่พบข้อมูลโครงงานที่คุณต้องการ หรือโครงงานนี้อาจถูกลบไปแล้ว
       </p>
@@ -203,7 +203,7 @@ const formatDate = (date) => {
     </div>
 
     <div v-else class="animate-[fadeIn_0.5s_ease-out]">
-      <div class="admin-card bg-white p-8 mb-10 relative overflow-hidden">
+      <div class="admin-card bg-white dark:bg-slate-800 p-8 mb-10 relative overflow-hidden">
         <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
 
         <div class="relative z-10">
@@ -215,24 +215,24 @@ const formatDate = (date) => {
             project.titleTh }}</h1>
           <h2 class="text-xl text-slate-400 font-medium mb-10 max-w-4xl">{{ project.titleEn || '-' }}</h2>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-8 border-t border-slate-100">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-8 border-t border-slate-100 dark:border-slate-700">
             <div class="space-y-1">
               <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">ผู้วิจัย</div>
-              <div class="font-bold text-slate-800 flex flex-col">
+              <div class="font-bold text-slate-800 dark:text-slate-200 flex flex-col">
                 <span>{{ project.student1.fullname }}</span>
-                <span v-if="project.student2" class="text-slate-800">{{ project.student2.fullname }}</span>
+                <span v-if="project.student2" class="text-slate-800 dark:text-slate-200">{{ project.student2.fullname }}</span>
               </div>
             </div>
             <div class="space-y-1">
               <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">รหัสนักศึกษา</div>
-              <div class="font-bold text-slate-600 flex flex-col">
+              <div class="font-bold text-slate-600 dark:text-slate-400 flex flex-col">
                 <span>{{ project.student1.username }}</span> <br>
-                <span v-if="project.student2" class="text-slate-800">{{ project.student2.username }}</span>
+                <span v-if="project.student2" class="text-slate-800 dark:text-slate-200">{{ project.student2.username }}</span>
               </div>
             </div>
             <div class="space-y-1">
               <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">อาจารย์ที่ปรึกษา</div>
-              <div class="font-bold text-slate-800 flex flex-col">
+              <div class="font-bold text-slate-800 dark:text-slate-200 flex flex-col">
                 <span>{{ project.advisor?.fullname || 'ยังไม่ระบุ' }}</span>
                 <span v-if="project.coAdvisor" class="text-indigo-600">ที่ปรึกษาร่วม: {{ project.coAdvisor.fullname
                   }}</span>
@@ -249,7 +249,7 @@ const formatDate = (date) => {
       <div class="grid grid-cols-1 xl:grid-cols-3 gap-10">
 
         <div class="xl:col-span-2 space-y-10">
-          <div class="admin-card bg-white p-10 relative overflow-hidden">
+          <div class="admin-card bg-white dark:bg-slate-800 p-10 relative overflow-hidden">
             <div :class="isProjectComplete(project) ? 'bg-emerald-500' : 'bg-amber-400'"
               class="absolute top-0 left-0 right-0 h-2"></div>
 
@@ -271,7 +271,7 @@ const formatDate = (date) => {
             </div>
 
             <div class="relative pl-4 space-y-12 ml-4">
-              <div class="absolute inset-y-0 left-4 border-l-4 border-slate-100 z-0"></div>
+              <div class="absolute inset-y-0 left-4 border-l-4 border-slate-100 dark:border-slate-700 z-0"></div>
 
               <!-- Step 1: CP1 -->
               <div class="relative z-10 group/step">
@@ -279,7 +279,7 @@ const formatDate = (date) => {
                   class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
-                  <h4 class="font-black text-xl text-slate-800 mb-2">ยื่นสอบหัวข้อ (CP1)</h4>
+                  <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-2">ยื่นสอบหัวข้อ (CP1)</h4>
 
                   <!-- ปุ่มดูเอกสาร CP1 และจัดการสอบ (ย้ายมาจากหน้าหลักตามความต้องการ) -->
                   <div class="flex flex-wrap items-center gap-3 mb-4">
@@ -328,11 +328,11 @@ const formatDate = (date) => {
                       class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest border border-blue-100">กำลังรอการตรวจสอบ
                       / นัดสอบ</span>
                     <span v-else
-                      class="px-3 py-1 rounded-full bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100">ยังไม่ดำเนินการ</span>
+                      class="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">ยังไม่ดำเนินการ</span>
                   </div>
 
                   <!-- Management Actions for Step 1 -->
-                  <div v-if="project.step === 1 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 space-y-4">
+                  <div v-if="project.step === 1 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
                     <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน CP1
@@ -341,7 +341,7 @@ const formatDate = (date) => {
                     <div class="space-y-2">
                       <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
+                        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
@@ -368,11 +368,11 @@ const formatDate = (date) => {
                   class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
-                  <h4 class="font-black text-xl text-slate-800 mb-6">รายงานความก้าวหน้า (Progress)</h4>
+                  <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-6">รายงานความก้าวหน้า (Progress)</h4>
 
                   <div v-if="progressReports.length > 0" class="space-y-6">
                     <div v-for="report in [progressReports[0]]" :key="report.id"
-                      class="bg-white border border-slate-100 px-6 py-4 rounded-[32px] shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group/report">
+                      class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 px-6 py-4 rounded-[32px] shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group/report">
                       <div
                         class="absolute left-0 top-0 bottom-0 w-1.5 bg-indigo-500 opacity-0 group-hover/report:opacity-100 transition-opacity">
                       </div>
@@ -388,9 +388,9 @@ const formatDate = (date) => {
                         </div>
                       </div>
                       <h5
-                        class="font-black text-slate-800 text-base mb-2 group-hover/report:text-indigo-600 transition-colors">
+                        class="font-black text-slate-800 dark:text-slate-200 text-base mb-2 group-hover/report:text-indigo-600 transition-colors">
                         {{ report.title }}</h5>
-                      <p class="text-sm text-slate-500 mb-4 leading-relaxed">{{ report.description }}</p>
+                      <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">{{ report.description }}</p>
                       <div v-if="report.feedback"
                         class="mt-4 pt-4 border-t border-slate-50 text-xs text-indigo-500 font-bold flex items-center gap-2 italic">
                         <span class="material-symbols-rounded text-sm">chat_bubble</span>
@@ -399,13 +399,13 @@ const formatDate = (date) => {
                     </div>
                   </div>
                   <div v-else
-                    class="flex items-center gap-2 p-6 rounded-[28px] border-2 border-dashed border-slate-100 text-slate-300 font-bold">
+                    class="flex items-center gap-2 p-6 rounded-[28px] border-2 border-dashed border-slate-100 dark:border-slate-700 text-slate-300 font-bold">
                     <span class="material-symbols-rounded">inbox</span>
                     <span>ยังไม่มีการส่งรายงานความก้าวหน้า</span>
                   </div>
 
                   <!-- Management Actions for Step 2 -->
-                  <div v-if="project.step === 2 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 space-y-4">
+                  <div v-if="project.step === 2 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
                     <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน รายงานความก้าวหน้า
@@ -413,7 +413,7 @@ const formatDate = (date) => {
                     <div class="space-y-2">
                       <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
+                        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
@@ -440,7 +440,7 @@ const formatDate = (date) => {
                   class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
-                  <h4 class="font-black text-xl text-slate-800 mb-6">เล่มบัณฑิตนิพนธ์ (ฉบับร่าง)</h4>
+                  <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-6">เล่มบัณฑิตนิพนธ์ (ฉบับร่าง)</h4>
 
                   <!-- ส่วนข้อมูลการส่งเล่มล่าสุด (Thesis Reports - Show only latest) -->
                   <div v-if="thesisReports.length > 0" class="mb-8 space-y-4">
@@ -452,13 +452,13 @@ const formatDate = (date) => {
                         <span
                           class="px-2 py-0.5 rounded-lg bg-indigo-100 text-indigo-600 text-[9px] font-black uppercase">Latest Draft Log</span>
                       </div>
-                      <h5 class="font-bold text-slate-800 text-sm mb-1">{{ report.title }}</h5>
-                      <p class="text-xs text-slate-500 leading-relaxed">{{ report.description }}</p>
+                      <h5 class="font-bold text-slate-800 dark:text-slate-200 text-sm mb-1">{{ report.title }}</h5>
+                      <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{{ report.description }}</p>
                     </div>
                   </div>
 
                   <div v-if="project.thesisUrl"
-                    class="bg-white border border-slate-100 p-6 rounded-[32px] shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group/thesis">
+                    class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-6 rounded-[32px] shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group/thesis">
                     <div class="flex items-center justify-between">
                       <div class="flex items-center gap-4">
                         <div
@@ -480,13 +480,13 @@ const formatDate = (date) => {
                     </div>
                   </div>
                   <div v-else
-                    class="flex items-center gap-2 p-6 rounded-[28px] border-2 border-dashed border-slate-100 text-slate-300 font-bold">
+                    class="flex items-center gap-2 p-6 rounded-[28px] border-2 border-dashed border-slate-100 dark:border-slate-700 text-slate-300 font-bold">
                     <span class="material-symbols-rounded">link_off</span>
                     <span>ยังไม่ได้ส่งเล่มฉบับร่าง</span>
                   </div>
 
                   <!-- Management Actions for Step 3 -->
-                  <div v-if="project.step === 3 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 space-y-4">
+                  <div v-if="project.step === 3 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
                     <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน เล่มวิทยานิพนธ์ (ฉบับร่าง)
@@ -494,7 +494,7 @@ const formatDate = (date) => {
                     <div class="space-y-2">
                       <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
+                        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
@@ -521,7 +521,7 @@ const formatDate = (date) => {
                   class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
-                  <h4 class="font-black text-xl text-slate-800 mb-4">ยื่นสอบจบ (CP2/CP3)</h4>
+                  <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-4">ยื่นสอบจบ (CP2/CP3)</h4>
                   
                   <!-- เอกสาร CP2/CP3 (แสดงเฉพาะเมื่ออยู่ขั้นที่ 4 หรือสูงกว่า) -->
                   <div v-if="project.step >= 4" class="flex items-center gap-3 mb-6">
@@ -542,7 +542,7 @@ const formatDate = (date) => {
                     <div class="relative z-10">
                       <div
                         class="text-[10px] font-black text-indigo-200 uppercase tracking-widest mb-3 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                        <span class="w-1.5 h-1.5 bg-white dark:bg-slate-800 rounded-full animate-pulse"></span>
                         นัดหมายการสอบจบโครงงาน
                       </div>
                       <div class="text-lg font-black mb-1">วันที่: {{ formatDate(project.examDate) }}</div>
@@ -556,11 +556,11 @@ const formatDate = (date) => {
                     <span v-else-if="project.step === 4"
                       class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest border border-blue-100">กำลังรอการสอบจบ</span>
                     <span v-else
-                      class="px-3 py-1 rounded-full bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100">ยังไม่ดำเนินการ</span>
+                      class="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">ยังไม่ดำเนินการ</span>
                   </div>
 
                   <!-- Management Actions for Step 4 -->
-                  <div v-if="project.step === 4 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 space-y-4">
+                  <div v-if="project.step === 4 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
                     <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน ยื่นสอบจบ (CP2/CP3)
@@ -568,7 +568,7 @@ const formatDate = (date) => {
                     <div class="space-y-2">
                       <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
+                        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
@@ -595,7 +595,7 @@ const formatDate = (date) => {
                   class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
-                  <h4 class="font-black text-xl text-slate-800 mb-6">ส่งเล่มฉบับสมบูรณ์</h4>
+                  <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-6">ส่งเล่มฉบับสมบูรณ์</h4>
                   <div v-if="project.step === 5 && (project.thesisUrl || project.programUrl || project.manualUrl)" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <a v-if="project.thesisUrl" :href="project.thesisUrl" target="_blank"
                       class="flex items-center justify-between p-5 bg-rose-50 text-rose-600 rounded-[24px] border border-rose-100 hover:bg-rose-600 hover:text-white transition-all group/doc">
@@ -635,7 +635,7 @@ const formatDate = (date) => {
                     </a>
                   </div>
                   <div v-else-if="project.step === 5 && !project.thesisUrl && !project.programUrl && !project.manualUrl"
-                    class="flex items-center gap-2 p-6 rounded-[28px] border-2 border-dashed border-slate-100 text-slate-300 font-bold mb-6">
+                    class="flex items-center gap-2 p-6 rounded-[28px] border-2 border-dashed border-slate-100 dark:border-slate-700 text-slate-300 font-bold mb-6">
                     <span class="material-symbols-rounded">pending_actions</span>
                     <span>ยังไม่ได้ส่งเล่มและโปรแกรมฉบับสมบูรณ์</span>
                   </div>
@@ -645,11 +645,11 @@ const formatDate = (date) => {
                     <span v-else-if="project.step === 5"
                       class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest border border-blue-100">รอการตรวจสอบขั้นสุดท้าย</span>
                     <span v-else
-                      class="px-3 py-1 rounded-full bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100">ยังไม่ดำเนินการ</span>
+                      class="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">ยังไม่ดำเนินการ</span>
                   </div>
 
                   <!-- Management Actions for Step 5 -->
-                  <div v-if="project.step === 5 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 space-y-4">
+                  <div v-if="project.step === 5 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
                     <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน ส่งเล่มฉบับสมบูรณ์
@@ -657,7 +657,7 @@ const formatDate = (date) => {
                     <div class="space-y-2">
                       <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
+                        class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
@@ -754,7 +754,7 @@ const formatDate = (date) => {
       <!-- Schedule Modal -->
       <Transition name="fade">
         <div v-if="showScheduleModal" class="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
-          <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden border border-white/20">
+          <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden border border-white/20">
             <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
               <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-lg shadow-amber-200">
@@ -770,17 +770,17 @@ const formatDate = (date) => {
             <form @submit.prevent="saveSchedule" class="p-8 space-y-6">
               <div class="space-y-1.5">
                 <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">วันที่สอบ</label>
-                <input type="date" v-model="scheduleForm.date" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50">
+                <input type="date" v-model="scheduleForm.date" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50">
               </div>
               
               <div class="grid grid-cols-2 gap-6">
                 <div class="space-y-1.5">
                   <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">เวลาสอบ</label>
-                  <input type="time" v-model="scheduleForm.time" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50">
+                  <input type="time" v-model="scheduleForm.time" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50">
                 </div>
                 <div class="space-y-1.5">
                   <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">สถานที่ / ห้อง</label>
-                  <input type="text" v-model="scheduleForm.room" placeholder="เช่น ห้อง 6125" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50">
+                  <input type="text" v-model="scheduleForm.room" placeholder="เช่น ห้อง 6125" required class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50">
                 </div>
               </div>
 

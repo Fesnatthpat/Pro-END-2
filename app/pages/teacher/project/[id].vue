@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen bg-slate-50 py-8 px-4 md:px-8 ">
+  <div class="min-h-screen bg-slate-50 dark:bg-slate-900 py-8 px-4 md:px-8 ">
     <div class="max-w-[1000px] mx-auto">
       
       <!-- Header -->
       <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <NuxtLink to="/teacher" class="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-bold text-sm transition-colors mb-4 group">
+          <NuxtLink to="/teacher" class="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 font-bold text-sm transition-colors mb-4 group">
             <span class="material-symbols-rounded group-hover:-translate-x-1 transition-transform">arrow_back</span> ย้อนกลับไปรายการโครงงาน
           </NuxtLink>
           <h2 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">รายละเอียดโครงงาน</h2>
@@ -29,7 +29,7 @@
         <div class="w-24 h-24 bg-rose-50 text-rose-500 rounded-[32px] flex items-center justify-center mb-6 border-2 border-rose-100/50 shadow-xl shadow-rose-100/20">
           <span class="material-symbols-rounded text-6xl">search_off</span>
         </div>
-        <h3 class="text-2xl font-black text-slate-800 mb-2">ไม่พบข้อมูลโครงงาน</h3>
+        <h3 class="text-2xl font-black text-slate-800 dark:text-slate-200 mb-2">ไม่พบข้อมูลโครงงาน</h3>
         <p class="text-slate-400 font-medium mb-8 text-center max-w-xs">
           ขออภัย ไม่พบข้อมูลโครงงานที่คุณต้องการ หรือคุณไม่มีสิทธิ์เข้าถึงโครงงานนี้
         </p>
@@ -42,27 +42,27 @@
         
         <!-- ข้อมูลโครงงาน -->
         <div class="lg:col-span-2 space-y-6">
-          <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
+          <div class="bg-white dark:bg-slate-800 rounded-[32px] p-8 shadow-sm border border-slate-100 dark:border-slate-700">
             <div class="flex items-center gap-3 text-indigo-600 font-bold mb-4">
               <span class="material-symbols-rounded text-xl">book</span> ข้อมูลเบื้องต้น
             </div>
-            <h1 class="text-2xl font-bold text-slate-800 mb-6 leading-relaxed">{{ project.titleTh }}</h1>
+            <h1 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 leading-relaxed">{{ project.titleTh }}</h1>
             
             <div class="grid grid-cols-2 gap-6 text-sm">
               <div>
                 <div class="text-slate-400 mb-1">ปีการศึกษา</div>
-                <div class="font-bold text-slate-700">{{ project.academicYear }}</div>
+                <div class="font-bold text-slate-700 dark:text-slate-300">{{ project.academicYear }}</div>
               </div>
               <div>
                 <div class="text-slate-400 mb-1">ภาคเรียน</div>
-                <div class="font-bold text-slate-700">{{ project.semester }}</div>
+                <div class="font-bold text-slate-700 dark:text-slate-300">{{ project.semester }}</div>
               </div>
             </div>
 
             <!-- CP1 Exam Request Section (Show in Step 1 or if exists) -->
             <div v-if="cp1Exam" :class="cp1Exam.status === 'pass' ? 'bg-emerald-50 border-emerald-100' : 'bg-amber-50 border-amber-100'" class="mt-6 p-6 rounded-[24px] border animate-[fadeIn_0.3s_ease-out]">
               <div class="flex items-center gap-4 mb-4">
-                <div :class="cp1Exam.status === 'pass' ? 'bg-white text-emerald-600' : 'bg-white text-amber-600'" class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl shadow-sm border border-slate-50">
+                <div :class="cp1Exam.status === 'pass' ? 'bg-white dark:bg-slate-800 text-emerald-600' : 'bg-white dark:bg-slate-800 text-amber-600'" class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl shadow-sm border border-slate-50">
                   <span class="material-symbols-rounded">{{ cp1Exam.status === 'pass' ? 'check_circle' : 'calendar_month' }}</span>
                 </div>
                 <div>
@@ -78,7 +78,7 @@
             <!-- CP2/CP3 Exam Request Section (Show in Step 4 or if exists) -->
             <div v-if="finalExam" class="mt-4 p-6 rounded-[24px] bg-blue-50 border border-blue-100 animate-[fadeIn_0.3s_ease-out]">
               <div class="flex items-center gap-4 mb-4">
-                <div class="w-12 h-12 rounded-2xl bg-white text-blue-600 flex items-center justify-center text-xl shadow-sm border border-blue-50">
+                <div class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 text-blue-600 flex items-center justify-center text-xl shadow-sm border border-blue-50">
                   <span class="material-symbols-rounded">event_available</span>
                 </div>
                 <div>
@@ -88,8 +88,8 @@
                 </div>
               </div>
               <div class="flex gap-2">
-                <NuxtLink :to="`/student/cp2?projectId=${project.id}`" target="_blank" class="flex-1 bg-white text-blue-600 border border-blue-200 py-2 rounded-xl text-xs font-bold text-center hover:bg-blue-50 transition-all">ดูใบ CP2</NuxtLink>
-                <NuxtLink :to="`/student/cp3?projectId=${project.id}`" target="_blank" class="flex-1 bg-white text-blue-600 border border-blue-200 py-2 rounded-xl text-xs font-bold text-center hover:bg-blue-50 transition-all">ดูใบ CP3</NuxtLink>
+                <NuxtLink :to="`/student/cp2?projectId=${project.id}`" target="_blank" class="flex-1 bg-white dark:bg-slate-800 text-blue-600 border border-blue-200 py-2 rounded-xl text-xs font-bold text-center hover:bg-blue-50 transition-all">ดูใบ CP2</NuxtLink>
+                <NuxtLink :to="`/student/cp3?projectId=${project.id}`" target="_blank" class="flex-1 bg-white dark:bg-slate-800 text-blue-600 border border-blue-200 py-2 rounded-xl text-xs font-bold text-center hover:bg-blue-50 transition-all">ดูใบ CP3</NuxtLink>
               </div>
             </div>
 
@@ -102,7 +102,7 @@
                   <a :href="project.thesisUrl" target="_blank" class="text-sm text-purple-700 font-bold hover:underline block truncate">{{ project.thesisUrl }}</a>
                 </div>
               </div>
-              <a :href="project.thesisUrl" target="_blank" class="bg-white text-purple-600 p-2 rounded-xl border border-purple-200 hover:bg-purple-600 hover:text-white transition-all shadow-sm">
+              <a :href="project.thesisUrl" target="_blank" class="bg-white dark:bg-slate-800 text-purple-600 p-2 rounded-xl border border-purple-200 hover:bg-purple-600 hover:text-white transition-all shadow-sm">
                 <span class="material-symbols-rounded">open_in_new</span>
               </a>
             </div>
@@ -131,21 +131,21 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
+          <div class="bg-white dark:bg-slate-800 rounded-[32px] p-8 shadow-sm border border-slate-100 dark:border-slate-700">
             <div class="flex items-center gap-3 text-indigo-600 font-bold mb-6">
               <span class="material-symbols-rounded text-xl">group</span> สมาชิกกลุ่ม
             </div>
             
             <div class="space-y-6">
               <!-- Student 1 -->
-              <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+              <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700">
                 <div class="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold shadow-md">
                   {{ project.student1.fullname.substring(0, 1) }}
                 </div>
                 <div>
-                  <div class="font-bold text-slate-800">{{ project.student1.fullname }}</div>
-                  <div class="text-xs text-slate-500 font-medium mb-2">{{ project.student1.username }}</div>
-                  <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
+                  <div class="font-bold text-slate-800 dark:text-slate-200">{{ project.student1.fullname }}</div>
+                  <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-2">{{ project.student1.username }}</div>
+                  <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600 dark:text-slate-400">
                     <span class="flex items-center gap-1"><span class="material-symbols-rounded">phone</span> {{ project.student1.tel }}</span>
                     <span class="flex items-center gap-1"><span class="material-symbols-rounded">mail</span> {{ project.student1.email }}</span>
                   </div>
@@ -153,14 +153,14 @@
               </div>
 
               <!-- Student 2 (Optional) -->
-              <div v-if="project.student2" class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+              <div v-if="project.student2" class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700">
                 <div class="w-12 h-12 rounded-full bg-indigo-400 text-white flex items-center justify-center font-bold shadow-md">
                   {{ project.student2.fullname.substring(0, 1) }}
                 </div>
                 <div>
-                  <div class="font-bold text-slate-800">{{ project.student2.fullname }}</div>
-                  <div class="text-xs text-slate-500 font-medium mb-2">{{ project.student2.username }}</div>
-                  <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
+                  <div class="font-bold text-slate-800 dark:text-slate-200">{{ project.student2.fullname }}</div>
+                  <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-2">{{ project.student2.username }}</div>
+                  <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600 dark:text-slate-400">
                     <span class="flex items-center gap-1"><span class="material-symbols-rounded">phone</span> {{ project.student2.tel }}</span>
                     <span class="flex items-center gap-1"><span class="material-symbols-rounded">mail</span> {{ project.student2.email }}</span>
                   </div>
@@ -168,7 +168,7 @@
               </div>
             </div>
           </div>
-          <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
+          <div class="bg-white dark:bg-slate-800 rounded-[32px] p-8 shadow-sm border border-slate-100 dark:border-slate-700">
             <div class="flex items-center gap-3 text-indigo-600 font-bold mb-6">
               <span class="material-symbols-rounded text-xl">history</span> บันทึกความก้าวหน้า
             </div>
@@ -179,23 +179,23 @@
             </div>
 
             <div v-else class="space-y-6">
-              <div v-for="report in project.reports" :key="report.id" class="p-6 rounded-[24px] bg-slate-50 border border-slate-100 hover:border-indigo-200 transition-all">
+              <div v-for="report in project.reports" :key="report.id" class="p-6 rounded-[24px] bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 hover:border-indigo-200 transition-all">
                 <div class="flex justify-between items-start mb-4">
                   <div>
                     <div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">{{ formatDate(report.createdAt) }}</div>
-                    <h4 class="font-bold text-slate-800">{{ report.title }}</h4>
+                    <h4 class="font-bold text-slate-800 dark:text-slate-200">{{ report.title }}</h4>
                   </div>
                   <span :class="getReportStatusClass(report.status)" class="px-3 py-1 rounded-full text-[10px] font-bold border uppercase">
                     {{ getReportStatusText(report.status) }}
                   </span>
                 </div>
                 
-                <p class="text-sm text-slate-600 leading-relaxed mb-6 whitespace-pre-line">{{ report.description }}</p>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6 whitespace-pre-line">{{ report.description }}</p>
 
                 <!-- Feedback Section for this report -->
                 <div class="mt-4 pt-4 border-t border-slate-200/60">
                   <div class="flex items-center justify-between">
-                    <div v-if="report.feedback" class="text-xs text-slate-500 italic">
+                    <div v-if="report.feedback" class="text-xs text-slate-500 dark:text-slate-400 italic">
                       <span class="material-symbols-rounded text-indigo-400 mr-1">chat</span> {{ report.feedback }}
                     </div>
                     <div v-else class="text-xs text-slate-300 italic">ยังไม่มีข้อเสนอแนะรายสัปดาห์</div>
@@ -208,7 +208,7 @@
 
         <!-- แผงข้อมูลสถานะ (View Only สำหรับอาจารย์) -->
         <div class="space-y-6">
-          <div class="bg-white rounded-[32px] p-8 shadow-lg border border-slate-100 sticky top-8">
+          <div class="bg-white dark:bg-slate-800 rounded-[32px] p-8 shadow-lg border border-slate-100 dark:border-slate-700 sticky top-8">
             <div class="flex items-center gap-3 text-indigo-600 font-bold mb-6">
               <span class="material-symbols-rounded text-xl">info</span> สถานะการดำเนินงาน
             </div>
@@ -219,14 +219,14 @@
                 <div class="text-indigo-800 font-black text-xl">ขั้นตอนที่ {{ project.step }}</div>
               </div>
 
-              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700">
                 <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">ความคิดเห็นจากระบบ/Admin</div>
-                <div class="text-sm text-slate-600 italic leading-relaxed">
+                <div class="text-sm text-slate-600 dark:text-slate-400 italic leading-relaxed">
                   {{ project.feedback || 'ยังไม่มีข้อความตอบกลับ' }}
                 </div>
               </div>
 
-              <div class="mt-6 pt-6 border-t border-slate-100">
+              <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700">
                 <p class="text-[13px] text-slate-400 text-center leading-relaxed">
                   * อาจารย์ที่ปรึกษาสามารถเข้าดูข้อมูลได้อย่างเดียว <br>
                   การอนุมัติจะดำเนินการโดยผู้ดูแลระบบ (Admin)

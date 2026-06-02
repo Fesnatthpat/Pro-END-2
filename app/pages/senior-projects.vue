@@ -1,27 +1,27 @@
 <template>
   <div class="max-w-[1140px] mx-auto w-full py-8">
     
-    <h2 class="font-bold text-[28px] text-[#1a1a40] mb-6 flex items-center gap-2">
+    <h2 class="font-bold text-[28px] text-[#1a1a40] dark:text-white mb-6 flex items-center gap-2">
       <span class="material-symbols-rounded text-[#ffc107]">school</span> ทำเนียบโครงงานรุ่นพี่
     </h2>
 
-    <div class="bg-white p-6 rounded-[20px] shadow-[0_4px_15px_rgba(0,0,0,0.05)] mb-10">
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-[20px] shadow-[0_4px_15px_rgba(0,0,0,0.05)] mb-10">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
         <div class="md:col-span-4">
-          <label class="block text-[0.95rem] font-bold text-gray-700 mb-2">ค้นหาโครงงาน</label>
+          <label class="block text-[0.95rem] font-bold text-gray-700 dark:text-slate-300 mb-2">ค้นหาโครงงาน</label>
           <input
             v-model="search"
             type="text"
             placeholder="ชื่อโครงงาน..."
-            class="w-full px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1a1a40]/20 focus:border-[#1a1a40] transition-all"
+            class="w-full px-5 py-3 rounded-full border border-gray-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1a1a40]/20 focus:border-[#1a1a40] transition-all"
           />
         </div>
 
         <div class="md:col-span-3">
-          <label class="block text-[0.95rem] font-bold text-gray-700 mb-2">ปีการศึกษา</label>
+          <label class="block text-[0.95rem] font-bold text-gray-700 dark:text-slate-300 mb-2">ปีการศึกษา</label>
           <select
             v-model="yearFilter"
-            class="w-full px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1a1a40]/20 focus:border-[#1a1a40] appearance-none bg-white transition-all cursor-pointer"
+            class="w-full px-5 py-3 rounded-full border border-gray-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1a1a40]/20 focus:border-[#1a1a40] appearance-none bg-white dark:bg-slate-800 transition-all cursor-pointer"
           >
             <option value="">ทั้งหมด</option>
             <option v-for="year in availableYears" :key="year" :value="year">
@@ -31,10 +31,10 @@
         </div>
 
         <div class="md:col-span-3">
-          <label class="block text-[0.95rem] font-bold text-gray-700 mb-2">ประเภท</label>
+          <label class="block text-[0.95rem] font-bold text-gray-700 dark:text-slate-300 mb-2">ประเภท</label>
           <select
             v-model="typeFilter"
-            class="w-full px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1a1a40]/20 focus:border-[#1a1a40] appearance-none bg-white transition-all cursor-pointer"
+            class="w-full px-5 py-3 rounded-full border border-gray-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1a1a40]/20 focus:border-[#1a1a40] appearance-none bg-white dark:bg-slate-800 transition-all cursor-pointer"
           >
             <option value="">ทั้งหมด</option>
             <option value="WEB">Web Application</option>
@@ -61,7 +61,7 @@
       <div
         v-for="project in filteredProjects"
         :key="project.id"
-        class="bg-white rounded-[20px] overflow-hidden shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-gray-100 min-h-[320px]"
+        class="bg-white dark:bg-slate-800 rounded-[20px] overflow-hidden shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-gray-100 dark:border-slate-700 min-h-[320px]"
       >
         <div class="p-7 flex-grow flex flex-col">
           <div class="flex justify-between items-start mb-4">
@@ -71,25 +71,25 @@
               SENIOR PROJECT
             </span>
             <span
-              class="text-xs text-gray-500 font-medium bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200"
+              class="text-xs text-gray-500 dark:text-slate-400 font-medium bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-slate-700"
             >
               ปี {{ project.academicYear }}
             </span>
           </div>
 
           <h5
-            class="font-bold text-[#1a1a40] text-[1.25rem] mb-2 line-clamp-2 leading-snug"
+            class="font-bold text-[#1a1a40] dark:text-white text-[1.25rem] mb-2 line-clamp-2 leading-snug"
           >
             {{ project.titleTh }}
           </h5>
-          <p class="text-gray-500 text-[0.95rem] mb-6 line-clamp-2">
+          <p class="text-gray-500 dark:text-slate-400 text-[0.95rem] mb-6 line-clamp-2">
             {{ project.titleEn }}
           </p>
 
-          <div class="mt-auto pt-5 border-t border-gray-100">
+          <div class="mt-auto pt-5 border-t border-gray-100 dark:border-slate-700">
             <NuxtLink
               :to="`/student/project-detail?id=${project.id}`"
-              class="block text-center w-full bg-transparent border-2 border-[#1a1a40] text-[#1a1a40] hover:bg-[#1a1a40] hover:text-white rounded-full py-2.5 text-[0.95rem] font-bold transition-colors duration-200"
+              class="block text-center w-full bg-transparent border-2 border-[#1a1a40] text-[#1a1a40] dark:text-white hover:bg-[#1a1a40] hover:text-white rounded-full py-2.5 text-[0.95rem] font-bold transition-colors duration-200"
             >
               ดูรายละเอียด
             </NuxtLink>
@@ -100,15 +100,15 @@
 
     <div
       v-else
-      class="text-center py-20 bg-white rounded-[20px] border border-dashed border-gray-300"
+      class="text-center py-20 bg-white dark:bg-slate-800 rounded-[20px] border border-dashed border-gray-300"
     >
       <div
-        class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-5"
+        class="w-24 h-24 bg-gray-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-5"
       >
         <span class="material-symbols-rounded text-gray-300 text-5xl">inbox</span>
       </div>
-      <h4 class="text-xl font-bold text-gray-700">ไม่พบข้อมูลโครงงาน</h4>
-      <p class="text-gray-500 mt-2 text-[0.95rem]">
+      <h4 class="text-xl font-bold text-gray-700 dark:text-slate-300">ไม่พบข้อมูลโครงงาน</h4>
+      <p class="text-gray-500 dark:text-slate-400 mt-2 text-[0.95rem]">
         ลองปรับเปลี่ยนคำค้นหา หรือตัวกรองข้อมูลใหม่อีกครั้ง
       </p>
     </div>

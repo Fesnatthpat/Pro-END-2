@@ -2,7 +2,21 @@ import { compare } from 'bcryptjs'
 import { getPrisma } from '../utils/prisma'
 import jwt from 'jsonwebtoken'
 
+import { checkLoginRateLimit, resetLoginRateLimit } from '../utils/rateLimit'
+
 export default defineEventHandler(async (event) => {
+  const ip = getRequestIP(event, { xForwardedFor: true }) || 'unknown-ip'
+  
+  // Rate Limiting: 5 attempts per 15 minutes per IP
+  const rateLimit = checkLoginRateLimit(ip, 5, 15)
+  if (!rateLimit.allowed) {
+    const minutesLeft = Math.ceil((rateLimit.resetTime - Date.now()) / 60000)
+    throw createError({ 
+      statusCode: 429, 
+      statusMessage: `เข้าสู่ระบบผิดพลาดหลายครั้งเกินไป กรุณารอ ${minutesLeft} นาที แล้วลองใหม่อีกครั้ง` 
+    })
+  }
+
   const body = await readBody(event)
   const { email_or_id, password } = body
 
@@ -135,17 +149,19 @@ export default defineEventHandler(async (event) => {
       maxAge: 60 * 60 * 24 * 7 // 7 days
     })
 
+    // Reset rate limit on successful login
+    resetLoginRateLimit(ip)
+
     return {
       success: true,
-      user: userData,
-      token
+      user: userData
     }
   } catch (error: any) {
     console.error('Login Error:', error)
     if (error.statusCode) throw error
     throw createError({
       statusCode: 500,
-      statusMessage: error.message || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ'
+      statusMessage: 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ'
     })
   }
 })

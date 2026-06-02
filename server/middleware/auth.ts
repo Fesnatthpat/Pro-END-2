@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
       ]
 
       // Check if it's an allowed endpoint and a GET request
-      const isAllowedGet = allowedAdminGetEndpoints.some(path => url.pathname.includes(path)) && event.method === 'GET'
+      const isAllowedGet = allowedAdminGetEndpoints.some(path => url.pathname.startsWith(path)) && event.method === 'GET'
       
       if (!isAllowedGet) {
         throw createError({

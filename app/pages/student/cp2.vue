@@ -1,9 +1,9 @@
 <template>
   <NuxtLayout :name="layoutName">
-    <div class="min-h-screen bg-gray-100 py-8 px-4  print:bg-white print:py-0 print:px-0">
+    <div class="min-h-screen bg-gray-100 dark:bg-slate-700 py-8 px-4  print:bg-white print:py-0 print:px-0">
       
       <div class="max-w-[210mm] mx-auto mb-6 flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
-        <button @click="$router.back()" class="flex items-center gap-2 text-gray-600 hover:text-[#1a1a40] transition-colors font-medium bg-white px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
+        <button @click="$router.back()" class="flex items-center gap-2 text-gray-600 dark:text-slate-400 hover:text-[#1a1a40] transition-colors font-medium bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
           <span class="material-symbols-rounded">arrow_back</span> ย้อนกลับ
         </button>
         
@@ -24,7 +24,7 @@
         
         <div class="w-full overflow-x-auto flex justify-center pb-4 print:overflow-visible print:pb-0">
           
-          <div class="paper-a4 bg-white shadow-lg relative text-black text-[16px] leading-relaxed print:shadow-none">
+          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[16px] leading-relaxed print:shadow-none">
             
             <div class="text-center mb-6">
               <img src="/bsru_logo.jpg" alt="BSRU Logo" class="w-[80px] mx-auto mb-2 print:w-[70px]">
@@ -95,7 +95,7 @@
                 </div>
                 <div class="flex items-end gap-1 w-full justify-center">
                   <span class="shrink-0">(</span>
-                  <span class="form-dotted min-w-[150px] px-2 text-center text-gray-700">{{ s1.name }}</span>
+                  <span class="form-dotted min-w-[150px] px-2 text-center text-gray-700 dark:text-slate-300">{{ s1.name }}</span>
                   <span class="shrink-0">)</span>
                 </div>
               </div>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="flex items-end gap-1 w-full justify-center">
                   <span class="shrink-0">(</span>
-                  <span class="form-dotted min-w-[150px] px-2 text-center text-gray-700">{{ s2.name }}</span>
+                  <span class="form-dotted min-w-[150px] px-2 text-center text-gray-700 dark:text-slate-300">{{ s2.name }}</span>
                   <span class="shrink-0">)</span>
                 </div>
               </div>
@@ -116,7 +116,7 @@
 
             <div class="border-[1.5px] border-black relative mt-10 break-inside-avoid">
               
-              <div class="absolute top-0 right-0 border-l-[1.5px] border-b-[1.5px] border-black px-6 py-1 bg-white text-center text-[14px] font-bold">
+              <div class="absolute top-0 right-0 border-l-[1.5px] border-b-[1.5px] border-black px-6 py-1 bg-white dark:bg-slate-800 text-center text-[14px] font-bold">
                 สำหรับอาจารย์ที่ปรึกษา
               </div>
               
@@ -144,7 +144,7 @@
                     
                     <div class="flex items-end gap-1 w-full justify-center mb-6">
                       <span class="shrink-0">(</span>
-                      <span class="form-dotted min-w-[220px] px-2 text-center text-gray-600">{{ form.advisorName }}</span>
+                      <span class="form-dotted min-w-[220px] px-2 text-center text-gray-600 dark:text-slate-400">{{ form.advisorName }}</span>
                       <span class="shrink-0">)</span>
                     </div>
 

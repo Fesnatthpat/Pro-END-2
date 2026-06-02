@@ -112,7 +112,7 @@ export default defineEventHandler(async (event) => {
     console.error('Submit CP1 Error:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: error.message || 'เกิดข้อผิดพลาดในการบันทึกข้อมูลโครงงาน'
+      statusMessage: 'เกิดข้อผิดพลาดในการบันทึกข้อมูลโครงงาน'
     })
   }
 })

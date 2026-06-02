@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex items-center justify-center flow-decision-wrapper my-8">
     <div class="flow-decision-diamond"></div>
-    <span class="relative z-10 font-bold text-[#1a1a40] text-center px-4 leading-tight">
+    <span class="relative z-10 font-bold text-[#1a1a40] dark:text-white text-center px-4 leading-tight">
       <span v-html="text"></span>
     </span>
   </div>

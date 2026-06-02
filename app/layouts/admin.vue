@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen bg-[#f8fafc] text-slate-800">
+  <div class="flex min-h-screen bg-[#f8fafc] dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
 
     <!-- Desktop Sidebar -->
     <aside

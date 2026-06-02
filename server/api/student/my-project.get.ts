@@ -24,17 +24,13 @@ export default defineEventHandler(async (event) => {
         student1: {
           select: {
             id: true, username: true, email: true, fullname: true,
-            tel: true, lineId: true, addressNo: true, moo: true,
-            soi: true, road: true, subdistrict: true, district: true,
-            province: true, zipcode: true, homePhone: true, emergencyContact: true
+            tel: true, lineId: true, academicYear: true, profileImage: true
           }
         },
         student2: {
           select: {
             id: true, username: true, email: true, fullname: true,
-            tel: true, lineId: true, addressNo: true, moo: true,
-            soi: true, road: true, subdistrict: true, district: true,
-            province: true, zipcode: true, homePhone: true, emergencyContact: true
+            tel: true, lineId: true, academicYear: true, profileImage: true
           }
         },
         exams: {
