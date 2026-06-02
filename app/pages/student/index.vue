@@ -126,7 +126,7 @@
           </div>
         </div>
 
-        <div class="relative flex-1 flex flex-col min-h-0 pl-1 md:pl-4">
+        <div class="relative flex-1 flex flex-col min-h-0 pl-1 md:pl-4 lg:overflow-y-auto custom-scrollbar">
           <div
             v-for="(step, index) in steps"
             :key="step.id"
