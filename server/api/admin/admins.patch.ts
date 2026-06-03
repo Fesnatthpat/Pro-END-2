@@ -5,9 +5,16 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const { id, username, password, fullname, email, role } = body
 
+  const auth = event.context.auth
   const prisma = getPrisma()
 
   try {
+    if (auth?.userId !== Number(id)) {
+      if (password) {
+        throw createError({ statusCode: 403, statusMessage: 'ไม่สามารถเปลี่ยนรหัสผ่านของผู้ดูแลระบบคนอื่นได้' })
+      }
+    }
+
     const data: any = {
       username,
       fullname,

@@ -12,21 +12,20 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
-    // 1. Check if student already exists
-    const existingStudent = await prisma.student.findFirst({
-      where: {
-        OR: [
-          { username: username },
-          { email: email }
-        ]
-      }
-    })
+    // 1. Check if username or email already exists in ANY table
+    const [existingStudent, existingTeacher, existingAdmin] = await Promise.all([
+      prisma.student.findFirst({ where: { OR: [{ username }, { email }] } }),
+      prisma.teacher.findFirst({ where: { OR: [{ username }, { email }] } }),
+      prisma.admin.findFirst({ where: { OR: [{ username }, { email }] } })
+    ])
 
-    if (existingStudent) {
-      const isUsername = existingStudent.username === username
+    const existingUser = existingStudent || existingTeacher || existingAdmin
+
+    if (existingUser) {
+      const isUsername = existingUser.username === username
       throw createError({
         statusCode: 400,
-        statusMessage: isUsername ? 'รหัสนักศึกษานี้ถูกใช้งานไปแล้ว' : 'อีเมลนี้ถูกใช้งานไปแล้ว'
+        statusMessage: isUsername ? 'ชื่อผู้ใช้นี้ถูกใช้งานไปแล้ว' : 'อีเมลนี้ถูกใช้งานไปแล้ว'
       })
     }
 

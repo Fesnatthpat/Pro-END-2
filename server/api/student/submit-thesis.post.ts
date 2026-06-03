@@ -8,10 +8,30 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Missing required fields' })
   }
 
+  if (thesisUrl && !thesisUrl.startsWith('http://') && !thesisUrl.startsWith('https://')) {
+    throw createError({ statusCode: 400, statusMessage: 'Invalid thesis URL' })
+  }
+
+  const auth = event.context.auth
+  if (!auth?.userId) {
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
+  }
+
   const prisma = getPrisma()
 
   try {
     const parsedProjectId = parseInt(projectId)
+
+    const existingProject = await prisma.project.findFirst({
+      where: {
+        id: parsedProjectId,
+        OR: [{ student1Id: auth.userId }, { student2Id: auth.userId }]
+      }
+    })
+
+    if (!existingProject) {
+      throw createError({ statusCode: 403, statusMessage: 'Forbidden: คุณไม่มีสิทธิ์เข้าถึงโครงงานนี้' })
+    }
 
     // นับจำนวนการส่งเล่มวิทยานิพนธ์ที่มีอยู่แล้วเพื่อกำหนดลำดับครั้งที่และเวอร์ชั่น
     const count = await prisma.progressReport.count({

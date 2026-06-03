@@ -8,10 +8,24 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'ข้อมูลไม่ครบถ้วน' })
   }
 
+  const auth = event.context.auth
+  if (!auth?.userId) {
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
+  }
+
   const prisma = getPrisma()
 
   try {
-    const currentProject = await prisma.project.findUnique({ where: { id: parseInt(projectId) } })
+    const currentProject = await prisma.project.findFirst({ 
+      where: { 
+        id: parseInt(projectId),
+        OR: [{ student1Id: auth.userId }, { student2Id: auth.userId }]
+      } 
+    })
+    
+    if (!currentProject) {
+      throw createError({ statusCode: 403, statusMessage: 'Forbidden: คุณไม่มีสิทธิ์เข้าถึงโครงงานนี้' })
+    }
     
     const project = await prisma.project.update({
       where: { id: parseInt(projectId) },

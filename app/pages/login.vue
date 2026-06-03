@@ -16,7 +16,12 @@
 
         <div class="mb-4">
           <label class="block text-[0.95rem] text-[#333] dark:text-slate-300 font-medium ml-1 mb-1">รหัสผ่าน</label>
-          <input v-model="credentials.password" type="password" name="password" class="w-full rounded-[12px] p-[12px_15px] border border-[#e0e0e0] dark:border-slate-600 bg-[#f8f9fa] dark:bg-slate-700 dark:text-white transition-all duration-200 focus:bg-white dark:focus:bg-slate-600 focus:border-[#1a1a40] dark:focus:border-indigo-400 focus:ring-[4px] focus:ring-[#1a1a40]/10 dark:focus:ring-indigo-400/20 outline-none" required placeholder="กรอกรหัสผ่าน">
+          <div class="relative">
+            <input v-model="credentials.password" :type="showPassword ? 'text' : 'password'" name="password" class="w-full rounded-[12px] p-[12px_45px_12px_15px] border border-[#e0e0e0] dark:border-slate-600 bg-[#f8f9fa] dark:bg-slate-700 dark:text-white transition-all duration-200 focus:bg-white dark:focus:bg-slate-600 focus:border-[#1a1a40] dark:focus:border-indigo-400 focus:ring-[4px] focus:ring-[#1a1a40]/10 dark:focus:ring-indigo-400/20 outline-none" required placeholder="กรอกรหัสผ่าน">
+            <button type="button" @click="showPassword = !showPassword" class="absolute right-[15px] top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center justify-center">
+              <span class="material-symbols-rounded text-[1.2rem]">{{ showPassword ? 'visibility_off' : 'visibility' }}</span>
+            </button>
+          </div>
         </div>
 
         <button :disabled="loading" type="submit" class="w-full bg-[#1a1a40] dark:bg-indigo-600 text-white p-[14px] rounded-full text-[1.1rem] font-semibold mt-[20px] transition-all duration-200 hover:bg-[#2c2c54] dark:hover:bg-indigo-500 hover:-translate-y-[3px] hover:shadow-[0_5px_15px_rgba(26,26,64,0.2)] dark:hover:shadow-[0_5px_15px_rgba(99,102,241,0.4)] disabled:opacity-50 disabled:cursor-not-allowed">
@@ -42,6 +47,7 @@ definePageMeta({
 const router = useRouter()
 const authStore = useAuthStore()
 const loading = ref(false)
+const showPassword = ref(false)
 
 const credentials = ref({
   email_or_id: '',

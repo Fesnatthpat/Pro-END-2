@@ -65,7 +65,7 @@
         <!-- 3. Profile & Actions (Right) -->
         <div :class="isMenuOpen ? 'flex' : 'hidden'" class="lg:flex flex-1 flex-col lg:flex-row justify-end items-center gap-3 w-full lg:w-auto pt-4 lg:pt-0 mt-2 lg:mt-0 border-t border-white/10 lg:border-none pb-4 lg:pb-0">
           
-          <NuxtLink @click="isMenuOpen = false" v-if="user" to="/student/profile" class="flex items-center gap-3 text-white bg-white/5 hover:bg-white/10 ring-1 ring-white/10 hover:ring-white/20 transition-all duration-300 pr-4 pl-1.5 py-1.5 rounded-full w-full lg:w-auto justify-center lg:justify-start">
+          <!-- <NuxtLink @click="isMenuOpen = false" v-if="user" to="/student/profile" class="flex items-center gap-3 text-white bg-white/5 hover:bg-white/10 ring-1 ring-white/10 hover:ring-white/20 transition-all duration-300 pr-4 pl-1.5 py-1.5 rounded-full w-full lg:w-auto justify-center lg:justify-start">
             <div class="w-8 h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm overflow-hidden shrink-0">
               <img v-if="user.profileImage" :src="user.profileImage" alt="Profile" class="w-full h-full object-cover">
               <span v-else>{{ user.fullname?.charAt(0) || 'U' }}</span>
@@ -74,7 +74,7 @@
               <span class="text-[13px] font-bold tracking-wide truncate max-w-[120px] xl:max-w-[180px]">{{ user.fullname }}</span>
               <span class="text-[10px] text-indigo-300 font-medium">นักศึกษาปัจจุบัน</span>
             </div>
-          </NuxtLink>
+          </NuxtLink> -->
 
           <button @click="handleLogout" type="button" class="flex items-center justify-center gap-2 text-rose-300 bg-rose-500/10 hover:bg-rose-500 hover:text-white px-5 py-2 rounded-full text-[14px] font-bold transition-all duration-300 w-full lg:w-auto shrink-0 mt-2 lg:mt-0 whitespace-nowrap">
             <i class="bi bi-box-arrow-right"></i> ออกจากระบบ

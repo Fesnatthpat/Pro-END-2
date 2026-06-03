@@ -7,7 +7,11 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
-    // Optional: Prevent deleting the last superadmin or self (can be added later)
+    const auth = event.context.auth
+    if (auth?.userId === Number(id)) {
+      throw createError({ statusCode: 400, statusMessage: 'ไม่สามารถลบตัวเองได้' })
+    }
+
     await prisma.admin.delete({
       where: { id: Number(id) }
     })

@@ -8,9 +8,30 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'กรุณากรอกข้อมูลให้ครบทุกช่อง' })
   }
 
+  const isValidUrl = (url: string) => url.startsWith('http://') || url.startsWith('https://')
+  if (!isValidUrl(thesisUrl) || !isValidUrl(programUrl) || !isValidUrl(manualUrl)) {
+    throw createError({ statusCode: 400, statusMessage: 'URL ไม่ถูกต้อง' })
+  }
+
+  const auth = event.context.auth
+  if (!auth?.userId) {
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
+  }
+
   const prisma = getPrisma()
 
   try {
+    const existingProject = await prisma.project.findFirst({
+      where: {
+        id: parseInt(projectId),
+        OR: [{ student1Id: auth.userId }, { student2Id: auth.userId }]
+      }
+    })
+
+    if (!existingProject) {
+      throw createError({ statusCode: 403, statusMessage: 'Forbidden: คุณไม่มีสิทธิ์เข้าถึงโครงงานนี้' })
+    }
+
     // 1. Update Project
     const project = await prisma.project.update({
       where: { id: parseInt(projectId) },

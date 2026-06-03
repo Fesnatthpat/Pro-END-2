@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
       }
     })
 
-    // 2. Update Student 2 Profile (if exists)
+    // 2. Get Student 2 ID (if exists)
     let s2Id = null
     if (student2 && student2.username) {
       const s2User = await prisma.student.findUnique({
@@ -45,24 +45,6 @@ export default defineEventHandler(async (event) => {
       
       if (s2User) {
         s2Id = s2User.id
-        await prisma.student.update({
-          where: { id: s2Id },
-          data: {
-            fullname: student2.fullname,
-            tel: student2.tel,
-            lineId: student2.lineId,
-            addressNo: student2.addressNo,
-            moo: student2.moo,
-            soi: student2.soi,
-            road: student2.road,
-            subdistrict: student2.subdistrict,
-            district: student2.district,
-            province: student2.province,
-            zipcode: student2.zipcode,
-            homePhone: student2.homePhone,
-            emergencyContact: student2.emergencyContact
-          }
-        })
       }
     }
 

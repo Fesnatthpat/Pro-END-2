@@ -8,9 +8,29 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Missing required fields' })
   }
 
+  if (fileUrl && !fileUrl.startsWith('http://') && !fileUrl.startsWith('https://')) {
+    throw createError({ statusCode: 400, statusMessage: 'Invalid file URL' })
+  }
+
+  const auth = event.context.auth
+  if (!auth?.userId) {
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
+  }
+
   const prisma = getPrisma()
 
   try {
+    const project = await prisma.project.findFirst({
+      where: {
+        id: parseInt(projectId),
+        OR: [{ student1Id: auth.userId }, { student2Id: auth.userId }]
+      }
+    })
+
+    if (!project) {
+      throw createError({ statusCode: 403, statusMessage: 'Forbidden: คุณไม่มีสิทธิ์เข้าถึงโครงงานนี้' })
+    }
+
     const report = await prisma.progressReport.create({
       data: {
         projectId: parseInt(projectId),

@@ -7,8 +7,12 @@ import { checkLoginRateLimit, resetLoginRateLimit } from '../utils/rateLimit'
 export default defineEventHandler(async (event) => {
   const ip = getRequestIP(event, { xForwardedFor: true }) || 'unknown-ip'
   
-  // Rate Limiting: 5 attempts per 15 minutes per IP
-  const rateLimit = checkLoginRateLimit(ip, 5, 15)
+  const body = await readBody(event)
+  const { email_or_id, password } = body
+
+  // Rate Limiting: 5 attempts per 15 minutes per IP + Username
+  const identifier = `${ip}:${email_or_id}`
+  const rateLimit = checkLoginRateLimit(identifier, 5, 15)
   if (!rateLimit.allowed) {
     const minutesLeft = Math.ceil((rateLimit.resetTime - Date.now()) / 60000)
     throw createError({ 
@@ -16,9 +20,6 @@ export default defineEventHandler(async (event) => {
       statusMessage: `เข้าสู่ระบบผิดพลาดหลายครั้งเกินไป กรุณารอ ${minutesLeft} นาที แล้วลองใหม่อีกครั้ง` 
     })
   }
-
-  const body = await readBody(event)
-  const { email_or_id, password } = body
 
   const prisma = getPrisma()
   const JWT_SECRET = process.env.JWT_SECRET

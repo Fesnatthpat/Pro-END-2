@@ -23,12 +23,40 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <label class="block text-[0.95rem] text-[#333] dark:text-slate-300 font-medium ml-1 mb-1">รหัสผ่าน</label>
-            <input v-model="form.password" type="password" name="password" class="w-full rounded-[12px] p-[12px_15px] border border-[#e0e0e0] dark:border-slate-600 bg-[#f8f9fa] dark:bg-slate-900 transition-all duration-200 focus:bg-white focus:border-[#1a1a40] focus:ring-[4px] focus:ring-[#1a1a40]/10 outline-none" required placeholder="กำหนดรหัสผ่าน">
+            <div class="relative">
+              <input v-model="form.password" :type="showPassword ? 'text' : 'password'" name="password" class="w-full rounded-[12px] p-[12px_45px_12px_15px] border border-[#e0e0e0] dark:border-slate-600 bg-[#f8f9fa] dark:bg-slate-900 transition-all duration-200 focus:bg-white focus:border-[#1a1a40] focus:ring-[4px] focus:ring-[#1a1a40]/10 outline-none" required placeholder="อย่างน้อย 6 ตัวอักษร" minlength="6">
+              <button type="button" @click="showPassword = !showPassword" class="absolute right-[15px] top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center justify-center">
+                <span class="material-symbols-rounded text-[1.2rem]">{{ showPassword ? 'visibility_off' : 'visibility' }}</span>
+              </button>
+            </div>
+            <div v-if="form.password" class="mt-2 text-sm">
+              <div class="flex gap-1 mb-1 h-1.5">
+                <div class="flex-1 rounded-full transition-colors duration-300" :class="passwordStrength >= 1 ? strengthColor : 'bg-gray-200 dark:bg-slate-700'"></div>
+                <div class="flex-1 rounded-full transition-colors duration-300" :class="passwordStrength >= 2 ? strengthColor : 'bg-gray-200 dark:bg-slate-700'"></div>
+                <div class="flex-1 rounded-full transition-colors duration-300" :class="passwordStrength >= 3 ? strengthColor : 'bg-gray-200 dark:bg-slate-700'"></div>
+              </div>
+              <p class="text-xs font-medium" :class="strengthTextColor">{{ strengthText }}</p>
+            </div>
           </div>
           <div>
-            <label class="block text-[0.95rem] text-[#333] dark:text-slate-300 font-medium ml-1 mb-1">ชื่อ-นามสกุล</label>
-            <input v-model="form.fullname" type="text" name="fullname" class="w-full rounded-[12px] p-[12px_15px] border border-[#e0e0e0] dark:border-slate-600 bg-[#f8f9fa] dark:bg-slate-900 transition-all duration-200 focus:bg-white focus:border-[#1a1a40] focus:ring-[4px] focus:ring-[#1a1a40]/10 outline-none" required placeholder="นาย/นางสาว...">
+            <label class="block text-[0.95rem] text-[#333] dark:text-slate-300 font-medium ml-1 mb-1">ยืนยันรหัสผ่าน</label>
+            <div class="relative">
+              <input v-model="form.confirmPassword" :type="showConfirmPassword ? 'text' : 'password'" name="confirm_password" class="w-full rounded-[12px] p-[12px_45px_12px_15px] border border-[#e0e0e0] dark:border-slate-600 bg-[#f8f9fa] dark:bg-slate-900 transition-all duration-200 focus:bg-white focus:border-[#1a1a40] focus:ring-[4px] focus:ring-[#1a1a40]/10 outline-none" required placeholder="ยืนยันรหัสผ่านอีกครั้ง" minlength="6">
+              <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute right-[15px] top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center justify-center">
+                <span class="material-symbols-rounded text-[1.2rem]">{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</span>
+              </button>
+            </div>
+            <div v-if="form.confirmPassword" class="mt-2 text-sm">
+              <p class="text-xs font-medium" :class="form.password === form.confirmPassword ? 'text-green-500' : 'text-red-500'">
+                {{ form.password === form.confirmPassword ? 'รหัสผ่านตรงกัน' : 'รหัสผ่านไม่ตรงกัน' }}
+              </p>
+            </div>
           </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-[0.95rem] text-[#333] dark:text-slate-300 font-medium ml-1 mb-1">ชื่อ-นามสกุล</label>
+          <input v-model="form.fullname" type="text" name="fullname" class="w-full rounded-[12px] p-[12px_15px] border border-[#e0e0e0] dark:border-slate-600 bg-[#f8f9fa] dark:bg-slate-900 transition-all duration-200 focus:bg-white focus:border-[#1a1a40] focus:ring-[4px] focus:ring-[#1a1a40]/10 outline-none" required placeholder="นาย/นางสาว...">
         </div>
 
         <div class="relative border-t border-dashed border-[#ddd] dark:border-slate-600 my-[30px]">
@@ -137,16 +165,57 @@ import Swal from 'sweetalert2'
 const supabase = useSupabaseClient()
 const loading = ref(false)
 const profileFile = ref(null)
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
 
 const currentYear = new Date().getFullYear() + 543
 const academicYears = computed(() => {
   return Array.from({ length: 6 }, (_, i) => currentYear - i + 3) // allow future years as well like +3, wait it was 2569 which is current year + 3 if current year is 2566. Let's just do +2 to -3
 })
 
+const passwordStrength = computed(() => {
+  const pw = form.value?.password || '';
+  if (!pw) return 0;
+  
+  let score = 0;
+  if (pw.length >= 6) {
+    score = 1;
+    if (/[a-zA-Z]/.test(pw) && /[0-9]/.test(pw)) {
+      score = 2;
+      if (/[^A-Za-z0-9]/.test(pw) || pw.length >= 8) {
+        score = 3;
+      }
+    }
+  }
+  return score;
+});
+
+const strengthColor = computed(() => {
+  if (passwordStrength.value === 1) return 'bg-red-500';
+  if (passwordStrength.value === 2) return 'bg-orange-500';
+  if (passwordStrength.value >= 3) return 'bg-green-500';
+  return 'bg-gray-200 dark:bg-slate-700';
+});
+
+const strengthTextColor = computed(() => {
+  if (passwordStrength.value === 1) return 'text-red-500';
+  if (passwordStrength.value === 2) return 'text-orange-500';
+  if (passwordStrength.value >= 3) return 'text-green-500';
+  return 'text-gray-400';
+});
+
+const strengthText = computed(() => {
+  if (passwordStrength.value === 1) return 'รัดกุมน้อย (ควรมีทั้งตัวอักษรและตัวเลข)';
+  if (passwordStrength.value === 2) return 'ปานกลาง';
+  if (passwordStrength.value >= 3) return 'ปลอดภัยมาก';
+  return '';
+});
+
 const form = ref({
   username: '',
   email: '',
   password: '',
+  confirmPassword: '',
   fullname: '',
   academicYear: '',
   tel: '',
@@ -214,6 +283,26 @@ const handleFileUpload = (event) => {
 }
 
 const handleRegister = async () => {
+  if (form.value.password.length < 6) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'รหัสผ่านสั้นเกินไป',
+      text: 'กรุณาตั้งรหัสผ่านอย่างน้อย 6 ตัวอักษร',
+      confirmButtonColor: '#1a1a40'
+    })
+    return
+  }
+
+  if (form.value.password !== form.value.confirmPassword) {
+    Swal.fire({
+      icon: 'error',
+      title: 'รหัสผ่านไม่ตรงกัน',
+      text: 'กรุณายืนยันรหัสผ่านให้ถูกต้อง',
+      confirmButtonColor: '#1a1a40'
+    })
+    return
+  }
+
   loading.value = true
   try {
     let profileImageUrl = ''
@@ -245,10 +334,11 @@ const handleRegister = async () => {
 
     // 2. Register via API
     try {
+      const { confirmPassword, ...registerData } = form.value
       const result = await $fetch('/api/register', {
         method: 'POST',
         body: {
-          ...form.value,
+          ...registerData,
           profileImage: profileImageUrl
         }
       })
