@@ -30,6 +30,9 @@
           class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-white/5 px-4 py-3 rounded-xl transition-all duration-300 group relative">
           <span class="material-symbols-rounded text-[22px] group-hover:scale-110 transition-transform duration-300" :class="{'text-indigo-400': $route.path === link.to}">{{ link.icon }}</span>
           <span class="text-[14px]">{{ link.label }}</span>
+          <span v-if="link.badgeKey && badges[link.badgeKey] > 0" class="ml-auto bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+            {{ badges[link.badgeKey] }}
+          </span>
           <div v-if="$route.path === link.to" class="absolute left-0 w-1 h-6 bg-indigo-500 rounded-r-full"></div>
         </NuxtLink>
       </nav>
@@ -91,6 +94,9 @@
           class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-white/5 px-4 py-3.5 rounded-xl transition-all duration-300">
           <span class="material-symbols-rounded text-[22px]">{{ link.icon }}</span>
           <span class="text-[15px]">{{ link.label }}</span>
+          <span v-if="link.badgeKey && badges[link.badgeKey] > 0" class="ml-auto bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+            {{ badges[link.badgeKey] }}
+          </span>
         </NuxtLink>
       </nav>
 
@@ -113,7 +119,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useAlerts } from '~/composables/useAlerts'
 
 const router = useRouter()
@@ -121,14 +127,22 @@ const alerts = useAlerts()
 const { $pinia } = useNuxtApp()
 const authStore = useAuthStore()
 const admin = computed(() => authStore.user)
+const route = useRoute()
+
+const { data: badgesData, refresh: refreshBadges } = useFetch('/api/admin/menu-badges')
+const badges = computed(() => badgesData.value?.data || {})
+
+watch(() => route.path, () => {
+  refreshBadges()
+})
 
 const isMobileMenuOpen = ref(false)
 
 const navigationLinks = [
   { to: '/admin', label: 'Dashboard', icon: 'grid_view' },
-  { to: '/admin/students/approve', label: 'อนุมัตินักศึกษาใหม่', icon: 'person_add' },
-  { to: '/admin/exam-topic', label: 'คำร้องขอสอบหัวข้อ', icon: 'assignment_turned_in' },
-  { to: '/admin/exam-final', label: 'คำร้องขอสอบจบ', icon: 'assessment' },
+  { to: '/admin/students/approve', label: 'อนุมัตินักศึกษาใหม่', icon: 'person_add', badgeKey: 'pendingStudents' },
+  { to: '/admin/exam-topic', label: 'คำร้องขอสอบหัวข้อ', icon: 'assignment_turned_in', badgeKey: 'pendingTopicExams' },
+  { to: '/admin/exam-final', label: 'คำร้องขอสอบจบ', icon: 'assessment', badgeKey: 'pendingFinalExams' },
   { to: '/admin/projects', label: 'ข้อมูลโครงงาน', icon: 'folder' },
   { to: '/admin/students/students', label: 'ข้อมูลนักศึกษา', icon: 'group' },
   { to: '/admin/teachers', label: 'ข้อมูลอาจารย์', icon: 'badge' },
