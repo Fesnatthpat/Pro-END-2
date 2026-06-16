@@ -16,6 +16,26 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
+    // 0. Check for existing active project
+    const existingProject = await prisma.project.findFirst({
+      where: {
+        OR: [
+          { student1Id: student1.id },
+          { student2Id: student1.id }
+        ],
+        status: {
+          in: ['pending', 'approved']
+        }
+      }
+    })
+
+    if (existingProject) {
+      throw createError({ 
+        statusCode: 400, 
+        statusMessage: 'คุณมีหัวข้อโครงงานที่อยู่ระหว่างการพิจารณาหรือได้รับการอนุมัติแล้ว ไม่สามารถยื่นซ้ำได้' 
+      })
+    }
+
     // 1. Update Student 1 Profile
     await prisma.student.update({
       where: { id: student1.id },
@@ -36,16 +56,32 @@ export default defineEventHandler(async (event) => {
       }
     })
 
-    // 2. Get Student 2 ID (if exists)
+    // 2. Get Student 2 ID (if exists) and validate
     let s2Id = null
     if (student2 && student2.username) {
+      // Prevent self-pairing
+      if (student2.username === student1.username) {
+        throw createError({ statusCode: 400, statusMessage: 'ไม่สามารถเลือกตัวเองเป็นเพื่อนร่วมกลุ่มได้' })
+      }
+
       const s2User = await prisma.student.findUnique({
-        where: { username: student2.username }
+        where: { username: student2.username },
+        include: {
+          projects1: { select: { id: true } },
+          projects2: { select: { id: true } }
+        }
       })
       
-      if (s2User) {
-        s2Id = s2User.id
+      if (!s2User) {
+        throw createError({ statusCode: 404, statusMessage: 'ไม่พบข้อมูลเพื่อนร่วมกลุ่มในระบบ' })
       }
+
+      // Check if student 2 already has a project
+      if (s2User.projects1.length > 0 || s2User.projects2.length > 0) {
+        throw createError({ statusCode: 400, statusMessage: `นักศึกษา ${s2User.fullname} มีกลุ่มโครงงานอยู่แล้ว` })
+      }
+
+      s2Id = s2User.id
     }
 
     // 3. Create Project

@@ -3,7 +3,7 @@
     
     <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="relative">
-        <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">ข้อมูลนักศึกษา</h2>
+        <h2 class="text-slate-900 dark:text-white md: mb-2 tracking-tight text-2xl md:text-3xl font-bold">ข้อมูลนักศึกษา</h2>
         <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">รายชื่อนักศึกษาทั้งหมดที่ได้รับการอนุมัติสิทธิ์เข้าใช้งานแล้ว</p>
@@ -81,7 +81,7 @@
               <td class="px-8 py-6 font-bold text-slate-500 dark:text-slate-400 tracking-tight">{{ student.username }}</td>
               <td class="px-8 py-6 font-black text-slate-800 dark:text-slate-200 text-base">{{ student.fullname }}</td>
               <td class="px-8 py-6 text-center">
-                <span class="inline-flex items-center px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-black text-[10px] tracking-widest border border-slate-200 dark:border-slate-700 uppercase">
+                <span class="inline-flex items-center px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-black text-xs tracking-widest border border-slate-200 dark:border-slate-700 uppercase">
                   {{ student.academicYear }}
                 </span>
               </td>
@@ -93,7 +93,7 @@
                 </div>
               </td>
               <td class="px-8 py-6 text-center">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] font-black uppercase tracking-widest">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 text-xs font-black uppercase tracking-widest">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
                   Approved
                 </span>

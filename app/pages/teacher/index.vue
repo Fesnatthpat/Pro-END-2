@@ -3,7 +3,7 @@
     <div class="max-w-[1200px] mx-auto w-full">
       
       <div class="mb-10 pl-2">
-        <h2 class="font-bold text-[28px] md:text-[32px] text-slate-900 tracking-tight flex items-center gap-3">
+        <h2 class="md: text-slate-900 tracking-tight flex items-center gap-3 text-2xl md:text-3xl font-bold">
           <span class="bg-indigo-600 text-white p-2.5 rounded-2xl shadow-lg shadow-indigo-200">
             <span class="material-symbols-rounded text-xl">grid_view</span>
           </span>
@@ -125,7 +125,7 @@
             <span class="text-xs font-bold text-slate-300">ID: {{ project.id }}</span>
           </div>
 
-          <h3 class="font-bold text-xl text-slate-800 dark:text-slate-200 leading-snug mb-8 line-clamp-2 min-h-[3.5rem] relative z-10" :title="project.titleTh">
+          <h3 class="text-xl text-slate-800 dark:text-slate-200 leading-snug mb-8 line-clamp-2 min-h-[3.5rem] relative z-10 text-xl md:text-2xl font-bold" :title="project.titleTh">
             {{ project.titleTh }}
           </h3>
 
@@ -135,7 +135,7 @@
                 {{ getInitials(project.student1.fullname) }}
               </div>
               <div>
-                <div class="text-[15px] font-bold text-slate-700 dark:text-slate-300 leading-none mb-1">{{ project.student1.fullname }}</div>
+                <div class="text-base font-bold text-slate-700 dark:text-slate-300 leading-none mb-1">{{ project.student1.fullname }}</div>
                 <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">{{ project.student1.username }}</div>
               </div>
             </div>
@@ -145,7 +145,7 @@
                 {{ getInitials(project.student2.fullname) }}
               </div>
               <div>
-                <div class="text-[15px] font-bold text-slate-700 dark:text-slate-300 leading-none mb-1">{{ project.student2.fullname }}</div>
+                <div class="text-base font-bold text-slate-700 dark:text-slate-300 leading-none mb-1">{{ project.student2.fullname }}</div>
                 <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">{{ project.student2.username }}</div>
               </div>
             </div>
@@ -163,7 +163,7 @@
         <div class="w-24 h-24 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center text-slate-300 text-5xl mb-6">
           <span class="material-symbols-rounded">search</span>
         </div>
-        <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">ไม่พบข้อมูลโครงงาน</h3>
+        <h3 class="text-slate-800 dark:text-slate-200 mb-2 text-xl md:text-2xl font-bold">ไม่พบข้อมูลโครงงาน</h3>
         <p class="text-slate-500 dark:text-slate-400 font-medium">ไม่มีกลุ่มนักศึกษาที่ตรงกับเงื่อนไขที่เลือก</p>
         <button @click="resetFilters" class="mt-6 px-6 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-full text-sm font-bold transition-colors">
           แสดงโครงงานทั้งหมด

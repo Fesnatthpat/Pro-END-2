@@ -24,7 +24,7 @@
         
         <div class="w-full overflow-x-auto flex justify-center pb-4 print:overflow-visible print:pb-0">
           
-          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[16px] leading-relaxed print:shadow-none">
+          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[16px] leading-relaxed print:shadow-none">
             
             <div class="text-center mb-6">
               <img src="/bsru_logo.jpg" alt="BSRU Logo" class="w-[80px] mx-auto mb-2 print:w-[70px]">
@@ -319,6 +319,11 @@ const saveDraft = async () => {
   padding: 15mm 20mm; 
   box-sizing: border-box;
   margin: 0 auto;
+}
+
+.dark .form-dotted {
+  color: #f1f5f9 !important;
+  border-bottom-color: #94a3b8 !important;
 }
 
 .form-dotted {

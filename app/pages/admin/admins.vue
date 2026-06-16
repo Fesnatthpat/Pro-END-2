@@ -3,7 +3,7 @@
     
     <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="relative">
-        <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2 tracking-tight">จัดการผู้ดูแลระบบ</h1>
+        <h1 class="md: text-slate-900 dark:text-white mb-2 tracking-tight text-3xl md:text-4xl lg:text-5xl font-black">จัดการผู้ดูแลระบบ</h1>
         <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">จัดการข้อมูลบัญชีผู้ดูแลระบบและกำหนดสิทธิ์การใช้งาน</p>
@@ -12,7 +12,7 @@
       
       <button 
         @click="openModal()"
-        class="group relative overflow-hidden bg-slate-900 hover:bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-slate-200 flex items-center gap-3 w-fit active:scale-95"
+        class="group relative overflow-hidden bg-slate-900 hover:bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-slate-200 dark:shadow-none flex items-center gap-3 w-fit active:scale-95"
       >
         <span class="material-symbols-rounded group-hover:rotate-12 transition-transform">admin_panel_settings</span> 
         <span>เพิ่มผู้ดูแลระบบ</span>
@@ -60,7 +60,7 @@
               <td class="px-8 py-6">
                 <span 
                   :class="admin.role === 'superadmin' ? 'bg-purple-50 text-purple-600 border-purple-100' : 'bg-blue-50 text-blue-600 border-blue-100'"
-                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest border"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-widest border"
                 >
                   <span class="w-1.5 h-1.5 rounded-full" :class="admin.role === 'superadmin' ? 'bg-purple-600' : 'bg-blue-600'"></span>
                   {{ admin.role }}
@@ -104,10 +104,10 @@
         <div class="bg-white dark:bg-slate-800 w-full max-w-lg rounded-[32px] shadow-2xl overflow-hidden animate-[fadeIn_0.3s_ease-out] border border-white/20">
           <div class="px-8 py-6 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
             <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-200">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-200 dark:shadow-none">
                 <span class="material-symbols-rounded">{{ editingId ? 'edit' : 'person_add' }}</span>
               </div>
-              <h3 class="font-bold text-2xl text-slate-900 tracking-tight">{{ editingId ? 'แก้ไขผู้ดูแลระบบ' : 'เพิ่มผู้ดูแลระบบ' }}</h3>
+              <h3 class="text-slate-900 dark:text-white tracking-tight text-xl md:text-2xl font-bold">{{ editingId ? 'แก้ไขผู้ดูแลระบบ' : 'เพิ่มผู้ดูแลระบบ' }}</h3>
             </div>
             <button @click="closeModal" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
               <span class="material-symbols-rounded">close</span>
@@ -151,7 +151,7 @@
 
             <div class="pt-6 flex gap-4">
               <button type="button" @click="closeModal" class="flex-1 px-8 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-50 transition-all active:scale-95"> ยกเลิก </button>
-              <button type="submit" :disabled="submitting" class="flex-[1.5] bg-slate-900 hover:bg-indigo-600 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-slate-200 disabled:opacity-50 active:scale-95 flex items-center justify-center gap-2">
+              <button type="submit" :disabled="submitting" class="flex-[1.5] bg-slate-900 hover:bg-indigo-600 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-slate-200 dark:shadow-none disabled:opacity-50 active:scale-95 flex items-center justify-center gap-2">
                 <div v-if="submitting" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                 {{ submitting ? 'กำลังบันทึก...' : 'บันทึกข้อมูล' }}
               </button>

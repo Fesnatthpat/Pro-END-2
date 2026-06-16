@@ -23,7 +23,7 @@
       <div class="flex flex-col items-center gap-8 print:block print:w-full print:gap-0 print:m-0 print:p-0">
         
         <div class="print-page-wrapper w-full overflow-x-auto flex justify-center pb-4 print:overflow-visible print:pb-0">
-          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[15px] md:text-[16px] leading-[1.8] print:leading-[1.4] print:shadow-none">
+          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[15px] md:text-[16px] leading-[1.8] print:leading-[1.4] print:shadow-none">
             
             <div class="absolute top-8 right-8 text-sm font-bold print:top-2 print:right-4">CP-3</div>
 
@@ -221,7 +221,7 @@
         </div>
 
         <div class="print-page-wrapper w-full overflow-x-auto flex justify-center pb-4 print:overflow-visible print:pb-0">
-          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[15px] md:text-[16px] leading-[1.8] print:shadow-none">
+          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[15px] md:text-[16px] leading-[1.8] print:shadow-none">
             
             <div class="text-right mb-4 text-sm font-bold">CP-3</div>
 
@@ -335,7 +335,7 @@
         </div>
 
         <div class="print-page-wrapper w-full overflow-x-auto flex justify-center pb-4 print:overflow-visible print:pb-0">
-          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[15px] md:text-[16px] leading-[1.8] print:shadow-none">
+          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[15px] md:text-[16px] leading-[1.8] print:shadow-none">
             <div class="text-right mb-6 text-sm font-bold">CP-3</div>
             <h3 class="font-bold text-[18px] mb-8 print:mb-6">บันทึกผลการสอบโครงงานคอมพิวเตอร์</h3>
             
@@ -543,6 +543,11 @@ const saveDraft = async () => {
   min-height: 297mm;
   padding: 15mm 20mm; 
   box-sizing: border-box;
+}
+
+.dark .form-line {
+  color: #f1f5f9 !important;
+  border-bottom-color: #94a3b8 !important;
 }
 
 .form-line {

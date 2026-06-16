@@ -8,10 +8,23 @@ export default defineEventHandler(async (event) => {
     const students = await prisma.student.findMany({
       where: {
         isApproved: true,
-        // Optional: Exclude the current user
+        // Exclude the current user
         id: {
           not: auth?.userId
-        }
+        },
+        // Exclude students who already have a project
+        AND: [
+          {
+            projects1: {
+              none: {}
+            }
+          },
+          {
+            projects2: {
+              none: {}
+            }
+          }
+        ]
       },
       select: {
         id: true,

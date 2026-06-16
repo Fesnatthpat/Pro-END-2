@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-12 bg-white dark:bg-slate-800 rounded-[32px] p-6 md:p-10 shadow-sm border border-gray-100 dark:border-slate-700">
+  <div class="mt-12 bg-white dark:bg-slate-800 rounded-[32px] p-6 md:p-10 shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
     <div class="flex items-center gap-3 mb-8">
       <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-        <span class="material-symbols-rounded">history</span>
+        <span class="material-symbols-rounded">list_alt</span>
       </div>
       <div>
-        <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">ประวัติกิจกรรมและไทม์ไลน์</h3>
+        <h3 class="text-xl text-[#1a1a40] dark:text-white md:text-2xl font-bold">ตารางประวัติกิจกรรม</h3>
         <p class="text-sm text-gray-500 dark:text-slate-400">บันทึกการทำรายการทั้งหมดของโครงงาน</p>
       </div>
     </div>
@@ -18,50 +18,73 @@
       <p class="text-gray-400 italic">ไม่พบข้อมูลประวัติกิจกรรม</p>
     </div>
 
-    <div v-else class="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-200 before:to-transparent">
-      
-      <!-- Timeline Item -->
-      <div v-for="(item, index) in timeline" :key="index" class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-        <!-- Icon dot -->
-        <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform group-hover:scale-110" 
-          :class="getStatusBg(item.status)">
-          <span class="material-symbols-rounded text-white text-xl">{{ item.icon }}</span>
-        </div>
-        
-        <!-- Content card -->
-        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-md transition-all">
-          <div class="flex items-center justify-between mb-2">
-            <time class="font-black text-[10px] text-indigo-400 uppercase tracking-widest">{{ formatDate(item.date) }}</time>
-            <span :class="getStatusTextClass(item.status)" class="text-[9px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-full bg-gray-50 dark:bg-slate-800 border">
-              {{ getStatusLabel(item.status) }}
-            </span>
-          </div>
-          <div class="text-base font-black text-[#1a1a40] dark:text-white mb-1">{{ item.title }}</div>
-          <p class="text-sm text-gray-500 dark:text-slate-400 leading-relaxed mb-4">{{ item.description }}</p>
+    <div v-else class="overflow-x-auto pb-4">
+      <table class="w-full text-left border-collapse min-w-[800px]">
+        <thead>
+          <tr class="bg-gray-50 dark:bg-slate-700/50 text-gray-600 dark:text-slate-300 text-sm border-b border-gray-100 dark:border-slate-700">
+            <th class="px-6 py-4 font-bold rounded-tl-2xl w-[15%]">วันเดือนปี</th>
+            <th class="px-6 py-4 font-bold w-[15%]">เวลา</th>
+            <th class="px-6 py-4 font-bold w-[50%]">รายการ</th>
+            <th class="px-6 py-4 font-bold rounded-tr-2xl w-[20%]">สถานะ</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 dark:divide-slate-700">
+          <tr v-for="(item, index) in timeline" :key="index" class="hover:bg-gray-50/50 dark:hover:bg-slate-700/30 transition-colors group">
+            <td class="px-6 py-5 align-top">
+              <div class="text-sm font-semibold text-gray-700 dark:text-slate-300 flex items-center gap-2">
+                <span class="material-symbols-rounded text-gray-400 text-lg">calendar_today</span>
+                {{ formatDateOnly(item.date) }}
+              </div>
+            </td>
+            <td class="px-6 py-5 align-top">
+              <div class="text-sm font-bold text-indigo-500 dark:text-indigo-400 flex items-center gap-2">
+                <span class="material-symbols-rounded text-indigo-300 text-lg">schedule</span>
+                {{ formatTimeOnly(item.date) }} น.
+              </div>
+            </td>
+            <td class="px-6 py-5 align-top">
+              <div class="flex gap-4">
+                <div class="mt-0.5 flex items-center justify-center w-10 h-10 rounded-full border border-white dark:border-slate-800 shadow-sm shrink-0" 
+                  :class="getStatusBg(item.status)">
+                  <span class="material-symbols-rounded text-white text-lg">{{ item.icon }}</span>
+                </div>
+                <div>
+                  <div class="text-base font-bold text-[#1a1a40] dark:text-white mb-1.5">{{ item.title }}</div>
+                  <p class="text-sm text-gray-500 dark:text-slate-400 leading-relaxed">{{ item.description }}</p>
 
-          <!-- Extra details based on type -->
-          <div v-if="item.type === 'final_submit' && item.details" class="p-4 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700 space-y-2">
-            <a v-if="item.details.thesisUrl" :href="item.details.thesisUrl" target="_blank" class="flex items-center gap-2 text-xs text-blue-600 font-bold hover:underline">
-              <span class="material-symbols-rounded text-sm">link</span> เล่มวิทยานิพนธ์
-            </a>
-            <a v-if="item.details.programUrl" :href="item.details.programUrl" target="_blank" class="flex items-center gap-2 text-xs text-emerald-600 font-bold hover:underline">
-              <span class="material-symbols-rounded text-sm">link</span> ซอร์สโค้ดโปรแกรม
-            </a>
-          </div>
+                  <!-- Extra details based on type -->
+                  <div v-if="item.type === 'final_submit' && item.details" class="mt-3 p-3 rounded-xl bg-gray-50 dark:bg-slate-800/80 border border-gray-100 dark:border-slate-700 space-y-2 inline-block">
+                    <a v-if="item.details.thesisUrl" :href="item.details.thesisUrl" target="_blank" class="flex items-center gap-2 text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
+                      <span class="material-symbols-rounded text-sm">link</span> เล่มวิทยานิพนธ์
+                    </a>
+                    <a v-if="item.details.programUrl" :href="item.details.programUrl" target="_blank" class="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold hover:underline">
+                      <span class="material-symbols-rounded text-sm">link</span> ซอร์สโค้ดโปรแกรม
+                    </a>
+                  </div>
 
-          <div v-if="item.fileUrl" class="mt-3">
-             <a :href="item.fileUrl" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-600 text-[11px] font-bold hover:bg-indigo-600 hover:text-white transition-all">
-              <span class="material-symbols-rounded text-sm">attachment</span> ดูไฟล์แนบ
-            </a>
-          </div>
+                  <div v-if="item.fileUrl" class="mt-3">
+                     <a :href="item.fileUrl" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-500 dark:hover:text-white transition-all">
+                      <span class="material-symbols-rounded text-sm">attachment</span> ดูไฟล์แนบ
+                    </a>
+                  </div>
 
-          <div v-if="item.feedback" class="mt-4 p-3 rounded-xl bg-amber-50 border border-amber-100">
-            <div class="text-[10px] font-black text-amber-600 uppercase mb-1">ความเห็นจากอาจารย์</div>
-            <p class="text-xs text-amber-800 italic">"{{ item.feedback }}"</p>
-          </div>
-        </div>
-      </div>
-
+                  <div v-if="item.feedback" class="mt-4 p-4 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/20">
+                    <div class="flex items-center gap-1.5 text-xs font-black text-amber-600 dark:text-amber-500 uppercase mb-2">
+                      <span class="material-symbols-rounded text-sm">comment</span> ความเห็นจากอาจารย์
+                    </div>
+                    <p class="text-sm text-amber-800 dark:text-amber-200/80 italic leading-relaxed">"{{ item.feedback }}"</p>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-5 align-top">
+              <span :class="getStatusTextClass(item.status)" class="inline-flex items-center px-3 py-1.5 text-xs font-bold uppercase tracking-wide rounded-full bg-gray-50 dark:bg-slate-800 border">
+                {{ getStatusLabel(item.status) }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -80,10 +103,17 @@ const { data: historyData, pending } = await useFetch('/api/student/activity-his
 
 const timeline = computed(() => historyData.value?.timeline || [])
 
-const formatDate = (date) => {
+const formatDateOnly = (date) => {
   if (!date) return '-'
   return new Date(date).toLocaleDateString('th-TH', { 
-    day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+    day: 'numeric', month: 'short', year: 'numeric'
+  })
+}
+
+const formatTimeOnly = (date) => {
+  if (!date) return '-'
+  return new Date(date).toLocaleTimeString('th-TH', { 
+    hour: '2-digit', minute: '2-digit'
   })
 }
 
@@ -103,16 +133,16 @@ const getStatusLabel = (status) => {
 }
 
 const getStatusBg = (status) => {
-  if (status === 'success' || status === 'approved' || status === 'pass') return 'bg-emerald-500 shadow-emerald-100'
-  if (status === 'error' || status === 'rejected' || status === 'fail') return 'bg-rose-500 shadow-rose-100'
-  if (status === 'info' || status === 'seen') return 'bg-blue-500 shadow-blue-100'
-  return 'bg-amber-500 shadow-amber-100'
+  if (status === 'success' || status === 'approved' || status === 'pass') return 'bg-emerald-500 shadow-emerald-100 dark:shadow-none'
+  if (status === 'error' || status === 'rejected' || status === 'fail') return 'bg-rose-500 shadow-rose-100 dark:shadow-none'
+  if (status === 'info' || status === 'seen') return 'bg-blue-500 shadow-blue-100 dark:shadow-none'
+  return 'bg-amber-500 shadow-amber-100 dark:shadow-none'
 }
 
 const getStatusTextClass = (status) => {
-  if (status === 'success' || status === 'approved' || status === 'pass') return 'text-emerald-600 border-emerald-100'
-  if (status === 'error' || status === 'rejected' || status === 'fail') return 'text-rose-600 border-rose-100'
-  if (status === 'info' || status === 'seen') return 'text-blue-600 border-blue-100'
-  return 'text-amber-600 border-amber-100'
+  if (status === 'success' || status === 'approved' || status === 'pass') return 'text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-500/30'
+  if (status === 'error' || status === 'rejected' || status === 'fail') return 'text-rose-600 dark:text-rose-400 border-rose-100 dark:border-rose-500/30'
+  if (status === 'info' || status === 'seen') return 'text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-500/30'
+  return 'text-amber-600 dark:text-amber-400 border-amber-100 dark:border-amber-500/30'
 }
 </script>

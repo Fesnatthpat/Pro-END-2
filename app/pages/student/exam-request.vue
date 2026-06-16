@@ -11,7 +11,7 @@
             <span class="material-symbols-rounded group-hover:-translate-x-1 transition-transform">arrow_back</span>
             กลับหน้าหลัก
           </NuxtLink>
-          <h2 class="font-black text-[28px] md:text-[36px] text-[#1a1a40] dark:text-white leading-tight tracking-tight">
+          <h2 class="md: text-[#1a1a40] dark:text-white leading-tight tracking-tight text-2xl md:text-3xl font-bold">
             คำร้องขอสอบจบโครงงาน
           </h2>
           <p class="text-slate-500 dark:text-slate-400 mt-2 font-medium flex items-center gap-2">
@@ -24,7 +24,7 @@
             <span class="material-symbols-rounded">school</span>
           </div>
           <div>
-            <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">สถานะปัจจุบัน</div>
+            <div class="text-xs font-black text-slate-400 uppercase tracking-widest">สถานะปัจจุบัน</div>
             <div class="text-sm font-black text-slate-700 dark:text-slate-300">{{ getProjectStepStatus() }}</div>
           </div>
         </div>
@@ -45,11 +45,11 @@
           <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 pb-6 border-b border-slate-50">
             <div class="flex items-center gap-5 mb-4 md:mb-0">
               <div
-                class="w-16 h-16 rounded-[24px] bg-emerald-500 text-white flex items-center justify-center text-3xl shadow-lg shadow-emerald-200 shrink-0">
+                class="w-16 h-16 rounded-[24px] bg-emerald-500 text-white flex items-center justify-center text-3xl shadow-lg shadow-emerald-200 dark:shadow-none shrink-0">
                 <span class="material-symbols-rounded">event_available</span>
               </div>
               <div>
-                <h3 class="text-2xl font-black text-[#1a1a40] dark:text-white">ตารางการสอบถูกกำหนดแล้ว</h3>
+                <h3 class="text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">ตารางการสอบถูกกำหนดแล้ว</h3>
                 <p class="text-emerald-600 font-bold flex items-center gap-1 text-sm mt-0.5">
                   <span class="material-symbols-rounded text-base">check_circle</span>
                   เจ้าหน้าที่ยืนยันวันเวลาสอบเรียบร้อยแล้ว
@@ -64,33 +64,33 @@
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div
-              class="p-8 rounded-[32px] bg-slate-50/50 border border-slate-100 dark:border-slate-700 group hover:bg-white hover:shadow-xl hover:shadow-slate-100 transition-all duration-500">
+              class="p-8 rounded-[32px] bg-slate-50/50 border border-slate-100 dark:border-slate-700 group hover:bg-white hover:shadow-xl hover:shadow-slate-100 dark:hover:shadow-none transition-all duration-500">
               <div
                 class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 text-blue-600 shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <span class="material-symbols-rounded">calendar_month</span>
               </div>
-              <div class="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 px-0.5">วันที่สอบ</div>
+              <div class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5 px-0.5">วันที่สอบ</div>
               <div class="text-xl font-black text-[#1a1a40] dark:text-white">{{ formatDate(finalExam.examDate) }}</div>
             </div>
 
             <div
-              class="p-8 rounded-[32px] bg-slate-50/50 border border-slate-100 dark:border-slate-700 group hover:bg-white hover:shadow-xl hover:shadow-slate-100 transition-all duration-500">
+              class="p-8 rounded-[32px] bg-slate-50/50 border border-slate-100 dark:border-slate-700 group hover:bg-white hover:shadow-xl hover:shadow-slate-100 dark:hover:shadow-none transition-all duration-500">
               <div
                 class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 text-amber-500 shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <span class="material-symbols-rounded">schedule</span>
               </div>
-              <div class="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 px-0.5">เวลาเริ่มต้น
+              <div class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5 px-0.5">เวลาเริ่มต้น
               </div>
               <div class="text-xl font-black text-[#1a1a40] dark:text-white">{{ finalExam.examTime }} น.</div>
             </div>
 
             <div
-              class="p-8 rounded-[32px] bg-slate-50/50 border border-slate-100 dark:border-slate-700 group hover:bg-white hover:shadow-xl hover:shadow-slate-100 transition-all duration-500">
+              class="p-8 rounded-[32px] bg-slate-50/50 border border-slate-100 dark:border-slate-700 group hover:bg-white hover:shadow-xl hover:shadow-slate-100 dark:hover:shadow-none transition-all duration-500">
               <div
                 class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 text-rose-500 shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <span class="material-symbols-rounded">location_on</span>
               </div>
-              <div class="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 px-0.5">สถานที่/ห้องสอบ
+              <div class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5 px-0.5">สถานที่/ห้องสอบ
               </div>
               <div class="text-xl font-black text-[#1a1a40] dark:text-white">{{ finalExam.examLocation }}</div>
             </div>
@@ -102,7 +102,7 @@
               class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 text-indigo-600 flex items-center justify-center shrink-0 shadow-sm">
               <span class="material-symbols-rounded">lightbulb</span>
             </div>
-            <p class="text-indigo-900 text-[13px] font-bold leading-relaxed">
+            <p class="text-indigo-900 text-sm font-bold leading-relaxed">
               คำแนะนำ: นักศึกษาควรไปถึงสถานที่สอบก่อนเวลา 15 นาที และเตรียมเอกสาร CP2/CP3 รวมถึงไฟล์นำเสนอให้พร้อมครับ
             </p>
           </div>
@@ -114,17 +114,17 @@
             <div class="relative w-32 h-32 mx-auto mb-8">
               <div class="absolute inset-0 bg-emerald-400/20 rounded-full animate-ping"></div>
               <div
-                class="relative w-32 h-32 bg-gradient-to-br from-emerald-400 to-teal-500 text-white rounded-full flex items-center justify-center text-6xl shadow-2xl shadow-emerald-200">
+                class="relative w-32 h-32 bg-gradient-to-br from-emerald-400 to-teal-500 text-white rounded-full flex items-center justify-center text-6xl shadow-2xl shadow-emerald-200 dark:shadow-none">
                 <span class="material-symbols-rounded text-6xl">verified</span>
               </div>
             </div>
-            <h3 class="text-3xl font-black text-[#1a1a40] dark:text-white mb-4">ผ่านการสอบจบเรียบร้อยแล้ว</h3>
+            <h3 class="text-[#1a1a40] dark:text-white mb-4 text-xl md:text-2xl font-bold">ผ่านการสอบจบเรียบร้อยแล้ว</h3>
             <p class="text-slate-500 dark:text-slate-400 max-w-[500px] mx-auto mb-10 text-lg leading-relaxed">
               ขอแสดงความยินดีด้วย! คุณผ่านขั้นตอนการสอบจบแล้ว
               ขั้นตอนสุดท้ายคือการส่งเล่มวิทยานิพนธ์และโปรแกรมฉบับสมบูรณ์เข้าสู่ระบบครับ
             </p>
             <NuxtLink to="/student/final-submit"
-              class="inline-flex items-center gap-3 px-12 py-5 bg-[#1a1a40] text-white rounded-[24px] font-black text-lg hover:bg-indigo-600 transition-all shadow-2xl shadow-indigo-200 hover:-translate-y-1 active:scale-95 group">
+              class="inline-flex items-center gap-3 px-12 py-5 bg-[#1a1a40] text-white rounded-[24px] font-black text-lg hover:bg-indigo-600 transition-all shadow-2xl shadow-indigo-200 dark:shadow-none hover:-translate-y-1 active:scale-95 group">
               ไปหน้าส่งงานฉบับสมบูรณ์
               <span class="material-symbols-rounded group-hover:translate-x-1 transition-transform">rocket_launch</span>
             </NuxtLink>
@@ -136,7 +136,7 @@
               class="w-32 h-32 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner border border-amber-100/50">
               <span class="material-symbols-rounded text-6xl animate-pulse">hourglass_empty</span>
             </div>
-            <h3 class="text-3xl font-black text-[#1a1a40] dark:text-white mb-3">อยู่ระหว่างจัดตารางสอบ</h3>
+            <h3 class="text-[#1a1a40] dark:text-white mb-3 text-xl md:text-2xl font-bold">อยู่ระหว่างจัดตารางสอบ</h3>
             <p class="text-slate-500 dark:text-slate-400 max-w-[450px] mx-auto text-lg leading-relaxed font-medium">
               คุณได้ยื่นคำร้องเรียบร้อยแล้ว แอดมินกำลังดำเนินการจัดหาวันเวลาและสถานที่สอบที่เหมาะสมให้คุณครับ
             </p>
@@ -152,14 +152,14 @@
               class="w-28 h-28 bg-blue-50 text-blue-600 rounded-[35px] flex items-center justify-center mx-auto mb-8 rotate-12 group-hover:rotate-0 transition-transform duration-500">
               <span class="material-symbols-rounded text-5xl">grading</span>
             </div>
-            <h3 class="text-3xl font-black text-[#1a1a40] dark:text-white mb-4">ยื่นคำร้องขอสอบจบโครงงาน</h3>
+            <h3 class="text-[#1a1a40] dark:text-white mb-4 text-xl md:text-2xl font-bold">ยื่นคำร้องขอสอบจบโครงงาน</h3>
             <p class="text-slate-500 dark:text-slate-400 max-w-[500px] mx-auto mb-10 text-lg leading-relaxed">
               หากคุณดำเนินงานโครงงานและจัดทำรูปเล่มฉบับร่างเสร็จสมบูรณ์แล้ว
               สามารถกดยืนยันเพื่อขอรับการนัดหมายวันสอบจากคณะกรรมการได้ทันทีครับ
             </p>
 
             <button @click="handleNotifyReadiness" :disabled="submitting"
-              class="inline-flex items-center gap-3 px-12 py-5 bg-blue-600 text-white rounded-[24px] font-black text-lg hover:bg-indigo-600 transition-all shadow-2xl shadow-blue-200 hover:-translate-y-1 active:scale-95 disabled:opacity-50 group">
+              class="inline-flex items-center gap-3 px-12 py-5 bg-blue-600 text-white rounded-[24px] font-black text-lg hover:bg-indigo-600 transition-all shadow-2xl shadow-blue-200 dark:shadow-none hover:-translate-y-1 active:scale-95 disabled:opacity-50 group">
               <span class="material-symbols-rounded text-2xl" v-if="!submitting">check_circle</span>
               <span>{{ submitting ? 'กำลังประมวลผล...' : 'ยืนยันความพร้อมและยื่นคำร้อง' }}</span>
               <span class="material-symbols-rounded group-hover:translate-x-1 transition-transform"
@@ -180,7 +180,7 @@
             <span class="material-symbols-rounded">task_alt</span>
           </div>
           <div>
-            <h3 class="font-black text-xl text-[#1a1a40] dark:text-white mb-1">จัดการ CP2 สำเร็จ</h3>
+            <h3 class="text-xl text-[#1a1a40] dark:text-white mb-1 text-xl md:text-2xl font-bold">จัดการ CP2 สำเร็จ</h3>
             <p class="text-slate-400 text-xs font-bold uppercase tracking-wide mb-4">แบบคำร้องขอสอบจบ</p>
             <NuxtLink to="/student/cp2"
               class="inline-flex items-center gap-2 text-indigo-600 font-black text-sm hover:underline">
@@ -190,7 +190,7 @@
         </div>
 
         <NuxtLink v-else to="/student/cp2"
-          class="bg-white dark:bg-slate-800 rounded-[35px] p-8 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-6 group hover:shadow-2xl hover:shadow-indigo-100 hover:border-indigo-100 transition-all duration-500 relative overflow-hidden">
+          class="bg-white dark:bg-slate-800 rounded-[35px] p-8 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-6 group hover:shadow-2xl hover:shadow-indigo-100 dark:hover:shadow-none hover:border-indigo-100 transition-all duration-500 relative overflow-hidden">
           <div
             class="absolute top-0 right-0 w-16 h-16 bg-indigo-50 rounded-full -mr-8 -mt-8 opacity-0 group-hover:opacity-100 transition-opacity">
           </div>
@@ -199,7 +199,7 @@
             <span class="material-symbols-rounded">description</span>
           </div>
           <div>
-            <h3 class="font-black text-xl text-[#1a1a40] dark:text-white mb-1 group-hover:text-indigo-700 transition-colors">แบบขอสอบจบ
+            <h3 class="text-xl text-[#1a1a40] dark:text-white mb-1 group-hover:text-indigo-700 transition-colors text-xl md:text-2xl font-bold">แบบขอสอบจบ
               (CP2)</h3>
             <p class="text-slate-400 text-xs font-bold uppercase tracking-wide mb-4">พิมพ์เอกสารให้ที่ปรึกษาลงนาม</p>
             <div class="flex items-center gap-2 text-indigo-600 font-black text-sm">
@@ -217,7 +217,7 @@
             <span class="material-symbols-rounded">assignment_turned_in</span>
           </div>
           <div>
-            <h3 class="font-black text-xl text-[#1a1a40] dark:text-white mb-1">จัดการ CP3 สำเร็จ</h3>
+            <h3 class="text-xl text-[#1a1a40] dark:text-white mb-1 text-xl md:text-2xl font-bold">จัดการ CP3 สำเร็จ</h3>
             <p class="text-slate-400 text-xs font-bold uppercase tracking-wide mb-4">แบบประเมินการสอบ</p>
             <NuxtLink to="/student/cp3"
               class="inline-flex items-center gap-2 text-indigo-600 font-black text-sm hover:underline">
@@ -227,7 +227,7 @@
         </div>
 
         <NuxtLink v-else-if="project?.step >= 4" to="/student/cp3"
-          class="bg-white dark:bg-slate-800 rounded-[35px] p-8 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-6 group hover:shadow-2xl hover:shadow-indigo-100 hover:border-indigo-100 transition-all duration-500 relative overflow-hidden">
+          class="bg-white dark:bg-slate-800 rounded-[35px] p-8 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-6 group hover:shadow-2xl hover:shadow-indigo-100 dark:hover:shadow-none hover:border-indigo-100 transition-all duration-500 relative overflow-hidden">
           <div
             class="absolute top-0 right-0 w-16 h-16 bg-indigo-50 rounded-full -mr-8 -mt-8 opacity-0 group-hover:opacity-100 transition-opacity">
           </div>
@@ -236,7 +236,7 @@
             <span class="material-symbols-rounded">task</span>
           </div>
           <div>
-            <h3 class="font-black text-xl text-[#1a1a40] dark:text-white mb-1 group-hover:text-indigo-700 transition-colors">
+            <h3 class="text-xl text-[#1a1a40] dark:text-white mb-1 group-hover:text-indigo-700 transition-colors text-xl md:text-2xl font-bold">
               แบบประเมินสอบ (CP3)</h3>
             <p class="text-slate-400 text-xs font-bold uppercase tracking-wide mb-4">พิมพ์เอกสารมอบให้คณะกรรมการ</p>
             <div class="flex items-center gap-2 text-indigo-600 font-black text-sm">
@@ -253,7 +253,7 @@
             <span class="material-symbols-rounded">lock</span>
           </div>
           <div>
-            <h3 class="font-black text-xl text-slate-400 mb-1">แบบประเมินสอบ (CP3)</h3>
+            <h3 class="text-xl text-slate-400 mb-1 text-xl md:text-2xl font-bold">แบบประเมินสอบ (CP3)</h3>
             <p class="text-slate-400 text-xs font-bold uppercase tracking-wide">กรุณายื่นคำร้องขอสอบก่อน</p>
           </div>
         </div>

@@ -7,7 +7,7 @@
           <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
           Final Defense Management
         </div>
-        <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">คำร้องขอสอบจบ (CP2/CP3)</h2>
+        <h2 class="text-slate-900 dark:text-white md: mb-2 tracking-tight text-2xl md:text-3xl font-bold">คำร้องขอสอบจบ (CP2/CP3)</h2>
         <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-slate-200"></span>
           <p class="text-sm font-medium">จัดการคำร้องสอบจบและบันทึกผลการประเมินขั้นสุดท้าย</p>
@@ -18,14 +18,14 @@
         <button @click="activeTab = 'waiting'" 
                 :class="activeTab === 'waiting' ? 'bg-white dark:bg-slate-800 text-rose-600 shadow-md font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'"
                 class="px-8 py-3 rounded-xl text-sm transition-all flex items-center gap-2 text-nowrap">
-          <span class="material-symbols-rounded text-[20px]">hourglass_empty</span> 
+          <span class="material-symbols-rounded text-xl">hourglass_empty</span> 
           <span>รอดำเนินการ</span>
-          <span v-if="waitList.length" class="ml-1 w-5 h-5 flex items-center justify-center rounded-full bg-rose-500 text-white text-[10px] font-black">{{ waitList.length }}</span>
+          <span v-if="waitList.length" class="ml-1 w-5 h-5 flex items-center justify-center rounded-full bg-rose-500 text-white text-xs font-black">{{ waitList.length }}</span>
         </button>
         <button @click="activeTab = 'scheduled'" 
                 :class="activeTab === 'scheduled' ? 'bg-white dark:bg-slate-800 text-rose-600 shadow-md font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'"
                 class="px-8 py-3 rounded-xl text-sm transition-all flex items-center gap-2 text-nowrap">
-          <span class="material-symbols-rounded text-[20px]">event_available</span> 
+          <span class="material-symbols-rounded text-xl">event_available</span> 
           <span>นัดสอบแล้ว</span>
         </button>
       </div>
@@ -62,23 +62,23 @@
                 </td>
                 <td class="px-8 py-6">
                   <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium">
-                    <span class="material-symbols-rounded text-slate-300 text-[18px]">event</span>
+                    <span class="material-symbols-rounded text-slate-300 text-lg">event</span>
                     {{ formatDate(item.updatedAt) }}
                   </div>
                 </td>
                 <td class="px-8 py-6">
                   <div class="flex items-center justify-center gap-3">
-                    <NuxtLink :to="`/student/cp2?projectId=${item.id}`" target="_blank" class="px-3 py-1.5 rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all font-black text-[10px] tracking-widest border border-indigo-100 flex items-center gap-1.5">
-                      <span class="material-symbols-rounded text-[16px]">picture_as_pdf</span> CP2
+                    <NuxtLink :to="`/student/cp2?projectId=${item.id}`" target="_blank" class="px-3 py-1.5 rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all font-black text-xs tracking-widest border border-indigo-100 flex items-center gap-1.5">
+                      <span class="material-symbols-rounded text-base">picture_as_pdf</span> CP2
                     </NuxtLink>
-                    <NuxtLink :to="`/student/cp3?projectId=${item.id}`" target="_blank" class="px-3 py-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all font-black text-[10px] tracking-widest border border-rose-100 flex items-center gap-1.5">
-                      <span class="material-symbols-rounded text-[16px]">picture_as_pdf</span> CP3
+                    <NuxtLink :to="`/student/cp3?projectId=${item.id}`" target="_blank" class="px-3 py-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all font-black text-xs tracking-widest border border-rose-100 flex items-center gap-1.5">
+                      <span class="material-symbols-rounded text-base">picture_as_pdf</span> CP3
                     </NuxtLink>
                   </div>
                 </td>
                 <td class="px-8 py-6 text-center">
-                  <button @click="openScheduleModal(item)" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 text-white hover:bg-rose-600 transition-all font-bold text-sm shadow-md shadow-slate-100 active:scale-95">
-                    <span class="material-symbols-rounded text-[18px]">calendar_add_on</span>
+                  <button @click="openScheduleModal(item)" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 text-white hover:bg-rose-600 transition-all font-bold text-sm shadow-md shadow-slate-100 dark:shadow-none active:scale-95">
+                    <span class="material-symbols-rounded text-lg">calendar_add_on</span>
                     <span>ระบุวันสอบ</span>
                   </button>
                 </td>
@@ -113,7 +113,7 @@
                 <td class="px-8 py-6">
                   <div v-if="item.exams?.find(e => e.type === 'CP2' && e.status === 'pending')" class="flex items-center gap-4">
                     <div class="flex flex-col items-center justify-center w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 group-hover/row:scale-110 transition-transform">
-                      <span class="text-[10px] font-black text-rose-400 uppercase tracking-tighter">{{ new Date(item.exams.find(e => e.type === 'CP2' && e.status === 'pending').examDate).toLocaleDateString('th-TH', { month: 'short' }) }}</span>
+                      <span class="text-xs font-black text-rose-400 uppercase tracking-tighter">{{ new Date(item.exams.find(e => e.type === 'CP2' && e.status === 'pending').examDate).toLocaleDateString('th-TH', { month: 'short' }) }}</span>
                       <span class="text-xl font-black text-rose-600 leading-none">{{ new Date(item.exams.find(e => e.type === 'CP2' && e.status === 'pending').examDate).getDate() }}</span>
                     </div>
                     <div>
@@ -127,7 +127,7 @@
                 </td>
                 <td class="px-8 py-6 text-center">
                   <div v-if="item.exams?.find(e => e.type === 'CP2' && e.status === 'pending')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 font-bold border border-slate-100 dark:border-slate-700">
-                    <span class="material-symbols-rounded text-[18px]">location_on</span>
+                    <span class="material-symbols-rounded text-lg">location_on</span>
                     {{ item.exams.find(e => e.type === 'CP2' && e.status === 'pending').examLocation }}
                   </div>
                 </td>
@@ -135,10 +135,10 @@
                   <div class="font-bold text-slate-800 dark:text-slate-200 mb-2 truncate max-w-[250px]" :title="item.titleTh">{{ item.titleTh }}</div>
                   <div class="flex items-center gap-3 mb-2">
                     <NuxtLink :to="`/student/cp2?projectId=${item.id}`" target="_blank" class="px-2 py-1 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all font-black text-[9px] tracking-widest border border-indigo-100 flex items-center gap-1">
-                      <span class="material-symbols-rounded text-[14px]">picture_as_pdf</span> CP2
+                      <span class="material-symbols-rounded text-sm">picture_as_pdf</span> CP2
                     </NuxtLink>
                     <NuxtLink :to="`/student/cp3?projectId=${item.id}`" target="_blank" class="px-2 py-1 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all font-black text-[9px] tracking-widest border border-rose-100 flex items-center gap-1">
-                      <span class="material-symbols-rounded text-[14px]">picture_as_pdf</span> CP3
+                      <span class="material-symbols-rounded text-sm">picture_as_pdf</span> CP3
                     </NuxtLink>
                   </div>
                   <div class="text-slate-400 font-medium flex items-center gap-1.5">
@@ -147,8 +147,8 @@
                   </div>
                 </td>
                 <td class="px-8 py-6 text-center">
-                  <button @click="openResultModal(item)" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 transition-all font-bold text-sm shadow-md shadow-emerald-100 active:scale-95">
-                    <span class="material-symbols-rounded text-[18px]">how_to_reg</span>
+                  <button @click="openResultModal(item)" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 transition-all font-bold text-sm shadow-md shadow-emerald-100 dark:shadow-none active:scale-95">
+                    <span class="material-symbols-rounded text-lg">how_to_reg</span>
                     <span>บันทึกผลสอบจบ</span>
                   </button>
                 </td>
@@ -175,10 +175,10 @@
         <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden animate-[fadeIn_0.3s_ease-out] border border-white/20">
           <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
             <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center shadow-lg shadow-rose-200">
+              <div class="w-12 h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center shadow-lg shadow-rose-200 dark:shadow-none">
                 <span class="material-symbols-rounded">calendar_add_on</span>
               </div>
-              <h3 class="text-2xl font-bold text-slate-900 tracking-tight">ระบุวันสอบจบ</h3>
+              <h3 class="text-slate-900 dark:text-white tracking-tight text-xl md:text-2xl font-bold">ระบุวันสอบจบ</h3>
             </div>
             <button @click="showScheduleModal = false" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
               <span class="material-symbols-rounded">close</span>
@@ -204,7 +204,7 @@
             </div>
 
             <div class="pt-4">
-              <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-rose-100 transition-all active:scale-95 flex items-center justify-center gap-3">
+              <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-rose-100 dark:shadow-none transition-all active:scale-95 flex items-center justify-center gap-3">
                 <span class="material-symbols-rounded">save</span>
                 <span>ยืนยันจัดตารางสอบจบ</span>
               </button>
@@ -220,10 +220,10 @@
         <div class="bg-white dark:bg-slate-800 rounded-[40px] shadow-2xl w-full max-w-xl overflow-hidden animate-[fadeIn_0.3s_ease-out] border border-white/20">
           <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
             <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200 dark:shadow-none">
                 <span class="material-symbols-rounded">how_to_reg</span>
               </div>
-              <h3 class="text-2xl font-bold text-slate-900 tracking-tight">บันทึกผลการสอบจบ</h3>
+              <h3 class="text-slate-900 dark:text-white tracking-tight text-xl md:text-2xl font-bold">บันทึกผลการสอบจบ</h3>
             </div>
             <button @click="showResultModal = false" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
               <span class="material-symbols-rounded">close</span>
@@ -274,7 +274,7 @@
             </div>
 
             <div class="pt-4">
-              <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-2xl shadow-xl shadow-emerald-100 transition-all active:scale-95 flex items-center justify-center gap-3">
+              <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-2xl shadow-xl shadow-emerald-100 dark:shadow-none transition-all active:scale-95 flex items-center justify-center gap-3">
                 <span class="material-symbols-rounded text-[22px]">cloud_done</span>
                 <span>ยืนยันบันทึกผลการสอบจบ</span>
               </button>

@@ -101,10 +101,10 @@ const updateProject = async (step, status) => {
 // ฟังก์ชันหาคลาสสีของกล่องสถานะย่อส่วน
 const getBoxClass = (stepCheck, currentStep) => {
   if (isProjectComplete(project.value) || stepCheck < currentStep) {
-    return 'bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-100'
+    return 'bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-100 dark:shadow-none'
   }
   if (stepCheck === currentStep) {
-    return 'bg-amber-400 border-amber-400 text-white shadow-lg shadow-amber-100 animate-pulse'
+    return 'bg-amber-400 border-amber-400 text-white shadow-lg shadow-amber-100 dark:shadow-none animate-pulse'
   }
   return 'bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-300'
 }
@@ -189,10 +189,10 @@ const formatDate = (date) => {
 
     <div v-else-if="!project" class="flex flex-col items-center justify-center py-32 animate-[fadeIn_0.5s_ease-out]">
       <div
-        class="w-24 h-24 bg-rose-50 text-rose-500 rounded-[32px] flex items-center justify-center mb-6 border-2 border-rose-100/50 shadow-xl shadow-rose-100/20">
+        class="w-24 h-24 bg-rose-50 text-rose-500 rounded-[32px] flex items-center justify-center mb-6 border-2 border-rose-100/50 shadow-xl shadow-rose-100/20 dark:shadow-none">
         <span class="material-symbols-rounded text-6xl">search_off</span>
       </div>
-      <h3 class="text-2xl font-black text-slate-800 dark:text-slate-200 mb-2">ไม่พบข้อมูลโครงงาน</h3>
+      <h3 class="text-slate-800 dark:text-slate-200 mb-2 text-xl md:text-2xl font-bold">ไม่พบข้อมูลโครงงาน</h3>
       <p class="text-slate-400 font-medium mb-8 text-center max-w-xs">
         ขออภัย ไม่พบข้อมูลโครงงานที่คุณต้องการ หรือโครงงานนี้อาจถูกลบไปแล้ว
       </p>
@@ -204,34 +204,34 @@ const formatDate = (date) => {
 
     <div v-else class="animate-[fadeIn_0.5s_ease-out]">
       <div class="admin-card bg-white dark:bg-slate-800 p-8 mb-10 relative overflow-hidden">
-        <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-50"></div>
+        <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-50 dark:bg-indigo-900/20 rounded-full blur-3xl opacity-50"></div>
 
         <div class="relative z-10">
           <div class="flex items-center gap-2 text-indigo-500 font-black mb-4 uppercase tracking-widest text-xs">
             <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
             Project Details
           </div>
-          <h1 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight mb-4 tracking-tight">{{
+          <h1 class="md: text-slate-900 dark:text-white leading-tight mb-4 tracking-tight text-3xl md:text-4xl lg:text-5xl font-black">{{
             project.titleTh }}</h1>
-          <h2 class="text-xl text-slate-400 font-medium mb-10 max-w-4xl">{{ project.titleEn || '-' }}</h2>
+          <h2 class="text-xl text-slate-400 mb-10 max-w-4xl text-2xl md:text-3xl font-bold">{{ project.titleEn || '-' }}</h2>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-8 border-t border-slate-100 dark:border-slate-700">
             <div class="space-y-1">
-              <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">ผู้วิจัย</div>
+              <div class="text-xs font-black text-slate-400 uppercase tracking-widest">ผู้วิจัย</div>
               <div class="font-bold text-slate-800 dark:text-slate-200 flex flex-col">
                 <span>{{ project.student1.fullname }}</span>
                 <span v-if="project.student2" class="text-slate-800 dark:text-slate-200">{{ project.student2.fullname }}</span>
               </div>
             </div>
             <div class="space-y-1">
-              <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">รหัสนักศึกษา</div>
+              <div class="text-xs font-black text-slate-400 uppercase tracking-widest">รหัสนักศึกษา</div>
               <div class="font-bold text-slate-600 dark:text-slate-400 flex flex-col">
                 <span>{{ project.student1.username }}</span> <br>
                 <span v-if="project.student2" class="text-slate-800 dark:text-slate-200">{{ project.student2.username }}</span>
               </div>
             </div>
             <div class="space-y-1">
-              <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">อาจารย์ที่ปรึกษา</div>
+              <div class="text-xs font-black text-slate-400 uppercase tracking-widest">อาจารย์ที่ปรึกษา</div>
               <div class="font-bold text-slate-800 dark:text-slate-200 flex flex-col">
                 <span>{{ project.advisor?.fullname || 'ยังไม่ระบุ' }}</span>
                 <span v-if="project.coAdvisor" class="text-indigo-600">ที่ปรึกษาร่วม: {{ project.coAdvisor.fullname
@@ -239,7 +239,7 @@ const formatDate = (date) => {
               </div>
             </div>
             <div class="space-y-1">
-              <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">ปีการศึกษา/ภาค</div>
+              <div class="text-xs font-black text-slate-400 uppercase tracking-widest">ปีการศึกษา/ภาค</div>
               <div class="font-bold text-indigo-600">{{ project.academicYear }}/{{ project.semester }}</div>
             </div>
           </div>
@@ -255,7 +255,7 @@ const formatDate = (date) => {
 
             <div
               class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 pb-8 border-b border-slate-50">
-              <h3 class="font-black text-2xl text-slate-900 flex items-center gap-3 tracking-tight">
+              <h3 class="text-slate-900 dark:text-white flex items-center gap-3 tracking-tight text-xl md:text-2xl font-bold">
                 <span class="material-symbols-rounded text-indigo-600 text-3xl">reorder</span>
                 สถานะการดำเนินงาน
               </h3>
@@ -276,7 +276,7 @@ const formatDate = (date) => {
               <!-- Step 1: CP1 -->
               <div class="relative z-10 group/step">
                 <div :class="getDotColorClass(1)"
-                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
+                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white dark:border-slate-800 shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
                   <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-2">ยื่นสอบหัวข้อ (CP1)</h4>
@@ -284,12 +284,12 @@ const formatDate = (date) => {
                   <!-- ปุ่มดูเอกสาร CP1 และจัดการสอบ (ย้ายมาจากหน้าหลักตามความต้องการ) -->
                   <div class="flex flex-wrap items-center gap-3 mb-4">
                     <a :href="`/student/cp1?projectId=${project.id}&hideNav=true`" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all font-bold text-xs border border-rose-100">
-                      <span class="material-symbols-rounded text-[18px]">picture_as_pdf</span>
+                      <span class="material-symbols-rounded text-lg">picture_as_pdf</span>
                       <span>ดูเอกสาร CP1</span>
                     </a>
                     
                     <button v-if="!cp1Exam || cp1Exam.status === 'pending'" @click="openScheduleModal" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition-all font-bold text-xs shadow-sm">
-                      <span class="material-symbols-rounded text-[18px]">calendar_month</span>
+                      <span class="material-symbols-rounded text-lg">calendar_month</span>
                       <span>{{ cp1Exam ? 'แก้ไขวันสอบ' : 'ระบุวันสอบ' }}</span>
                     </button>
                   </div>
@@ -306,7 +306,7 @@ const formatDate = (date) => {
                       </div>
                       <div>
                         <div :class="cp1Exam.status === 'pass' ? 'text-emerald-600' : 'text-amber-600'"
-                          class="text-[10px] font-black uppercase tracking-widest mb-0.5">
+                          class="text-xs font-black uppercase tracking-widest mb-0.5">
                           {{ cp1Exam.status === 'pass' ? 'ผ่านการสอบหัวข้อแล้ว' : 'นัดหมายสอบหัวข้อโครงงาน' }}
                         </div>
                         <div class="text-sm font-bold"
@@ -321,39 +321,39 @@ const formatDate = (date) => {
 
                   <div class="flex items-center gap-2">
                     <span v-if="project.step >= 2"
-                      class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-100">อนุมัติผ่านขั้นตอนแล้ว</span>
+                      class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-black uppercase tracking-widest border border-emerald-100">อนุมัติผ่านขั้นตอนแล้ว</span>
                     <span v-else-if="project.step === 1 && project.status === 'approved'"
-                      class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-100">ผ่านการสอบหัวข้อแล้ว</span>
+                      class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-black uppercase tracking-widest border border-emerald-100">ผ่านการสอบหัวข้อแล้ว</span>
                     <span v-else-if="project.step === 1"
-                      class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest border border-blue-100">กำลังรอการตรวจสอบ
+                      class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-black uppercase tracking-widest border border-blue-100">กำลังรอการตรวจสอบ
                       / นัดสอบ</span>
                     <span v-else
-                      class="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">ยังไม่ดำเนินการ</span>
+                      class="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 text-slate-400 text-xs font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">ยังไม่ดำเนินการ</span>
                   </div>
 
                   <!-- Management Actions for Step 1 -->
                   <div v-if="project.step === 1 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
-                    <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
+                    <div class="flex items-center gap-2 text-indigo-500 font-black text-xs uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน CP1
                     </div>
 
                     <div class="space-y-2">
-                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
+                      <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
                         class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                      <button @click="updateProject(1, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(1, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">verified</span>
                         <span>อนุมัติและไปขั้นตอนถัดไป</span>
                       </button>
-                      <button @click="updateProject(1, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(1, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">edit_note</span>
                         <span>ให้แก้ไข</span>
                       </button>
-                      <button @click="updateProject(1, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(1, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">cancel</span>
                         <span>ไม่อนุมัติ</span>
                       </button>
@@ -365,7 +365,7 @@ const formatDate = (date) => {
               <!-- Step 2: Reports -->
               <div class="relative z-10 group/step">
                 <div :class="getDotColorClass(2)"
-                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
+                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white dark:border-slate-800 shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
                   <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-6">รายงานความก้าวหน้า (Progress)</h4>
@@ -378,8 +378,8 @@ const formatDate = (date) => {
                       </div>
                       <div class="flex justify-between items-center mb-4">
                         <div class="flex flex-col">
-                          <span class="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Latest Progress Log</span>
-                          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{
+                          <span class="text-xs font-black text-indigo-400 uppercase tracking-widest mb-1">Latest Progress Log</span>
+                          <span class="text-xs font-black text-slate-400 uppercase tracking-widest">{{
                             formatDate(report.createdAt) }}</span>
                         </div>
                         <div
@@ -406,26 +406,26 @@ const formatDate = (date) => {
 
                   <!-- Management Actions for Step 2 -->
                   <div v-if="project.step === 2 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
-                    <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
+                    <div class="flex items-center gap-2 text-indigo-500 font-black text-xs uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน รายงานความก้าวหน้า
                     </div>
                     <div class="space-y-2">
-                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
+                      <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
                         class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                      <button @click="updateProject(2, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(2, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">verified</span>
                         <span>อนุมัติและไปขั้นตอนถัดไป</span>
                       </button>
-                      <button @click="updateProject(2, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(2, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">edit_note</span>
                         <span>ให้แก้ไข</span>
                       </button>
-                      <button @click="updateProject(2, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(2, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">cancel</span>
                         <span>ไม่อนุมัติ</span>
                       </button>
@@ -437,7 +437,7 @@ const formatDate = (date) => {
               <!-- Step 3: Thesis Draft -->
               <div class="relative z-10 group/step">
                 <div :class="getDotColorClass(3)"
-                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
+                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white dark:border-slate-800 shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
                   <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-6">เล่มบัณฑิตนิพนธ์ (ฉบับร่าง)</h4>
@@ -447,7 +447,7 @@ const formatDate = (date) => {
                     <div v-for="report in [thesisReports[0]]" :key="report.id"
                       class="bg-indigo-50/30 border border-indigo-100 p-6 rounded-[32px] relative overflow-hidden group/thesis-report">
                       <div class="flex justify-between items-start mb-3">
-                        <div class="text-[10px] font-black text-indigo-400 uppercase tracking-widest">{{
+                        <div class="text-xs font-black text-indigo-400 uppercase tracking-widest">{{
                           formatDate(report.createdAt) }}</div>
                         <span
                           class="px-2 py-0.5 rounded-lg bg-indigo-100 text-indigo-600 text-[9px] font-black uppercase">Latest Draft Log</span>
@@ -466,7 +466,7 @@ const formatDate = (date) => {
                           <span class="material-symbols-rounded">picture_as_pdf</span>
                         </div>
                         <div>
-                          <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">
+                          <div class="text-xs font-black text-slate-400 uppercase tracking-widest mb-0.5">
                             ลิงก์เล่มวิทยานิพนธ์ (ฉบับร่าง)</div>
                           <a :href="project.thesisUrl" target="_blank"
                             class="text-sm font-bold text-indigo-600 hover:underline break-all">{{ project.thesisUrl
@@ -487,26 +487,26 @@ const formatDate = (date) => {
 
                   <!-- Management Actions for Step 3 -->
                   <div v-if="project.step === 3 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
-                    <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
+                    <div class="flex items-center gap-2 text-indigo-500 font-black text-xs uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน เล่มวิทยานิพนธ์ (ฉบับร่าง)
                     </div>
                     <div class="space-y-2">
-                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
+                      <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
                         class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                      <button @click="updateProject(3, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(3, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">verified</span>
                         <span>อนุมัติและไปขั้นตอนถัดไป</span>
                       </button>
-                      <button @click="updateProject(3, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(3, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">edit_note</span>
                         <span>ให้แก้ไข</span>
                       </button>
-                      <button @click="updateProject(3, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(3, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">cancel</span>
                         <span>ไม่อนุมัติ</span>
                       </button>
@@ -518,7 +518,7 @@ const formatDate = (date) => {
               <!-- Step 4: Exam -->
               <div class="relative z-10 group/step">
                 <div :class="getDotColorClass(4)"
-                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
+                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white dark:border-slate-800 shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
                   <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-4">ยื่นสอบจบ (CP2/CP3)</h4>
@@ -536,12 +536,12 @@ const formatDate = (date) => {
                   </div>
 
                   <div v-if="project.step === 4 && project.examDate"
-                    class="bg-gradient-to-br from-indigo-600 to-indigo-700 p-6 rounded-[32px] text-white shadow-xl shadow-indigo-100 mb-4 relative overflow-hidden">
+                    class="bg-gradient-to-br from-indigo-600 to-indigo-700 p-6 rounded-[32px] text-white shadow-xl shadow-indigo-100 dark:shadow-none mb-4 relative overflow-hidden">
                     <span
                       class="material-symbols-rounded absolute -right-4 -bottom-4 text-8xl text-white/10">event_available</span>
                     <div class="relative z-10">
                       <div
-                        class="text-[10px] font-black text-indigo-200 uppercase tracking-widest mb-3 flex items-center gap-2">
+                        class="text-xs font-black text-indigo-200 uppercase tracking-widest mb-3 flex items-center gap-2">
                         <span class="w-1.5 h-1.5 bg-white dark:bg-slate-800 rounded-full animate-pulse"></span>
                         นัดหมายการสอบจบโครงงาน
                       </div>
@@ -552,35 +552,35 @@ const formatDate = (date) => {
                   </div>
                   <div class="flex items-center gap-2">
                     <span v-if="project.step >= 5"
-                      class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-100">ผ่านการสอบจบแล้ว</span>
+                      class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-black uppercase tracking-widest border border-emerald-100">ผ่านการสอบจบแล้ว</span>
                     <span v-else-if="project.step === 4"
-                      class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest border border-blue-100">กำลังรอการสอบจบ</span>
+                      class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-black uppercase tracking-widest border border-blue-100">กำลังรอการสอบจบ</span>
                     <span v-else
-                      class="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">ยังไม่ดำเนินการ</span>
+                      class="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 text-slate-400 text-xs font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">ยังไม่ดำเนินการ</span>
                   </div>
 
                   <!-- Management Actions for Step 4 -->
                   <div v-if="project.step === 4 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
-                    <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
+                    <div class="flex items-center gap-2 text-indigo-500 font-black text-xs uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน ยื่นสอบจบ (CP2/CP3)
                     </div>
                     <div class="space-y-2">
-                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
+                      <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
                         class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                      <button @click="updateProject(4, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(4, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">verified</span>
                         <span>อนุมัติและไปขั้นตอนถัดไป</span>
                       </button>
-                      <button @click="updateProject(4, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(4, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">edit_note</span>
                         <span>ให้แก้ไข</span>
                       </button>
-                      <button @click="updateProject(4, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(4, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">cancel</span>
                         <span>ไม่อนุมัติ</span>
                       </button>
@@ -592,7 +592,7 @@ const formatDate = (date) => {
               <!-- Step 5: Final -->
               <div class="relative z-10 group/step">
                 <div :class="getDotColorClass(5)"
-                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-xl transition-all duration-500 group-hover/step:scale-125">
+                  class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white dark:border-slate-800 shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
                   <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-6">ส่งเล่มฉบับสมบูรณ์</h4>
@@ -641,35 +641,35 @@ const formatDate = (date) => {
                   </div>
                   <div class="flex items-center gap-2">
                     <span v-if="project.step === 5 && project.status === 'approved'"
-                      class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-100">อนุมัติโครงการเสร็จสมบูรณ์</span>
+                      class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-black uppercase tracking-widest border border-emerald-100">อนุมัติโครงการเสร็จสมบูรณ์</span>
                     <span v-else-if="project.step === 5"
-                      class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest border border-blue-100">รอการตรวจสอบขั้นสุดท้าย</span>
+                      class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-black uppercase tracking-widest border border-blue-100">รอการตรวจสอบขั้นสุดท้าย</span>
                     <span v-else
-                      class="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">ยังไม่ดำเนินการ</span>
+                      class="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 text-slate-400 text-xs font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">ยังไม่ดำเนินการ</span>
                   </div>
 
                   <!-- Management Actions for Step 5 -->
                   <div v-if="project.step === 5 && !isProjectComplete(project)" class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 space-y-4">
-                    <div class="flex items-center gap-2 text-indigo-500 font-black text-[10px] uppercase tracking-widest mb-2">
+                    <div class="flex items-center gap-2 text-indigo-500 font-black text-xs uppercase tracking-widest mb-2">
                       <span class="material-symbols-rounded text-base">settings_suggest</span>
                       การจัดการขั้นตอน ส่งเล่มฉบับสมบูรณ์
                     </div>
                     <div class="space-y-2">
-                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
+                      <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">ความคิดเห็น / ข้อเสนอแนะ</label>
                       <textarea v-model="feedbackText" rows="3"
                         class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 focus:bg-white transition-all resize-none font-medium"
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                      <button @click="updateProject(5, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(5, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">verified</span>
                         <span>อนุมัติโครงการเสร็จสมบูรณ์</span>
                       </button>
-                      <button @click="updateProject(5, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(5, 'revision')" :disabled="updating" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-amber-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">edit_note</span>
                         <span>ให้แก้ไข</span>
                       </button>
-                      <button @click="updateProject(5, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
+                      <button @click="updateProject(5, 'rejected')" :disabled="updating" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-rose-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">cancel</span>
                         <span>ไม่อนุมัติ</span>
                       </button>
@@ -688,18 +688,17 @@ const formatDate = (date) => {
             <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-600/30 rounded-full blur-3xl"></div>
 
             <div class="relative z-10 text-center">
-              <div
-                class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-[32px] flex items-center justify-center text-4xl font-black mx-auto mb-6 shadow-xl border-4 border-white/10 scale-110">
+              <div class="w-24 h-24 rounded-[32px] bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center text-4xl font-black shadow-xl shadow-indigo-200 dark:shadow-none mb-6 border-4 border-white dark:border-slate-800 mx-auto">
                 {{ project.student1.fullname.charAt(0) }}
               </div>
-              <h3 class="font-black text-2xl mb-2 tracking-tight">{{ project.student1.fullname }}</h3>
+              <h3 class="mb-2 tracking-tight text-xl md:text-2xl font-bold">{{ project.student1.fullname }}</h3>
               <p class="text-indigo-400 text-xs font-black uppercase tracking-widest mb-10">นักศึกษา รหัส {{
                 project.student1.username }}</p>
 
               <div class="space-y-4 mb-10">
                 <!-- Student 1 -->
                 <div class="p-4 rounded-[28px] bg-white/5 border border-white/5">
-                  <div class="text-[10px] text-indigo-300 font-bold uppercase tracking-widest mb-3 px-2">ข้อมูลการติดต่อ
+                  <div class="text-xs text-indigo-300 font-bold uppercase tracking-widest mb-3 px-2">ข้อมูลการติดต่อ
                     (คนที่ 1)</div>
                   <div class="space-y-2">
                     <div class="flex items-center gap-3 text-left">
@@ -721,7 +720,7 @@ const formatDate = (date) => {
 
                 <!-- Student 2 (If exists) -->
                 <div v-if="project.student2" class="p-4 rounded-[28px] bg-white/5 border border-white/5">
-                  <div class="text-[10px] text-indigo-300 font-bold uppercase tracking-widest mb-3 px-2">ข้อมูลการติดต่อ
+                  <div class="text-xs text-indigo-300 font-bold uppercase tracking-widest mb-3 px-2">ข้อมูลการติดต่อ
                     (คนที่ 2)</div>
                   <div class="space-y-2">
                     <div class="flex items-center gap-3 text-left">
@@ -757,10 +756,10 @@ const formatDate = (date) => {
           <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden border border-white/20">
             <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
               <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-lg shadow-amber-200">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-lg shadow-amber-200 dark:shadow-none">
                   <span class="material-symbols-rounded">calendar_add_on</span>
                 </div>
-                <h3 class="text-2xl font-bold text-slate-900 tracking-tight">ระบุวันสอบหัวข้อ</h3>
+                <h3 class="text-slate-900 dark:text-white tracking-tight text-xl md:text-2xl font-bold">ระบุวันสอบหัวข้อ</h3>
               </div>
               <button @click="showScheduleModal = false" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
                 <span class="material-symbols-rounded">close</span>
@@ -785,7 +784,7 @@ const formatDate = (date) => {
               </div>
 
               <div class="pt-4">
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-100 transition-all active:scale-95 flex items-center justify-center gap-3">
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-100 dark:shadow-none transition-all active:scale-95 flex items-center justify-center gap-3">
                   <span class="material-symbols-rounded">save</span>
                   <span>ยืนยันจัดตารางสอบ</span>
                 </button>

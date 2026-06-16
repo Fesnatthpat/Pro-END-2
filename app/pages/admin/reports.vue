@@ -3,7 +3,7 @@
     
     <div class="mb-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 print:hidden">
       <div class="relative">
-        <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">รายงานสรุปผล</h2>
+        <h2 class="text-slate-900 dark:text-white md: mb-2 tracking-tight text-2xl md:text-3xl font-bold">รายงานสรุปผล</h2>
         <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">สถิติภาพรวมโครงงานนักศึกษา แยกตามปีการศึกษา</p>
@@ -29,7 +29,7 @@
 
         <button 
           @click="printReport"
-          class="group relative overflow-hidden bg-slate-900 hover:bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-slate-200 flex items-center justify-center gap-3 w-full sm:w-auto shrink-0 active:scale-95"
+          class="group relative overflow-hidden bg-slate-900 hover:bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-slate-200 dark:shadow-none flex items-center justify-center gap-3 w-full sm:w-auto shrink-0 active:scale-95"
         >
           <span class="material-symbols-rounded group-hover:rotate-12 transition-transform">print</span> 
           <span>พิมพ์รายงาน</span>
@@ -39,8 +39,8 @@
     </div>
 
     <div class="hidden print:block text-center mb-12 border-b-2 border-black pb-8">
-      <h1 class="text-3xl font-black text-black mb-2 tracking-tight uppercase">Project Summary Report</h1>
-      <h3 class="text-xl font-bold text-black mb-4">รายงานสรุปโครงงานนักศึกษา</h3>
+      <h1 class="text-black mb-2 tracking-tight uppercase text-3xl md:text-4xl lg:text-5xl font-black">Project Summary Report</h1>
+      <h3 class="text-xl text-black mb-4 text-xl md:text-2xl font-bold">รายงานสรุปโครงงานนักศึกษา</h3>
       <p class="text-lg text-black font-medium">
         ปีการศึกษา: {{ selectedYear === 'all' ? 'ทั้งหมด' : selectedYear }} | วันที่พิมพ์: {{ new Date().toLocaleDateString('th-TH') }}
       </p>
@@ -48,27 +48,27 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
       
-      <div class="admin-card p-8 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white shadow-xl shadow-indigo-100 print:bg-white print:text-black print:border-2 print:border-black print:shadow-none relative overflow-hidden group">
+      <div class="admin-card p-8 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white shadow-xl shadow-indigo-100 dark:shadow-none print:bg-white print:text-black print:border-2 print:border-black print:shadow-none relative overflow-hidden group">
         <span class="material-symbols-rounded absolute -right-4 -bottom-4 text-8xl text-white/10 group-hover:scale-125 transition-transform duration-700 print:hidden">folder_open</span>
         <div class="relative z-10 text-center">
           <div class="text-5xl font-black mb-2 tracking-tighter">{{ stats.total }}</div>
-          <div class="text-[10px] font-black uppercase tracking-widest opacity-80">โครงงานทั้งหมด</div>
+          <div class="text-xs font-black uppercase tracking-widest opacity-80">โครงงานทั้งหมด</div>
         </div>
       </div>
 
-      <div class="admin-card p-8 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-xl shadow-emerald-100 print:bg-white print:text-black print:border-2 print:border-black print:shadow-none relative overflow-hidden group">
+      <div class="admin-card p-8 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-xl shadow-emerald-100 dark:shadow-none print:bg-white print:text-black print:border-2 print:border-black print:shadow-none relative overflow-hidden group">
         <span class="material-symbols-rounded absolute -right-4 -bottom-4 text-8xl text-white/10 group-hover:scale-125 transition-transform duration-700 print:hidden">verified</span>
         <div class="relative z-10 text-center">
           <div class="text-5xl font-black mb-2 tracking-tighter">{{ stats.passed }}</div>
-          <div class="text-[10px] font-black uppercase tracking-widest opacity-80">สอบผ่าน / จบแล้ว</div>
+          <div class="text-xs font-black uppercase tracking-widest opacity-80">สอบผ่าน / จบแล้ว</div>
         </div>
       </div>
 
-      <div class="admin-card p-8 bg-gradient-to-br from-amber-400 to-amber-500 text-white shadow-xl shadow-amber-100 print:bg-white print:text-black print:border-2 print:border-black print:shadow-none relative overflow-hidden group">
+      <div class="admin-card p-8 bg-gradient-to-br from-amber-400 to-amber-500 text-white shadow-xl shadow-amber-100 dark:shadow-none print:bg-white print:text-black print:border-2 print:border-black print:shadow-none relative overflow-hidden group">
         <span class="material-symbols-rounded absolute -right-4 -bottom-4 text-8xl text-white/10 group-hover:scale-125 transition-transform duration-700 print:hidden">pending_actions</span>
         <div class="relative z-10 text-center">
           <div class="text-5xl font-black mb-2 tracking-tighter">{{ stats.doing }}</div>
-          <div class="text-[10px] font-black uppercase tracking-widest opacity-80">กำลังดำเนินการ</div>
+          <div class="text-xs font-black uppercase tracking-widest opacity-80">กำลังดำเนินการ</div>
         </div>
       </div>
 
@@ -101,10 +101,10 @@
               <td class="px-8 py-6 text-slate-600 dark:text-slate-400 font-medium leading-relaxed print:text-black print:border-r print:border-black">{{ project.titleTh || '-' }}</td>
               <td class="px-8 py-6 text-center font-black text-slate-500 dark:text-slate-400 print:text-black print:border-r print:border-black">{{ project.academicYear }}</td>
               <td class="px-8 py-6 text-center print:border-r print:border-black">
-                <span v-if="project.step === 5 && project.status === 'approved'" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] font-black uppercase tracking-widest print:bg-transparent print:border-none print:text-black">
+                <span v-if="project.step === 5 && project.status === 'approved'" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 text-xs font-black uppercase tracking-widest print:bg-transparent print:border-none print:text-black">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 print:hidden"></span> COMPLETED
                 </span>
-                <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 text-[10px] font-black uppercase tracking-widest print:bg-transparent print:border-none print:text-black">
+                <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 text-xs font-black uppercase tracking-widest print:bg-transparent print:border-none print:text-black">
                   <span class="w-1.5 h-1.5 rounded-full bg-slate-400 print:hidden"></span> IN PROGRESS
                 </span>
               </td>

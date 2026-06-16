@@ -9,7 +9,7 @@
         </NuxtLink>
         
         <div class="flex flex-wrap justify-center gap-2 md:gap-3">
-          <button v-if="!isAdmin" @click="handleSubmit" :disabled="submitting" class="bg-blue-600 text-white px-4 md:px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base disabled:opacity-50">
+          <button v-if="!isAdmin && !isSubmitted" @click="handleSubmit" :disabled="submitting" class="bg-blue-600 text-white px-4 md:px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base disabled:opacity-50">
             <span class="material-symbols-rounded">send</span> {{ submitting ? 'กำลังบันทึก...' : 'ยื่นขออนุมัติหัวข้อ' }}
           </button>
           <button @click="printDocument" class="bg-[#1a1a40] text-white px-4 md:px-6 py-2 rounded-full font-medium hover:bg-[#2a2a5c] transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
@@ -108,7 +108,7 @@
 
     <div class="flex flex-col items-center gap-8 print:block print:w-full print:gap-0" :class="isSubmitted ? 'pointer-events-none' : ''">
       
-      <div class="paper-a4 page-break bg-white dark:bg-slate-800 shadow-lg relative text-black text-[16px] leading-relaxed print:shadow-none">
+      <div class="paper-a4 page-break bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[16px] leading-relaxed print:shadow-none">
         
         <div class="text-center mb-5">
           <img src="/bsru_logo.jpg" alt="BSRU Logo" class="w-[80px] mx-auto mb-1 print:w-[70px]">
@@ -328,7 +328,7 @@
 
       </div>
 
-      <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black text-[16px] leading-relaxed flex flex-col justify-between print:shadow-none">
+      <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[16px] leading-relaxed flex flex-col justify-between print:shadow-none">
         
         <div>
           <div class="text-right mb-4 text-sm font-bold">CP-1</div>
@@ -533,7 +533,13 @@ const { data: projectData } = await useFetch(fetchUrl, {
   query: fetchQuery
 })
 const project = computed(() => projectData.value?.project)
-const isSubmitted = computed(() => project.value && project.value.step >= 1 && (project.value.status === 'pending' || project.value.status === 'approved'))
+const isSubmitted = computed(() => {
+  if (!project.value) return false
+  // ถ้าขั้นตอนเกิน CP1 (step > 1) ถือว่ายื่น CP1 ผ่านแล้วหรือกำลังทำขั้นตอนอื่นอยู่
+  if (project.value.step > 1) return true
+  // ถ้าอยู่ในขั้นตอน CP1 (step 1) จะถือว่ายื่นแล้วถ้าสถานะเป็น pending หรือ approved
+  return project.value.status === 'pending' || project.value.status === 'approved'
+})
 
 watchEffect(() => {
   if (project.value) {
@@ -604,6 +610,11 @@ const handleSubmit = async () => {
   padding: 12mm 15mm; /* ลด Padding ลงเพื่อให้เนื้อหาพอดี 1 หน้า */
   box-sizing: border-box;
   margin: 0 auto;
+}
+
+.dark .form-dotted {
+  color: #f1f5f9 !important;
+  border-bottom-color: #94a3b8 !important;
 }
 
 .form-dotted {

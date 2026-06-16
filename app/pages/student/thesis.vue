@@ -7,7 +7,7 @@
           <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-[#1a1a40] transition-colors mb-2 font-medium">
             <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
           </NuxtLink>
-          <h2 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] dark:text-white">
+          <h2 class="md: text-[#1a1a40] dark:text-white text-2xl md:text-3xl font-bold">
             📄 เล่มบัณฑิตนิพนธ์
           </h2>
         </div>
@@ -18,7 +18,7 @@
         <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
         <span class="material-symbols-rounded absolute right-8 top-8 text-4xl text-purple-200">picture_as_pdf</span>
 
-        <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white mb-2 flex items-center gap-2">
+        <h3 class="text-xl text-[#1a1a40] dark:text-white mb-2 flex items-center gap-2 text-xl md:text-2xl font-bold">
           <span class="material-symbols-rounded text-purple-600">cloud_upload</span> ส่งเล่มวิทยานิพนธ์ (ฉบับร่าง)
         </h3>
         <p class="text-gray-500 dark:text-slate-400 text-sm mb-8">กรุณาแนบลิงก์ไฟล์เล่ม หรืออัปโหลดเป็นไฟล์ PDF เพื่อให้อาจารย์ที่ปรึกษาตรวจทาน</p>
@@ -45,7 +45,7 @@
           </div>
 
           <div v-if="submitMode === 'url'" class="animate-[fadeIn_0.3s_ease-out]">
-            <label class="block text-[13px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">ลิงก์ไฟล์เล่มวิทยานิพนธ์ (Google Drive / OneDrive)</label>
+            <label class="block text-sm font-black text-slate-400 uppercase tracking-widest mb-2 px-1">ลิงก์ไฟล์เล่มวิทยานิพนธ์ (Google Drive / OneDrive)</label>
             <div class="flex flex-col md:flex-row gap-3">
               <input 
                 v-model="thesisUrl" 
@@ -57,7 +57,7 @@
               <button 
                 type="submit" 
                 :disabled="submittingThesis"
-                class="bg-purple-600 text-white px-10 py-3.5 rounded-2xl font-black text-sm hover:bg-purple-700 transition-all shadow-xl shadow-purple-100 disabled:opacity-50 shrink-0 flex items-center justify-center gap-2"
+                class="bg-purple-600 text-white px-10 py-3.5 rounded-2xl font-black text-sm hover:bg-purple-700 transition-all shadow-xl shadow-purple-100 dark:shadow-none disabled:opacity-50 shrink-0 flex items-center justify-center gap-2"
               >
                 <span class="material-symbols-rounded" v-if="!submittingThesis">save</span>
                 <span>{{ submittingThesis ? 'กำลังบันทึก...' : 'อัปเดตลิงก์เล่ม' }}</span>
@@ -66,7 +66,7 @@
           </div>
 
           <div v-else class="animate-[fadeIn_0.3s_ease-out]">
-            <label class="block text-[13px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">อัปโหลดไฟล์ PDF (ขนาดไม่เกิน 10MB)</label>
+            <label class="block text-sm font-black text-slate-400 uppercase tracking-widest mb-2 px-1">อัปโหลดไฟล์ PDF (ขนาดไม่เกิน 10MB)</label>
             <div class="flex flex-col md:flex-row gap-3">
               <div class="flex-grow relative">
                 <input 
@@ -84,7 +84,7 @@
               <button 
                 type="submit" 
                 :disabled="submittingThesis || !selectedFile"
-                class="bg-purple-600 text-white px-10 py-3.5 rounded-2xl font-black text-sm hover:bg-purple-700 transition-all shadow-xl shadow-purple-100 disabled:opacity-50 shrink-0 flex items-center justify-center gap-2"
+                class="bg-purple-600 text-white px-10 py-3.5 rounded-2xl font-black text-sm hover:bg-purple-700 transition-all shadow-xl shadow-purple-100 dark:shadow-none disabled:opacity-50 shrink-0 flex items-center justify-center gap-2"
               >
                 <span class="material-symbols-rounded" v-if="!submittingThesis">cloud_upload</span>
                 <span>{{ submittingThesis ? 'กำลังอัปโหลด...' : 'อัปโหลดและบันทึก' }}</span>
@@ -96,7 +96,7 @@
 
       <!-- บันทึกความก้าวหน้ารายครั้ง -->
       <div class="flex justify-between items-center mb-6">
-        <h3 class="font-bold text-xl text-[#1a1a40] dark:text-white">ประวัติการรายงานเล่ม</h3>
+        <h3 class="text-xl text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">ประวัติการรายงานเล่ม</h3>
         <button 
           @click="showAddModal = true" 
           class="bg-white dark:bg-slate-800 border-2 border-[#1a1a40] text-[#1a1a40] dark:text-white px-5 py-2 rounded-full font-bold hover:bg-[#1a1a40] hover:text-white transition-all flex items-center gap-2 text-sm"
@@ -120,12 +120,12 @@
         <div v-for="report in reports" :key="report.id" class="bg-white dark:bg-slate-800 rounded-[28px] p-6 md:p-8 shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition-shadow relative overflow-hidden">
           <div class="flex justify-between items-start mb-4">
             <div>
-              <div class="text-[11px] text-gray-400 font-bold mb-1 uppercase tracking-wider">
+              <div class="text-xs text-gray-400 font-bold mb-1 uppercase tracking-wider">
                 {{ formatDate(report.createdAt) }}
               </div>
-              <h3 class="text-lg font-bold text-[#1a1a40] dark:text-white">{{ report.title }}</h3>
+              <h3 class="text-lg text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">{{ report.title }}</h3>
             </div>
-            <span :class="getStatusBadgeClass(report.status)" class="px-3 py-1 rounded-full text-[10px] font-bold border">
+            <span :class="getStatusBadgeClass(report.status)" class="px-3 py-1 rounded-full text-xs font-bold border">
               {{ getStatusText(report.status) }}
             </span>
           </div>
@@ -137,7 +137,7 @@
           </div>
           
           <div v-if="report.feedback" class="mt-6 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700">
-            <div class="text-[11px] font-bold text-purple-600 mb-2 flex items-center gap-2 uppercase">
+            <div class="text-xs font-bold text-purple-600 mb-2 flex items-center gap-2 uppercase">
               <span class="material-symbols-rounded">chat</span> อาจารย์ที่ปรึกษาตอบกลับ:
             </div>
             <p class="text-sm text-slate-700 dark:text-slate-300 italic">"{{ report.feedback }}"</p>
@@ -151,7 +151,7 @@
     <div v-if="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden animate-[fadeIn_0.2s_ease-out]">
         <div class="p-8 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-purple-50/30">
-          <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">บันทึกความก้าวหน้า</h3>
+          <h3 class="text-xl text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">บันทึกความก้าวหน้า</h3>
           <button @click="showAddModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
             <span class="material-symbols-rounded">close</span>
           </button>

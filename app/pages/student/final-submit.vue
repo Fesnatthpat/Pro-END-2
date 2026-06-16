@@ -6,7 +6,7 @@
         <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-[#1a1a40] transition-colors mb-2 font-medium w-fit">
           <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
         </NuxtLink>
-        <h2 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] dark:text-white flex items-center gap-3">
+        <h2 class="md: text-[#1a1a40] dark:text-white flex items-center gap-3 text-2xl md:text-3xl font-bold">
           <span class="material-symbols-rounded text-blue-600">inventory_2</span> ส่งเล่มและโปรแกรมฉบับสมบูรณ์
         </h2>
         <p class="text-gray-500 dark:text-slate-400 mt-1">ขั้นตอนสุดท้าย: อัปโหลดลิงก์ไฟล์เอกสารรูปเล่มและซอร์สโค้ดโปรแกรมฉบับสมบูรณ์</p>
@@ -22,7 +22,7 @@
         <div v-if="showHistory" class="animate-[fadeIn_0.5s_ease-out]">
           <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-100 dark:border-slate-700">
             <div>
-              <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">รายการประวัติการส่งงาน</h3>
+              <h3 class="text-xl text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">รายการประวัติการส่งงาน</h3>
               <p class="text-sm text-gray-500 dark:text-slate-400">ข้อมูลล่าสุดที่จัดเก็บในระบบ</p>
             </div>
             <div :class="project?.status === 'approved' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'" class="px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest flex items-center gap-2">
@@ -39,9 +39,9 @@
                   <span class="material-symbols-rounded">picture_as_pdf</span>
                 </div>
                 <div>
-                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">ประเภท: เอกสาร PDF</div>
+                  <div class="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">ประเภท: เอกสาร PDF</div>
                   <div class="text-base font-bold text-[#1a1a40] dark:text-white">เล่มปริญญานิพนธ์ (Final Thesis)</div>
-                  <div class="text-[11px] text-gray-400 font-medium">ส่งเมื่อ: {{ formatDate(project.updatedAt) }}</div>
+                  <div class="text-xs text-gray-400 font-medium">ส่งเมื่อ: {{ formatDate(project.updatedAt) }}</div>
                 </div>
               </div>
               <a :href="project.thesisUrl" target="_blank" class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-rose-50 text-rose-600 font-bold text-sm hover:bg-rose-600 hover:text-white transition-all">
@@ -56,9 +56,9 @@
                   <span class="material-symbols-rounded">code</span>
                 </div>
                 <div>
-                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">ประเภท: ซอร์สโค้ด/โปรแกรม</div>
+                  <div class="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">ประเภท: ซอร์สโค้ด/โปรแกรม</div>
                   <div class="text-base font-bold text-[#1a1a40] dark:text-white">ซอร์สโค้ดโปรแกรม (Source Code)</div>
-                  <div class="text-[11px] text-gray-400 font-medium">ส่งเมื่อ: {{ formatDate(project.updatedAt) }}</div>
+                  <div class="text-xs text-gray-400 font-medium">ส่งเมื่อ: {{ formatDate(project.updatedAt) }}</div>
                 </div>
               </div>
               <a :href="project.programUrl" target="_blank" class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-emerald-50 text-emerald-600 font-bold text-sm hover:bg-emerald-600 hover:text-white transition-all">
@@ -73,9 +73,9 @@
                   <span class="material-symbols-rounded">menu_book</span>
                 </div>
                 <div>
-                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">ประเภท: คู่มือการใช้งาน</div>
+                  <div class="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">ประเภท: คู่มือการใช้งาน</div>
                   <div class="text-base font-bold text-[#1a1a40] dark:text-white">คู่มือการใช้งาน (User Manual)</div>
-                  <div class="text-[11px] text-gray-400 font-medium">ส่งเมื่อ: {{ formatDate(project.updatedAt) }}</div>
+                  <div class="text-xs text-gray-400 font-medium">ส่งเมื่อ: {{ formatDate(project.updatedAt) }}</div>
                 </div>
               </div>
               <a :href="project.manualUrl" target="_blank" class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-50 text-amber-600 font-bold text-sm hover:bg-amber-600 hover:text-white transition-all">
@@ -89,7 +89,7 @@
             <div class="w-20 h-20 bg-white dark:bg-slate-800 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-sm border border-emerald-50">
               <span class="material-symbols-rounded">military_tech</span>
             </div>
-            <h3 class="text-xl font-bold text-emerald-800 mb-2">โครงงานเสร็จสมบูรณ์เรียบร้อยแล้ว</h3>
+            <h3 class="text-xl text-emerald-800 mb-2 text-xl md:text-2xl font-bold">โครงงานเสร็จสมบูรณ์เรียบร้อยแล้ว</h3>
             <p class="text-emerald-600 text-sm">ขอแสดงความยินดีด้วย! คุณได้ดำเนินการสำเร็จการศึกษาในรายวิชาโครงงานแล้ว</p>
           </div>
         </div>
@@ -99,16 +99,16 @@
           <!-- 1. Thesis PDF -->
           <div>
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-              <h3 class="font-bold text-[18px] text-[#1a1a40] dark:text-white flex items-center gap-2">
+              <h3 class="text-[#1a1a40] dark:text-white flex items-center gap-2 text-xl md:text-2xl font-bold">
                 <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-black">1</span>
                 เล่มปริญญานิพนธ์ (Final PDF)
               </h3>
               
               <div class="flex p-1 bg-gray-100 dark:bg-slate-700 rounded-xl w-fit ml-0 md:ml-10 shrink-0">
-                <button type="button" @click="submitMode = 'url'" :class="submitMode === 'url' ? 'bg-white dark:bg-slate-800 text-blue-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-2">
+                <button type="button" @click="submitMode = 'url'" :class="submitMode === 'url' ? 'bg-white dark:bg-slate-800 text-blue-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
                   <span class="material-symbols-rounded text-base">link</span> ลิงก์
                 </button>
-                <button type="button" @click="submitMode = 'file'" :class="submitMode === 'file' ? 'bg-white dark:bg-slate-800 text-blue-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-2">
+                <button type="button" @click="submitMode = 'file'" :class="submitMode === 'file' ? 'bg-white dark:bg-slate-800 text-blue-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
                   <span class="material-symbols-rounded text-base">upload_file</span> อัปโหลด
                 </button>
               </div>
@@ -117,7 +117,7 @@
             <div class="ml-0 md:ml-10">
               <div v-if="submitMode === 'url'" class="animate-[fadeIn_0.3s_ease-out]">
                 <input v-model="form.thesisUrl" type="url" :required="submitMode === 'url'" placeholder="https://drive.google.com/..." class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-blue-600 outline-none transition-all text-sm bg-gray-50/50 font-medium">
-                <p class="text-[10px] text-gray-400 mt-2 font-bold uppercase tracking-widest px-1">แนบลิงก์ที่สามารถเข้าถึงเพื่อดาวน์โหลดไฟล์ได้</p>
+                <p class="text-xs text-gray-400 mt-2 font-bold uppercase tracking-widest px-1">แนบลิงก์ที่สามารถเข้าถึงเพื่อดาวน์โหลดไฟล์ได้</p>
               </div>
               <div v-else class="animate-[fadeIn_0.3s_ease-out]">
                 <div class="relative group">
@@ -127,7 +127,7 @@
                       <span class="material-symbols-rounded text-2xl">picture_as_pdf</span>
                     </div>
                     <div class="text-sm font-black text-slate-600 dark:text-slate-400">{{ selectedFile ? selectedFile.name : 'คลิกหรือลากไฟล์ PDF มาวางที่นี่' }}</div>
-                    <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">ขนาดสูงสุด 20MB</div>
+                    <div class="text-xs text-slate-400 font-bold uppercase tracking-widest">ขนาดสูงสุด 20MB</div>
                   </div>
                 </div>
               </div>
@@ -139,16 +139,16 @@
           <!-- 2. Source Code -->
           <div>
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-              <h3 class="font-bold text-[18px] text-[#1a1a40] dark:text-white flex items-center gap-2">
+              <h3 class="text-[#1a1a40] dark:text-white flex items-center gap-2 text-xl md:text-2xl font-bold">
                 <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">2</span>
                 ซอร์สโค้ดโปรแกรม (Source Code)
               </h3>
               
               <div class="flex p-1 bg-gray-100 dark:bg-slate-700 rounded-xl w-fit ml-0 md:ml-10 shrink-0">
-                <button type="button" @click="programMode = 'url'" :class="programMode === 'url' ? 'bg-white dark:bg-slate-800 text-emerald-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-2">
+                <button type="button" @click="programMode = 'url'" :class="programMode === 'url' ? 'bg-white dark:bg-slate-800 text-emerald-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
                   <span class="material-symbols-rounded text-base">link</span> ลิงก์
                 </button>
-                <button type="button" @click="programMode = 'file'" :class="programMode === 'file' ? 'bg-white dark:bg-slate-800 text-emerald-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-2">
+                <button type="button" @click="programMode = 'file'" :class="programMode === 'file' ? 'bg-white dark:bg-slate-800 text-emerald-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
                   <span class="material-symbols-rounded text-base">upload_file</span> อัปโหลด
                 </button>
               </div>
@@ -166,7 +166,7 @@
                       <span class="material-symbols-rounded text-2xl">code</span>
                     </div>
                     <div class="text-sm font-black text-slate-600 dark:text-slate-400">{{ selectedProgram ? selectedProgram.name : 'คลิกเพื่อเลือกไฟล์ซอร์สโค้ด (ZIP/PDF)' }}</div>
-                    <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">ขนาดสูงสุด 20MB</div>
+                    <div class="text-xs text-slate-400 font-bold uppercase tracking-widest">ขนาดสูงสุด 20MB</div>
                   </div>
                 </div>
               </div>
@@ -178,16 +178,16 @@
           <!-- 3. Manual -->
           <div>
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-              <h3 class="font-bold text-[18px] text-[#1a1a40] dark:text-white flex items-center gap-2">
+              <h3 class="text-[#1a1a40] dark:text-white flex items-center gap-2 text-xl md:text-2xl font-bold">
                 <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-black">3</span>
                 คู่มือการใช้งาน (Manual)
               </h3>
               
               <div class="flex p-1 bg-gray-100 dark:bg-slate-700 rounded-xl w-fit ml-0 md:ml-10 shrink-0">
-                <button type="button" @click="manualMode = 'url'" :class="manualMode === 'url' ? 'bg-white dark:bg-slate-800 text-amber-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-2">
+                <button type="button" @click="manualMode = 'url'" :class="manualMode === 'url' ? 'bg-white dark:bg-slate-800 text-amber-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
                   <span class="material-symbols-rounded text-base">link</span> ลิงก์
                 </button>
-                <button type="button" @click="manualMode = 'file'" :class="manualMode === 'file' ? 'bg-white dark:bg-slate-800 text-amber-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-2">
+                <button type="button" @click="manualMode = 'file'" :class="manualMode === 'file' ? 'bg-white dark:bg-slate-800 text-amber-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
                   <span class="material-symbols-rounded text-base">upload_file</span> อัปโหลด
                 </button>
               </div>
@@ -205,7 +205,7 @@
                       <span class="material-symbols-rounded text-2xl">menu_book</span>
                     </div>
                     <div class="text-sm font-black text-slate-600 dark:text-slate-400">{{ selectedManual ? selectedManual.name : 'คลิกเพื่ออัปโหลดคู่มือการใช้งาน (PDF)' }}</div>
-                    <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">ขนาดสูงสุด 20MB</div>
+                    <div class="text-xs text-slate-400 font-bold uppercase tracking-widest">ขนาดสูงสุด 20MB</div>
                   </div>
                 </div>
               </div>
@@ -216,7 +216,7 @@
             <button 
               type="submit" 
               :disabled="submitting || (submitMode === 'file' && !selectedFile) || (programMode === 'file' && !selectedProgram) || (manualMode === 'file' && !selectedManual)"
-              class="bg-[#1a1a40] hover:bg-indigo-600 text-white font-black py-4 px-12 rounded-2xl transition-all flex items-center gap-3 shadow-xl shadow-indigo-100 disabled:opacity-50 active:scale-95"
+              class="bg-[#1a1a40] hover:bg-indigo-600 text-white font-black py-4 px-12 rounded-2xl transition-all flex items-center gap-3 shadow-xl shadow-indigo-100 dark:shadow-none disabled:opacity-50 active:scale-95"
             >
               <span class="material-symbols-rounded">rocket_launch</span> 
               <span>{{ submitting ? 'กำลังบันทึกข้อมูล...' : 'ยืนยันการส่งงานสมบูรณ์' }}</span>
@@ -228,7 +228,7 @@
           <div class="w-20 h-20 bg-white dark:bg-slate-800 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-sm border border-emerald-50">
             <span class="material-symbols-rounded">military_tech</span>
           </div>
-          <h3 class="text-xl font-bold text-emerald-800 mb-2">โครงงานผ่านการอนุมัติสมบูรณ์</h3>
+          <h3 class="text-xl text-emerald-800 mb-2 text-xl md:text-2xl font-bold">โครงงานผ่านการอนุมัติสมบูรณ์</h3>
           <p class="text-emerald-600 text-sm">ขอแสดงความยินดีด้วย! คุณได้ดำเนินการสำเร็จการศึกษาในรายวิชาโครงงานแล้ว</p>
         </div>
 

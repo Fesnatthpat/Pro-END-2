@@ -7,7 +7,7 @@
           <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-[#1a1a40] transition-colors mb-2 font-medium w-fit">
             <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
           </NuxtLink>
-          <h2 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] dark:text-white flex items-center gap-3">
+          <h2 class="md: text-[#1a1a40] dark:text-white flex items-center gap-3 text-2xl md:text-3xl font-bold">
             <span class="material-symbols-rounded text-indigo-600">history_edu</span> ประวัติกิจกรรมและสถานะโครงงาน
           </h2>
           <p class="text-gray-500 dark:text-slate-400 mt-1">ติดตามทุกความเคลื่อนไหวและการอัปเดตของโครงงานคุณได้ที่นี่</p>
@@ -22,7 +22,7 @@
         <div class="w-20 h-20 bg-gray-50 dark:bg-slate-800 text-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
           <span class="material-symbols-rounded">folder_off</span>
         </div>
-        <h3 class="text-xl font-bold text-gray-700 dark:text-slate-300 mb-2">ไม่พบข้อมูลโครงงาน</h3>
+        <h3 class="text-xl text-gray-700 dark:text-slate-300 mb-2 text-xl md:text-2xl font-bold">ไม่พบข้อมูลโครงงาน</h3>
         <p class="text-gray-400 text-sm">คุณยังไม่ได้ยื่นเสนอหัวข้อโครงงานเข้าสู่ระบบครับ</p>
       </div>
 
@@ -34,7 +34,7 @@
               <span class="material-symbols-rounded">ads_click</span>
             </div>
             <div>
-              <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">ขั้นตอนปัจจุบัน</div>
+              <div class="text-xs font-black text-gray-400 uppercase tracking-widest mb-0.5">ขั้นตอนปัจจุบัน</div>
               <div class="text-sm font-bold text-[#1a1a40] dark:text-white">{{ getStepName(project.step) }}</div>
             </div>
           </div>
@@ -43,7 +43,7 @@
               <span class="material-symbols-rounded">sync</span>
             </div>
             <div>
-              <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">สถานะล่าสุด</div>
+              <div class="text-xs font-black text-gray-400 uppercase tracking-widest mb-0.5">สถานะล่าสุด</div>
               <div class="text-sm font-bold" :class="project.status === 'approved' ? 'text-emerald-600' : 'text-amber-600'">
                 {{ getStatusText(project.status) }}
               </div>
@@ -54,7 +54,7 @@
               <span class="material-symbols-rounded">update</span>
             </div>
             <div>
-              <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">อัปเดตเมื่อ</div>
+              <div class="text-xs font-black text-gray-400 uppercase tracking-widest mb-0.5">อัปเดตเมื่อ</div>
               <div class="text-sm font-bold text-[#1a1a40] dark:text-white">{{ formatDateShort(project.updatedAt) }}</div>
             </div>
           </div>

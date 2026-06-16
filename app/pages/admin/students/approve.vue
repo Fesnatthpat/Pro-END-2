@@ -13,7 +13,7 @@
         <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
         Account Registration Control
       </div>
-      <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">อนุมัติบัญชีนักศึกษาใหม่</h2>
+      <h2 class="text-slate-900 dark:text-white md: mb-2 tracking-tight text-2xl md:text-3xl font-bold">อนุมัติบัญชีนักศึกษาใหม่</h2>
       <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
         <span class="w-8 h-px bg-slate-200"></span>
         <p class="text-sm font-medium">ตรวจสอบและเปิดใช้งานบัญชีผู้ใช้งานสำหรับนักศึกษาที่เพิ่งลงทะเบียน</p>
@@ -41,7 +41,7 @@
         <div class="w-24 h-24 bg-slate-50 dark:bg-slate-900 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
           <span class="material-symbols-rounded text-6xl">how_to_reg</span>
         </div>
-        <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">ไม่มีบัญชีที่รอการอนุมัติ</h3>
+        <h3 class="text-slate-800 dark:text-slate-200 mb-2 text-xl md:text-2xl font-bold">ไม่มีบัญชีที่รอการอนุมัติ</h3>
         <p class="text-slate-400 font-medium max-w-xs mx-auto text-sm">นักศึกษาทุกคนที่ลงทะเบียนได้รับการตรวจสอบเรียบร้อยแล้ว</p>
       </div>
 
@@ -72,12 +72,12 @@
                 <td class="px-8 py-6 font-black text-slate-800 dark:text-slate-200 text-base">{{ student.fullname }}</td>
                 <td class="px-8 py-6 text-slate-500 dark:text-slate-400 font-medium italic">{{ student.email }}</td>
                 <td class="px-8 py-6 text-center">
-                  <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 text-[10px] font-black uppercase tracking-widest">
+                  <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 text-xs font-black uppercase tracking-widest">
                     <span class="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span> รอตรวจสอบ
                   </span>
                 </td>
                 <td class="px-8 py-6 text-center">
-                  <button @click="approveStudent(student.id, student.fullname)" class="group/btn relative overflow-hidden bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 rounded-2xl font-black text-sm transition-all shadow-lg shadow-emerald-100 active:scale-95 flex items-center gap-2 mx-auto border-b-4 border-emerald-700">
+                  <button @click="approveStudent(student.id, student.fullname)" class="group/btn relative overflow-hidden bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 rounded-2xl font-black text-sm transition-all shadow-lg shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center gap-2 mx-auto border-b-4 border-emerald-700">
                     <span class="material-symbols-rounded text-xl group-hover/btn:rotate-12 transition-transform">verified_user</span> 
                     <span>อนุมัติบัญชี</span>
                   </button>

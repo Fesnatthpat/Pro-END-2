@@ -3,7 +3,7 @@
     
     <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="relative">
-        <h2 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">ข้อมูลอาจารย์ที่ปรึกษา</h2>
+        <h2 class="text-slate-900 dark:text-white md: mb-2 tracking-tight text-2xl md:text-3xl font-bold">ข้อมูลอาจารย์ที่ปรึกษา</h2>
         <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">รายชื่อและช่องทางการติดต่อของอาจารย์ทั้งหมดในระบบ</p>
@@ -12,7 +12,7 @@
       
       <button 
         @click="showModal = true"
-        class="group relative overflow-hidden bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-200 flex items-center gap-3 w-fit active:scale-95"
+        class="group relative overflow-hidden bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-200 dark:shadow-none flex items-center gap-3 w-fit active:scale-95"
       >
         <span class="material-symbols-rounded group-hover:rotate-12 transition-transform">person_add</span> 
         <span>เพิ่มอาจารย์ใหม่</span>
@@ -70,7 +70,7 @@
               <td class="px-8 py-6">
                 <div class="font-bold text-slate-800 dark:text-slate-200 text-base mb-0.5">{{ teacher.fullname }}</div>
                 <div class="inline-flex items-center gap-1.5 text-indigo-500 font-bold text-xs bg-indigo-50 px-2 py-0.5 rounded-md">
-                  <span class="material-symbols-rounded text-[14px]">alternate_email</span>
+                  <span class="material-symbols-rounded text-sm">alternate_email</span>
                   {{ teacher.username }}
                 </div>
               </td>
@@ -127,10 +127,10 @@
         <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-lg overflow-hidden animate-[fadeIn_0.3s_ease-out] border border-white/20">
           <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
             <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-200">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-200 dark:shadow-none">
                 <span class="material-symbols-rounded">{{ isEditing ? 'edit' : 'person_add' }}</span>
               </div>
-              <h3 class="text-2xl font-bold text-slate-900 tracking-tight">{{ isEditing ? 'แก้ไขข้อมูลอาจารย์' : 'เพิ่มอาจารย์ใหม่' }}</h3>
+              <h3 class="text-slate-900 dark:text-white tracking-tight text-xl md:text-2xl font-bold">{{ isEditing ? 'แก้ไขข้อมูลอาจารย์' : 'เพิ่มอาจารย์ใหม่' }}</h3>
             </div>
             <button @click="closeModal" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
               <span class="material-symbols-rounded">close</span>
@@ -183,7 +183,7 @@
               <button 
                 type="submit" 
                 :disabled="loading"
-                class="flex-[1.5] px-8 py-4 rounded-2xl bg-indigo-600 text-white font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:opacity-50 active:scale-95 flex items-center justify-center gap-2"
+                class="flex-[1.5] px-8 py-4 rounded-2xl bg-indigo-600 text-white font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 dark:shadow-none disabled:opacity-50 active:scale-95 flex items-center justify-center gap-2"
               >
                 <div v-if="loading" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                 {{ loading ? 'กำลังบันทึก...' : 'บันทึกข้อมูล' }}

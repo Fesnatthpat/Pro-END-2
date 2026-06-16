@@ -18,14 +18,14 @@
             <i v-else class="bi bi-person-fill text-5xl lg:text-6xl text-indigo-200"></i>
           </div>
           <div class="w-full flex flex-col items-center">
-            <h2 class="text-2xl font-bold text-[#1a1a40] dark:text-white mb-1">
+            <h2 class="text-[#1a1a40] dark:text-white mb-1 text-2xl md:text-3xl font-bold">
               สวัสดีครับ,
               <div class="mt-1 text-xl">{{ user.fullname }}</div>
             </h2>
             <p class="text-slate-400 text-sm font-medium mb-4">รหัส: {{ user.username }}</p>
             
             <div class="inline-flex items-center justify-center gap-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-100 dark:border-emerald-800/50 mb-6 transition-colors duration-300">
-              <i class="bi bi-shield-check text-[14px]"></i>
+              <i class="bi bi-shield-check text-sm"></i>
               <span>นักศึกษาปัจจุบัน</span>
             </div>
 
@@ -33,27 +33,27 @@
             <div class="w-full bg-indigo-900 rounded-[20px] p-5 shadow-lg text-white relative overflow-hidden text-left mt-auto">
               <i class="bi bi-braces absolute -right-4 -bottom-4 text-6xl opacity-10"></i>
               <h4 class="text-xs font-bold text-indigo-300 mb-3 uppercase tracking-wider">โครงงานของฉัน</h4>
-              <p class="text-[14px] font-medium leading-relaxed mb-4 line-clamp-2">
+              <p class="text-sm font-medium leading-relaxed mb-4 line-clamp-2">
                 {{ project?.titleTh || 'ยังไม่ได้ยื่นเสนอโครงงาน' }}
               </p>
               
               <div v-if="project" class="space-y-3 pt-3 border-t border-indigo-800/50">
                 <div class="space-y-1.5">
-                  <div class="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">สมาชิกในกลุ่ม</div>
-                  <div class="text-[12px] text-indigo-100 flex items-center gap-2">
+                  <div class="text-xs text-indigo-400 font-bold uppercase tracking-wider">สมาชิกในกลุ่ม</div>
+                  <div class="text-xs text-indigo-100 flex items-center gap-2">
                     <i class="bi bi-person-circle"></i> {{ project.student1?.fullname }}
                   </div>
-                  <div v-if="project.student2" class="text-[12px] text-indigo-100 flex items-center gap-2">
+                  <div v-if="project.student2" class="text-xs text-indigo-100 flex items-center gap-2">
                     <i class="bi bi-person-circle"></i> {{ project.student2?.fullname }}
                   </div>
                 </div>
 
                 <div class="space-y-1.5">
-                  <div class="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">อาจารย์ที่ปรึกษา</div>
-                  <div class="text-[12px] text-indigo-100 flex items-center gap-2">
+                  <div class="text-xs text-indigo-400 font-bold uppercase tracking-wider">อาจารย์ที่ปรึกษา</div>
+                  <div class="text-xs text-indigo-100 flex items-center gap-2">
                     <i class="bi bi-person-workspace"></i> {{ project.advisor?.fullname || '-' }}
                   </div>
-                  <div v-if="project.coAdvisor" class="text-[12px] text-indigo-100 flex items-center gap-2">
+                  <div v-if="project.coAdvisor" class="text-xs text-indigo-100 flex items-center gap-2">
                     <i class="bi bi-person-workspace text-indigo-300"></i> {{ project.coAdvisor?.fullname }}
                   </div>
                 </div>
@@ -69,7 +69,7 @@
                   <i class="bi bi-telephone-fill"></i>
                 </div>
                 <div class="flex-grow">
-                  <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">เบอร์โทรศัพท์</div>
+                  <div class="text-xs text-slate-400 font-bold uppercase tracking-wider">เบอร์โทรศัพท์</div>
                   <div class="text-slate-700 dark:text-slate-300 font-medium transition-colors duration-300">{{ user.tel || '-' }}</div>
                 </div>
               </div>
@@ -79,7 +79,7 @@
                   <i class="bi bi-envelope-fill"></i>
                 </div>
                 <div class="flex-grow overflow-hidden">
-                  <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">อีเมล</div>
+                  <div class="text-xs text-slate-400 font-bold uppercase tracking-wider">อีเมล</div>
                   <div class="text-slate-700 dark:text-slate-300 font-medium truncate transition-colors duration-300">{{ user.email || '-' }}</div>
                 </div>
               </div>
@@ -89,7 +89,7 @@
                   <i class="bi bi-line"></i>
                 </div>
                 <div class="flex-grow">
-                  <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">LINE ID</div>
+                  <div class="text-xs text-slate-400 font-bold uppercase tracking-wider">LINE ID</div>
                   <div class="text-slate-700 dark:text-slate-300 font-medium transition-colors duration-300">{{ user.lineId || '-' }}</div>
                 </div>
               </div>
@@ -107,7 +107,7 @@
       >
         <div class="text-center md:text-left mb-8 border-b border-gray-100 dark:border-slate-700 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 lg:shrink-0 transition-colors duration-300">
           <div>
-            <h3 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] dark:text-white mb-2 transition-colors duration-300">
+            <h3 class="md: text-[#1a1a40] dark:text-white mb-2 transition-colors duration-300 text-xl md:text-2xl font-bold">
               สถานะการดำเนินงาน
             </h3>
             <p class="text-gray-500 dark:text-slate-400 dark:text-gray-400 text-sm transition-colors duration-300">
@@ -135,7 +135,7 @@
             <!-- Left Column: Circle & Line -->
             <div class="flex flex-col items-center w-[50px] shrink-0">
               <div
-                class="w-[50px] h-[50px] rounded-full flex items-center justify-center font-bold text-[18px] border-2 z-10 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-sm"
+                class="w-[50px] h-[50px] rounded-full flex items-center justify-center font-bold text-lg border-2 z-10 shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-sm"
                 :class="
                   step.isLocked
                     ? 'border-gray-200 dark:border-slate-700 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-gray-400 dark:text-slate-500'
@@ -144,7 +144,7 @@
                       : 'border-[#1a1a40] bg-[#1a1a40] dark:border-indigo-500 dark:bg-indigo-500 text-white'
                 "
               >
-                <i v-if="step.isCompleted" class="bi bi-check-lg text-[24px]"></i>
+                <i v-if="step.isCompleted" class="bi bi-check-lg text-2xl"></i>
                 <span v-else>{{ step.id }}</span>
               </div>
               
@@ -211,7 +211,7 @@
                   class="flex flex-row items-center justify-between md:justify-end gap-4 md:gap-6"
                 >
                   <div
-                    class="text-[14px] md:text-[15px] font-medium min-w-[140px] md:text-right"
+                    class="text-sm md:text-base font-medium min-w-[140px] md:text-right"
                     :class="step.statusColor"
                   >
                     {{ step.statusText }}
@@ -252,7 +252,7 @@
         >
           <i class="bi bi-hourglass-split text-[50px]"></i>
         </div>
-        <h3 class="font-bold text-[24px] text-[#1a1a40] dark:text-white mb-3">
+        <h3 class="text-[#1a1a40] dark:text-white mb-3 text-xl md:text-2xl font-bold">
           รอการอนุมัติจากผู้ดูแลระบบ
         </h3>
         <p class="text-[#6c757d] dark:text-slate-400 mb-8 leading-relaxed max-w-[500px] mx-auto">

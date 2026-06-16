@@ -2,7 +2,7 @@
   <div class="max-w-[1000px] mx-auto w-full py-8 px-4 ">
 
     <div class="text-center mb-10 pb-6 border-b border-gray-100 dark:border-slate-700">
-      <h2 class="font-bold text-[30px] text-[#1a1a40] dark:text-white mb-2">
+      <h2 class="text-[#1a1a40] dark:text-white mb-2 text-2xl md:text-3xl font-bold">
         <span class="material-symbols-rounded text-[#ffc107] mr-2">account_tree</span> ขั้นตอนการทำโครงงาน
       </h2>
       <p class="text-gray-500 dark:text-slate-400">คู่มือและลำดับขั้นตอนการดำเนินการโครงงานคอมพิวเตอร์ 2</p>
@@ -31,7 +31,7 @@
     <div class="bg-white dark:bg-slate-800 rounded-[20px] shadow-[0_4px_25px_rgba(0,0,0,0.05)] p-6 md:p-12 relative overflow-hidden">
 
       <div v-if="activeTab === 'cp1'" class="animate-fade-in flex flex-col items-center w-full">
-        <h3 class="text-lg font-bold text-center text-gray-900 dark:text-white mb-8 border-b-2 border-gray-200 dark:border-slate-700 pb-2">
+        <h3 class="text-lg text-center text-gray-900 dark:text-white mb-8 border-b-2 border-gray-200 dark:border-slate-700 pb-2 text-xl md:text-2xl font-bold">
           ขั้นตอนการสอบหัวข้อโครงงานคอมพิวเตอร์ 2</h3>
 
         <div
@@ -103,7 +103,7 @@
       </div>
 
       <div v-if="activeTab === 'cp2'" class="animate-fade-in flex flex-col items-center w-full">
-        <h3 class="text-lg font-bold text-center text-gray-900 dark:text-white mb-8 border-b-2 border-gray-200 dark:border-slate-700 pb-2">
+        <h3 class="text-lg text-center text-gray-900 dark:text-white mb-8 border-b-2 border-gray-200 dark:border-slate-700 pb-2 text-xl md:text-2xl font-bold">
           ขั้นตอนการสอบโครงงานคอมพิวเตอร์ 2</h3>
 
         <div
@@ -206,7 +206,7 @@
       </div>
 
       <div v-if="activeTab === 'change'" class="animate-fade-in flex flex-col items-center w-full">
-        <h3 class="text-lg font-bold text-center text-gray-900 dark:text-white mb-8 border-b-2 border-gray-200 dark:border-slate-700 pb-2">
+        <h3 class="text-lg text-center text-gray-900 dark:text-white mb-8 border-b-2 border-gray-200 dark:border-slate-700 pb-2 text-xl md:text-2xl font-bold">
           ขั้นตอนการเปลี่ยนหัวข้อโครงงานคอมพิวเตอร์ 2</h3>
 
         <div

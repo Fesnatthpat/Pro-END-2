@@ -7,7 +7,7 @@
           <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-[#1a1a40] transition-colors mb-2 font-medium text-sm">
             <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
           </NuxtLink>
-          <h2 class="font-bold text-[24px] md:text-[28px] text-[#1a1a40] dark:text-white">
+          <h2 class="md: text-[#1a1a40] dark:text-white text-2xl md:text-3xl font-bold">
             💻 รายงานความก้าวหน้าโครงงาน
           </h2>
         </div>
@@ -36,7 +36,7 @@
         <div class="w-20 h-20 bg-gray-50 dark:bg-slate-800 text-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
           <span class="material-symbols-rounded">assignment_late</span>
         </div>
-        <h3 class="text-xl font-bold text-gray-700 dark:text-slate-300 mb-2">ยังไม่มีรายงานความก้าวหน้า</h3>
+        <h3 class="text-xl text-gray-700 dark:text-slate-300 mb-2 text-xl md:text-2xl font-bold">ยังไม่มีรายงานความก้าวหน้า</h3>
         <p class="text-gray-400 text-sm">คุณสามารถเริ่มส่งรายงานความก้าวหน้าครั้งแรกได้โดยกดปุ่มด้านบนครับ</p>
       </div>
 
@@ -47,14 +47,14 @@
               <div class="text-xs text-gray-400 font-bold mb-1 uppercase tracking-wider">
                 {{ formatDate(report.createdAt) }}
               </div>
-              <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">{{ report.title }}</h3>
+              <h3 class="text-xl text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">{{ report.title }}</h3>
             </div>
             <span :class="getStatusBadgeClass(report.status)" class="px-4 py-1.5 rounded-full text-xs font-bold border">
               {{ getStatusText(report.status) }}
             </span>
           </div>
           
-          <p class="text-gray-600 dark:text-slate-400 text-[15px] mb-6 whitespace-pre-line">{{ report.description }}</p>
+          <p class="text-gray-600 dark:text-slate-400 text-base mb-6 whitespace-pre-line">{{ report.description }}</p>
 
           <div v-if="report.fileUrl" class="mb-6 p-3 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700 flex items-center gap-2 w-fit">
             <span class="material-symbols-rounded text-lg text-indigo-400">link</span>
@@ -76,7 +76,7 @@
     <div v-if="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden animate-[fadeIn_0.2s_ease-out]">
         <div class="p-8 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center">
-          <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">รายงานความก้าวหน้าใหม่</h3>
+          <h3 class="text-xl text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">รายงานความก้าวหน้าใหม่</h3>
           <button @click="showAddModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
             <span class="material-symbols-rounded">close</span>
           </button>

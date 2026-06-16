@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-[1140px] mx-auto w-full py-8">
     
-    <h2 class="font-bold text-[28px] text-[#1a1a40] dark:text-white mb-6 flex items-center gap-2">
+    <h2 class="text-[#1a1a40] dark:text-white mb-6 flex items-center gap-2 text-2xl md:text-3xl font-bold">
       <span class="material-symbols-rounded text-[#ffc107]">school</span> ทำเนียบโครงงานรุ่นพี่
     </h2>
 

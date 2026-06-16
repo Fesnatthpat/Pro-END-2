@@ -76,7 +76,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('th-TH', {
       <div class="flex-grow">
         
         <div class="text-center mb-10 pb-8 border-b border-gray-100 dark:border-slate-700">
-          <h2 class="text-2xl md:text-[28px] font-bold text-[#1a1a40] dark:text-white leading-snug">
+          <h2 class="md: text-[#1a1a40] dark:text-white leading-snug text-2xl md:text-3xl font-bold">
             {{ project.titleTh }}
           </h2>
           <p class="text-gray-500 dark:text-slate-400 mt-2">{{ project.titleEn }}</p>
@@ -128,7 +128,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('th-TH', {
             <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mb-4">
               <span class="material-symbols-rounded text-4xl text-red-500">picture_as_pdf</span>
             </div>
-            <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white mb-2">เอกสารบัณฑิตนิพนธ์ฉบับสมบูรณ์</h3>
+            <h3 class="text-xl text-[#1a1a40] dark:text-white mb-2 text-xl md:text-2xl font-bold">เอกสารบัณฑิตนิพนธ์ฉบับสมบูรณ์</h3>
             <p class="text-gray-500 dark:text-slate-400 mb-6">เผยแพร่เมื่อ: {{ formatDate(project.updatedAt) }}</p>
             <a :href="project.thesisUrl" target="_blank" class="bg-[#1a1a40] text-white px-8 py-3 rounded-full font-medium hover:bg-[#2c2c54] transition-colors shadow-md flex items-center gap-2">
               <span class="material-symbols-rounded">cloud_download</span> ดาวน์โหลด PDF
@@ -145,7 +145,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('th-TH', {
             <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
               <span class="material-symbols-rounded text-4xl text-indigo-500">integration_instructions</span>
             </div>
-            <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white mb-2">ซอร์สโค้ดและโปรแกรม</h3>
+            <h3 class="text-xl text-[#1a1a40] dark:text-white mb-2 text-xl md:text-2xl font-bold">ซอร์สโค้ดและโปรแกรม</h3>
             <p class="text-gray-500 dark:text-slate-400 mb-6">ลิงก์ไปยัง GitHub Repository หรือไฟล์โปรแกรมที่ถูกบีบอัด</p>
             <a :href="project.programUrl" target="_blank" class="bg-[#1a1a40] text-white px-8 py-3 rounded-full font-medium hover:bg-[#2c2c54] transition-colors shadow-md flex items-center gap-2">
               <span class="material-symbols-rounded">open_in_new</span> ไปยังลิงก์โปรแกรม

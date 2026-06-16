@@ -9,8 +9,8 @@
       </div>
 
       <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <h2 class="font-bold text-2xl md:text-3xl text-slate-900 tracking-tight flex items-center gap-3">
-          <span class="bg-indigo-600 text-white p-2 rounded-2xl shadow-lg shadow-indigo-200">
+        <h2 class="md: text-slate-900 dark:text-white tracking-tight flex items-center gap-3 text-2xl md:text-3xl font-bold">
+          <span class="bg-indigo-600 text-white p-2 rounded-2xl shadow-lg shadow-indigo-200 dark:shadow-none">
             <span class="material-symbols-rounded text-xl">badge</span>
           </span>
           โปรไฟล์ของฉัน
@@ -36,11 +36,11 @@
               {{ user.fullname?.substring(0, 1) }}
             </div>
 
-            <h3 class="text-xl font-bold text-slate-900 mb-1">{{ user.fullname }}</h3>
+            <h3 class="text-xl text-slate-900 dark:text-white mb-1 text-xl md:text-2xl font-bold">{{ user.fullname }}</h3>
             <p class="text-slate-400 text-sm font-medium mb-6">รหัส: {{ user.username }}</p>
             
             <div class="inline-flex items-center justify-center gap-1 bg-emerald-50 text-emerald-600 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-100">
-              <span class="material-symbols-rounded text-[18px]">security</span>
+              <span class="material-symbols-rounded text-lg">security</span>
               <span>นักศึกษาปัจจุบัน</span>
             </div>
           </div>
@@ -48,27 +48,27 @@
           <div class="bg-indigo-900 rounded-[32px] p-6 shadow-lg text-white relative overflow-hidden">
             <span class="material-symbols-rounded absolute -right-4 -bottom-4 text-6xl opacity-10">integration_instructions</span>
             <h4 class="text-sm font-bold text-indigo-300 mb-4 uppercase tracking-wider">โครงงานของฉัน</h4>
-            <p class="text-[15px] font-medium leading-relaxed mb-4">
+            <p class="text-base font-medium leading-relaxed mb-4">
               {{ project?.titleTh || 'ยังไม่ได้ยื่นเสนอโครงงาน' }}
             </p>
             
             <div v-if="project" class="space-y-4 pt-4 border-t border-indigo-800/50">
               <div class="space-y-2">
-                <div class="text-[10px] text-indigo-300 font-bold uppercase tracking-wider">สมาชิกในกลุ่ม</div>
-                <div class="text-[13px] text-indigo-50 flex items-center gap-2">
+                <div class="text-xs text-indigo-300 font-bold uppercase tracking-wider">สมาชิกในกลุ่ม</div>
+                <div class="text-sm text-indigo-50 flex items-center gap-2">
                   <span class="material-symbols-rounded text-base">person</span> {{ project.student1?.fullname }}
                 </div>
-                <div v-if="project.student2" class="text-[13px] text-indigo-50 flex items-center gap-2">
+                <div v-if="project.student2" class="text-sm text-indigo-50 flex items-center gap-2">
                   <span class="material-symbols-rounded text-base">person</span> {{ project.student2?.fullname }}
                 </div>
               </div>
 
               <div class="space-y-2">
-                <div class="text-[10px] text-indigo-300 font-bold uppercase tracking-wider">อาจารย์ที่ปรึกษา</div>
-                <div class="text-[13px] text-indigo-50 flex items-center gap-2">
+                <div class="text-xs text-indigo-300 font-bold uppercase tracking-wider">อาจารย์ที่ปรึกษา</div>
+                <div class="text-sm text-indigo-50 flex items-center gap-2">
                   <span class="material-symbols-rounded text-base">person_4</span> {{ project.advisor?.fullname || '-' }}
                 </div>
-                <div v-if="project.coAdvisor" class="text-[13px] text-indigo-50 flex items-center gap-2">
+                <div v-if="project.coAdvisor" class="text-sm text-indigo-50 flex items-center gap-2">
                   <span class="material-symbols-rounded text-base text-indigo-400">person_4</span> {{ project.coAdvisor?.fullname }}
                 </div>
               </div>
@@ -82,7 +82,7 @@
         <div class="md:col-span-2 space-y-6">
           <div class="bg-white dark:bg-slate-800 rounded-[32px] p-8 md:p-10 shadow-sm border border-slate-200 dark:border-slate-700">
             
-            <h4 class="text-lg font-bold text-slate-900 mb-8 flex items-center gap-2">
+            <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-2">
               <span class="material-symbols-rounded text-indigo-500">assessment</span> รายละเอียดข้อมูลส่วนตัว
             </h4>
 
@@ -136,7 +136,7 @@
               </div>
 
               <hr class="border-slate-100 dark:border-slate-700 my-4">
-              <h4 class="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <span class="material-symbols-rounded text-indigo-500 text-lg">location_on</span> ข้อมูลติดต่อและที่อยู่
               </h4>
 
@@ -221,7 +221,7 @@
               </div>
 
               <div v-if="isEditing" class="pt-6 animate-[fadeIn_0.3s_ease-in-out]">
-                <button @click="saveProfile" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
+                <button @click="saveProfile" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-indigo-200 dark:shadow-none flex items-center justify-center gap-2">
                   <span class="material-symbols-rounded">check_circle</span> บันทึกข้อมูลที่แก้ไข
                 </button>
               </div>
@@ -229,7 +229,7 @@
           </div>
 
           <div class="bg-white dark:bg-slate-800 rounded-[32px] p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-             <h4 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+             <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
               <span class="material-symbols-rounded text-amber-500">key</span> เปลี่ยนรหัสผ่านใหม่
             </h4>
             <button class="text-sm font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-6 py-2.5 rounded-xl transition-all border border-indigo-100 w-fit">

@@ -3,7 +3,7 @@
     
     <div class="bg-white dark:bg-slate-800 w-full max-w-[500px] p-[45px] rounded-[20px] shadow-[0_15px_35px_rgba(0,0,0,0.1)] dark:shadow-none border dark:border-slate-700 transition-colors duration-300">
       
-      <h2 class="text-[#1a1a40] dark:text-white font-bold text-center mb-[30px] text-[2rem]">
+      <h2 class="text-[#1a1a40] dark:text-white text-center mb-[30px] text-[2rem] text-2xl md:text-3xl font-bold">
         <span class="material-symbols-rounded">login</span> เข้าสู่ระบบ
       </h2>
 

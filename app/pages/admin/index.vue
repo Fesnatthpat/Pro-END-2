@@ -3,14 +3,14 @@
     
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
       <div class="relative">
-        <h3 class="font-bold text-slate-900 text-3xl md:text-4xl mb-2 tracking-tight">Dashboard</h3>
+        <h3 class="text-slate-900 dark:text-white md: mb-2 tracking-tight text-xl md:text-2xl font-bold">Dashboard</h3>
         <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
           <span class="w-8 h-px bg-indigo-200"></span>
           <p class="text-sm font-medium">ยินดีต้อนรับกลับ, Admin System 👋</p>
         </div>
       </div>
-      <div class="glass-card px-6 py-3 rounded-2xl shadow-sm text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center gap-3 border border-slate-200/50">
-        <div class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center">
+      <div class="glass-card px-6 py-3 rounded-2xl shadow-sm text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center gap-3 border border-slate-200/50 dark:border-slate-700/50 dark:bg-slate-800/50">
+        <div class="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
           <span class="material-symbols-rounded text-lg">calendar_today</span>
         </div>
         {{ currentDate }}
@@ -42,14 +42,14 @@
       
       <div class="lg:col-span-8">
         <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden group">
-          <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
+          <div class="p-8 border-b border-slate-50 dark:border-slate-700 flex justify-between items-center bg-slate-50/30 dark:bg-slate-800/50">
             <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xl flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-500 flex items-center justify-center">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-900/30 text-rose-500 dark:text-rose-400 flex items-center justify-center">
                 <span class="material-symbols-rounded">history_edu</span>
               </div>
               คำร้องล่าสุดที่ต้องตรวจสอบ
             </h5>
-            <NuxtLink to="/admin/projects" class="text-xs font-bold text-indigo-600 hover:bg-indigo-50 px-4 py-2 rounded-xl transition-all border border-indigo-100">
+            <NuxtLink to="/admin/projects" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 px-4 py-2 rounded-xl transition-all border border-indigo-100 dark:border-indigo-800">
               ดูทั้งหมด
             </NuxtLink>
           </div>
@@ -57,7 +57,7 @@
           <div class="overflow-x-auto">
             <table class="w-full text-left">
               <thead>
-                <tr class="bg-slate-50/50">
+                <tr class="bg-slate-50/50 dark:bg-slate-700/30">
                   <th class="px-8 py-5 admin-table-header">ชื่อโครงงาน</th>
                   <th class="px-8 py-5 admin-table-header">นักศึกษา</th>
                   <th class="px-8 py-5 admin-table-header">สถานะ</th>
@@ -71,18 +71,18 @@
                   </td>
                   <td class="px-8 py-5 text-slate-500 dark:text-slate-400 font-medium">{{ item.student }}</td>
                   <td class="px-8 py-5">
-                    <span v-if="item.step === 1" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-600 border border-blue-100">
-                      <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> สอบหัวข้อ
+                    <span v-if="item.step === 1" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800/50">
+                      <span class="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"></span> สอบหัวข้อ
                     </span>
-                    <span v-else-if="item.step === 4" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-100">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span> สอบจบ
+                    <span v-else-if="item.step === 4" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800/50">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse"></span> สอบจบ
                     </span>
-                    <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                    <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
                       <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> ดำเนินการ
                     </span>
                   </td>
                   <td class="px-8 py-5 text-center">
-                    <NuxtLink :to="`/admin/project/${item.id}`" class="w-10 h-10 inline-flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-indigo-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-indigo-200 group-hover/row:scale-110">
+                    <NuxtLink :to="`/admin/project/${item.id}`" class="w-10 h-10 inline-flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-indigo-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-indigo-200 dark:hover:shadow-none group-hover/row:scale-110">
                       <span class="material-symbols-rounded">arrow_forward</span>
                     </NuxtLink>
                   </td>
@@ -98,21 +98,21 @@
 
       <div class="lg:col-span-4 flex flex-col gap-10">
         
-        <div class="admin-card p-8 bg-gradient-to-br from-white to-slate-50">
+        <div class="admin-card p-8 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800 border border-slate-100 dark:border-slate-700">
           <div class="flex justify-between items-center mb-8">
             <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xl flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
+              <div class="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
                 <span class="material-symbols-rounded">how_to_reg</span>
               </div>
               รออนุมัติ
             </h5>
-            <span class="bg-rose-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-lg shadow-rose-200">{{ pendingStudents.length }}</span>
+            <span class="bg-rose-500 text-white text-xs font-black px-2.5 py-1 rounded-full shadow-lg shadow-rose-200 dark:shadow-none">{{ pendingStudents.length }}</span>
           </div>
 
           <div v-if="pendingStudents.length > 0" class="space-y-4">
-            <div v-for="student in pendingStudents" :key="student.id" class="flex items-center justify-between p-4 rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-indigo-200 hover:shadow-md transition-all duration-300 group">
+            <div v-for="student in pendingStudents" :key="student.id" class="flex items-center justify-between p-4 rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800/50 hover:border-indigo-200 dark:hover:border-indigo-700 hover:shadow-md transition-all duration-300 group">
               <div class="flex items-center gap-4 overflow-hidden">
-                <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center font-bold text-lg shrink-0 border border-indigo-100">
+                <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-500 dark:text-indigo-400 flex items-center justify-center font-bold text-lg shrink-0 border border-indigo-100 dark:border-indigo-800/50">
                   {{ student.name.substring(0, 1) }}
                 </div>
                 <div class="overflow-hidden">
@@ -121,7 +121,7 @@
                 </div>
               </div>
               
-              <button @click="approveStudent(student.id, student.name)" class="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300 shrink-0 shadow-sm" title="อนุมัติ">
+              <button @click="approveStudent(student.id, student.name)" class="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-600 dark:hover:bg-emerald-600 hover:text-white dark:hover:text-white transition-all duration-300 shrink-0 shadow-sm" title="อนุมัติ">
                 <span class="material-symbols-rounded text-xl">check</span>
               </button>
             </div>
@@ -135,7 +135,7 @@
           </div>
           
           <div v-else class="text-center py-10">
-            <div class="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-4 border-2 border-emerald-100/50">
+            <div class="w-16 h-16 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-500 dark:text-emerald-400 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-4 border-2 border-emerald-100/50 dark:border-emerald-800/50">
               <span class="material-symbols-rounded">check_circle</span>
             </div>
             <div class="text-base font-bold text-slate-700 dark:text-slate-300 mb-1">ไม่มีคำร้องใหม่</div>
@@ -143,28 +143,28 @@
           </div>
         </div>
 
-        <div class="admin-card bg-white dark:bg-slate-800 p-8">
+        <div class="admin-card bg-white dark:bg-slate-800 p-8 border border-slate-100 dark:border-slate-700">
           <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xl mb-8 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center">
               <span class="material-symbols-rounded">bolt</span>
             </div>
             Quick Actions
           </h5>
           
           <div class="grid grid-cols-1 gap-4">
-            <NuxtLink to="/admin/exam-topic" class="flex items-center p-5 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-amber-400 bg-white dark:bg-slate-800 hover:bg-amber-50/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mr-5 group-hover:scale-110 group-hover:rotate-6 transition-all"><span class="material-symbols-rounded">calendar_month</span></div>
+            <NuxtLink to="/admin/exam-topic" class="flex items-center p-5 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-amber-400 dark:hover:border-amber-500/50 bg-white dark:bg-slate-800 hover:bg-amber-50/30 dark:hover:bg-amber-900/10 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mr-5 group-hover:scale-110 group-hover:rotate-6 transition-all"><span class="material-symbols-rounded">calendar_month</span></div>
               <div>
-                <div class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-amber-700 text-[15px]">จัดตารางสอบหัวข้อ</div>
-                <div class="text-[12px] text-slate-400 font-medium">จัดการคำร้อง CP1</div>
+                <div class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-amber-700 text-base">จัดตารางสอบหัวข้อ</div>
+                <div class="text-xs text-slate-400 font-medium">จัดการคำร้อง CP1</div>
               </div>
             </NuxtLink>
 
-            <NuxtLink to="/admin/reports" class="flex items-center p-5 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-indigo-400 bg-white dark:bg-slate-800 hover:bg-indigo-50/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl mr-5 group-hover:scale-110 group-hover:rotate-6 transition-all"><span class="material-symbols-rounded">analytics</span></div>
+            <NuxtLink to="/admin/reports" class="flex items-center p-5 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500/50 bg-white dark:bg-slate-800 hover:bg-indigo-50/30 dark:hover:bg-indigo-900/10 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mr-5 group-hover:scale-110 group-hover:rotate-6 transition-all"><span class="material-symbols-rounded">analytics</span></div>
               <div>
-                <div class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-700 text-[15px]">ดูรายงานสรุปผล</div>
-                <div class="text-[12px] text-slate-400 font-medium">สถิติภาพรวมประจำปี</div>
+                <div class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-700 text-base">ดูรายงานสรุปผล</div>
+                <div class="text-xs text-slate-400 font-medium">สถิติภาพรวมประจำปี</div>
               </div>
             </NuxtLink>
           </div>

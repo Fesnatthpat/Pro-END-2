@@ -8,7 +8,7 @@
           <NuxtLink to="/teacher" class="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 font-bold text-sm transition-colors mb-4 group">
             <span class="material-symbols-rounded group-hover:-translate-x-1 transition-transform">arrow_back</span> ย้อนกลับไปรายการโครงงาน
           </NuxtLink>
-          <h2 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">รายละเอียดโครงงาน</h2>
+          <h2 class="md: text-slate-900 tracking-tight text-2xl md:text-3xl font-bold">รายละเอียดโครงงาน</h2>
         </div>
         
         <div class="flex items-center gap-3">
@@ -29,7 +29,7 @@
         <div class="w-24 h-24 bg-rose-50 text-rose-500 rounded-[32px] flex items-center justify-center mb-6 border-2 border-rose-100/50 shadow-xl shadow-rose-100/20">
           <span class="material-symbols-rounded text-6xl">search_off</span>
         </div>
-        <h3 class="text-2xl font-black text-slate-800 dark:text-slate-200 mb-2">ไม่พบข้อมูลโครงงาน</h3>
+        <h3 class="text-slate-800 dark:text-slate-200 mb-2 text-xl md:text-2xl font-bold">ไม่พบข้อมูลโครงงาน</h3>
         <p class="text-slate-400 font-medium mb-8 text-center max-w-xs">
           ขออภัย ไม่พบข้อมูลโครงงานที่คุณต้องการ หรือคุณไม่มีสิทธิ์เข้าถึงโครงงานนี้
         </p>
@@ -46,7 +46,7 @@
             <div class="flex items-center gap-3 text-indigo-600 font-bold mb-4">
               <span class="material-symbols-rounded text-xl">book</span> ข้อมูลเบื้องต้น
             </div>
-            <h1 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 leading-relaxed">{{ project.titleTh }}</h1>
+            <h1 class="text-slate-800 dark:text-slate-200 mb-6 leading-relaxed text-3xl md:text-4xl lg:text-5xl font-black">{{ project.titleTh }}</h1>
             
             <div class="grid grid-cols-2 gap-6 text-sm">
               <div>
@@ -66,7 +66,7 @@
                   <span class="material-symbols-rounded">{{ cp1Exam.status === 'pass' ? 'check_circle' : 'calendar_month' }}</span>
                 </div>
                 <div>
-                  <div :class="cp1Exam.status === 'pass' ? 'text-emerald-400' : 'text-amber-400'" class="text-[11px] font-bold uppercase tracking-widest">
+                  <div :class="cp1Exam.status === 'pass' ? 'text-emerald-400' : 'text-amber-400'" class="text-xs font-bold uppercase tracking-widest">
                     {{ cp1Exam.status === 'pass' ? 'ผ่านการสอบหัวข้อแล้ว' : 'ข้อมูลนัดหมายการสอบหัวข้อ (CP1)' }}
                   </div>
                   <div class="font-bold" :class="cp1Exam.status === 'pass' ? 'text-emerald-900' : 'text-amber-900'">วันที่: {{ formatDateNoTime(cp1Exam.examDate) }}</div>
@@ -82,7 +82,7 @@
                   <span class="material-symbols-rounded">event_available</span>
                 </div>
                 <div>
-                  <div class="text-[11px] font-bold text-blue-400 uppercase tracking-widest">ข้อมูลนัดหมายการสอบจบ (CP2/CP3)</div>
+                  <div class="text-xs font-bold text-blue-400 uppercase tracking-widest">ข้อมูลนัดหมายการสอบจบ (CP2/CP3)</div>
                   <div class="text-blue-900 font-bold">วันที่: {{ formatDateNoTime(finalExam.examDate) }}</div>
                   <div class="text-blue-800 text-sm">เวลา: {{ finalExam.examTime }} น. | สถานที่: {{ finalExam.examLocation }}</div>
                 </div>
@@ -98,7 +98,7 @@
               <div class="flex items-center gap-3 overflow-hidden">
                 <span class="material-symbols-rounded text-2xl text-purple-600">picture_as_pdf</span>
                 <div class="overflow-hidden">
-                  <div class="text-[11px] font-bold text-purple-400 uppercase tracking-wider">{{ project.step === 5 ? 'เล่มวิทยานิพนธ์ (ฉบับสมบูรณ์)' : 'เล่มวิทยานิพนธ์ (ฉบับร่าง)' }}</div>
+                  <div class="text-xs font-bold text-purple-400 uppercase tracking-wider">{{ project.step === 5 ? 'เล่มวิทยานิพนธ์ (ฉบับสมบูรณ์)' : 'เล่มวิทยานิพนธ์ (ฉบับร่าง)' }}</div>
                   <a :href="project.thesisUrl" target="_blank" class="text-sm text-purple-700 font-bold hover:underline block truncate">{{ project.thesisUrl }}</a>
                 </div>
               </div>
@@ -113,7 +113,7 @@
                 <div class="flex items-center gap-3 overflow-hidden">
                   <span class="material-symbols-rounded text-2xl text-emerald-600">code</span>
                   <div class="overflow-hidden">
-                    <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">ซอร์สโค้ดโปรแกรม</div>
+                    <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider">ซอร์สโค้ดโปรแกรม</div>
                     <a :href="project.programUrl" target="_blank" class="text-sm text-emerald-700 font-bold hover:underline block truncate">{{ project.programUrl }}</a>
                   </div>
                 </div>
@@ -123,7 +123,7 @@
                 <div class="flex items-center gap-3 overflow-hidden">
                   <span class="material-symbols-rounded text-2xl text-amber-600">book</span>
                   <div class="overflow-hidden">
-                    <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wider">คู่มือการใช้งาน</div>
+                    <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">คู่มือการใช้งาน</div>
                     <a :href="project.manualUrl" target="_blank" class="text-sm text-amber-700 font-bold hover:underline block truncate">{{ project.manualUrl }}</a>
                   </div>
                 </div>
@@ -182,10 +182,10 @@
               <div v-for="report in project.reports" :key="report.id" class="p-6 rounded-[24px] bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 hover:border-indigo-200 transition-all">
                 <div class="flex justify-between items-start mb-4">
                   <div>
-                    <div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">{{ formatDate(report.createdAt) }}</div>
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{{ formatDate(report.createdAt) }}</div>
                     <h4 class="font-bold text-slate-800 dark:text-slate-200">{{ report.title }}</h4>
                   </div>
-                  <span :class="getReportStatusClass(report.status)" class="px-3 py-1 rounded-full text-[10px] font-bold border uppercase">
+                  <span :class="getReportStatusClass(report.status)" class="px-3 py-1 rounded-full text-xs font-bold border uppercase">
                     {{ getReportStatusText(report.status) }}
                   </span>
                 </div>
@@ -227,7 +227,7 @@
               </div>
 
               <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700">
-                <p class="text-[13px] text-slate-400 text-center leading-relaxed">
+                <p class="text-sm text-slate-400 text-center leading-relaxed">
                   * อาจารย์ที่ปรึกษาสามารถเข้าดูข้อมูลได้อย่างเดียว <br>
                   การอนุมัติจะดำเนินการโดยผู้ดูแลระบบ (Admin)
                 </p>
