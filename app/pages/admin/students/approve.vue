@@ -77,10 +77,20 @@
                   </span>
                 </td>
                 <td class="px-8 py-6 text-center">
-                  <button @click="approveStudent(student.id, student.fullname)" class="group/btn relative overflow-hidden bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 rounded-2xl font-black text-sm transition-all shadow-lg shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center gap-2 mx-auto border-b-4 border-emerald-700">
-                    <span class="material-symbols-rounded text-xl group-hover/btn:rotate-12 transition-transform">verified_user</span> 
-                    <span>อนุมัติบัญชี</span>
-                  </button>
+                  <div class="flex items-center justify-center gap-2">
+                    <button @click="approveStudent(student.id, student.fullname)" class="group/btn relative overflow-hidden bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl font-black text-xs transition-all shadow-lg shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center gap-1 border-b-2 border-emerald-700" title="อนุมัติบัญชี">
+                      <span class="material-symbols-rounded text-lg group-hover/btn:rotate-12 transition-transform">verified_user</span> 
+                      <span>อนุมัติ</span>
+                    </button>
+                    <button @click="rejectStudent(student.id, student.fullname)" class="group/btn relative overflow-hidden bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl font-black text-xs transition-all shadow-lg shadow-amber-100 dark:shadow-none active:scale-95 flex items-center gap-1 border-b-2 border-amber-700" title="ปฏิเสธบัญชี">
+                      <span class="material-symbols-rounded text-lg group-hover/btn:-rotate-12 transition-transform">cancel</span> 
+                      <span>ปฏิเสธ</span>
+                    </button>
+                    <button @click="deleteStudent(student.id, student.fullname)" class="group/btn relative overflow-hidden bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-xl font-black text-xs transition-all shadow-lg shadow-rose-100 dark:shadow-none active:scale-95 flex items-center gap-1 border-b-2 border-rose-700" title="ลบบัญชี">
+                      <span class="material-symbols-rounded text-lg group-hover/btn:rotate-12 transition-transform">delete</span> 
+                      <span>ลบทิ้ง</span>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -118,6 +128,42 @@ const approveStudent = async (userId, name) => {
     }
   } catch (error) {
     alerts.error('ข้อผิดพลาด', error.statusMessage || 'เกิดข้อผิดพลาดในการอนุมัติ')
+  }
+}
+
+const rejectStudent = async (userId, name) => {
+  const confirm = await alerts.confirm('ยืนยันการปฏิเสธ', `คุณต้องการปฏิเสธบัญชีของ "${name}" ใช่หรือไม่? ข้อมูลบัญชีนี้จะถูกนำออกจากระบบการรออนุมัติ`, 'warning')
+  if (!confirm.isConfirmed) return
+
+  try {
+    const res = await $fetch(`/api/admin/students?id=${userId}`, {
+      method: 'DELETE'
+    })
+
+    if (res.success) {
+      alerts.success('สำเร็จ!', `ปฏิเสธบัญชี ${name} เรียบร้อยแล้ว`)
+      refresh()
+    }
+  } catch (error) {
+    alerts.error('ข้อผิดพลาด', error.statusMessage || 'เกิดข้อผิดพลาดในการปฏิเสธ')
+  }
+}
+
+const deleteStudent = async (userId, name) => {
+  const confirm = await alerts.confirm('ยืนยันการลบทิ้ง', `คุณต้องการลบบัญชีของ "${name}" อย่างถาวรใช่หรือไม่? ข้อมูลนี้จะไม่สามารถกู้คืนได้`, 'error')
+  if (!confirm.isConfirmed) return
+
+  try {
+    const res = await $fetch(`/api/admin/students?id=${userId}`, {
+      method: 'DELETE'
+    })
+
+    if (res.success) {
+      alerts.success('สำเร็จ!', `ลบบัญชี ${name} เรียบร้อยแล้ว`)
+      refresh()
+    }
+  } catch (error) {
+    alerts.error('ข้อผิดพลาด', error.statusMessage || 'เกิดข้อผิดพลาดในการลบ')
   }
 }
 </script>
