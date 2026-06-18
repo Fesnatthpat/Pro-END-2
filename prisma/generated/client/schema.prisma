@@ -153,6 +153,7 @@ model ProgressReport {
   title       String
   description String?
   fileUrl     String?
+  reportType  String  @default("progress")
   status      String  @default("pending")
 
   createdAt DateTime @default(now())

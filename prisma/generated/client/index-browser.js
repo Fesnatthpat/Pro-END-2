@@ -221,6 +221,7 @@ exports.Prisma.ProgressReportScalarFieldEnum = {
   title: 'title',
   description: 'description',
   fileUrl: 'fileUrl',
+  reportType: 'reportType',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

@@ -9242,6 +9242,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     fileUrl: string | null
+    reportType: string | null
     status: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9253,6 +9254,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     fileUrl: string | null
+    reportType: string | null
     status: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9264,6 +9266,7 @@ export namespace Prisma {
     title: number
     description: number
     fileUrl: number
+    reportType: number
     status: number
     createdAt: number
     updatedAt: number
@@ -9287,6 +9290,7 @@ export namespace Prisma {
     title?: true
     description?: true
     fileUrl?: true
+    reportType?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -9298,6 +9302,7 @@ export namespace Prisma {
     title?: true
     description?: true
     fileUrl?: true
+    reportType?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -9309,6 +9314,7 @@ export namespace Prisma {
     title?: true
     description?: true
     fileUrl?: true
+    reportType?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -9407,6 +9413,7 @@ export namespace Prisma {
     title: string
     description: string | null
     fileUrl: string | null
+    reportType: string
     status: string
     createdAt: Date
     updatedAt: Date
@@ -9437,6 +9444,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     fileUrl?: boolean
+    reportType?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -9449,6 +9457,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     fileUrl?: boolean
+    reportType?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -9461,6 +9470,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     fileUrl?: boolean
+    reportType?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -9473,12 +9483,13 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     fileUrl?: boolean
+    reportType?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProgressReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "projectId" | "title" | "description" | "fileUrl" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["progressReport"]>
+  export type ProgressReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "projectId" | "title" | "description" | "fileUrl" | "reportType" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["progressReport"]>
   export type ProgressReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
@@ -9500,6 +9511,7 @@ export namespace Prisma {
       title: string
       description: string | null
       fileUrl: string | null
+      reportType: string
       status: string
       createdAt: Date
       updatedAt: Date
@@ -9932,6 +9944,7 @@ export namespace Prisma {
     readonly title: FieldRef<"ProgressReport", 'String'>
     readonly description: FieldRef<"ProgressReport", 'String'>
     readonly fileUrl: FieldRef<"ProgressReport", 'String'>
+    readonly reportType: FieldRef<"ProgressReport", 'String'>
     readonly status: FieldRef<"ProgressReport", 'String'>
     readonly createdAt: FieldRef<"ProgressReport", 'DateTime'>
     readonly updatedAt: FieldRef<"ProgressReport", 'DateTime'>
@@ -11653,6 +11666,7 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     fileUrl: 'fileUrl',
+    reportType: 'reportType',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -12389,6 +12403,7 @@ export namespace Prisma {
     title?: StringFilter<"ProgressReport"> | string
     description?: StringNullableFilter<"ProgressReport"> | string | null
     fileUrl?: StringNullableFilter<"ProgressReport"> | string | null
+    reportType?: StringFilter<"ProgressReport"> | string
     status?: StringFilter<"ProgressReport"> | string
     createdAt?: DateTimeFilter<"ProgressReport"> | Date | string
     updatedAt?: DateTimeFilter<"ProgressReport"> | Date | string
@@ -12401,6 +12416,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     fileUrl?: SortOrderInput | SortOrder
+    reportType?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12416,6 +12432,7 @@ export namespace Prisma {
     title?: StringFilter<"ProgressReport"> | string
     description?: StringNullableFilter<"ProgressReport"> | string | null
     fileUrl?: StringNullableFilter<"ProgressReport"> | string | null
+    reportType?: StringFilter<"ProgressReport"> | string
     status?: StringFilter<"ProgressReport"> | string
     createdAt?: DateTimeFilter<"ProgressReport"> | Date | string
     updatedAt?: DateTimeFilter<"ProgressReport"> | Date | string
@@ -12428,6 +12445,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     fileUrl?: SortOrderInput | SortOrder
+    reportType?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12447,6 +12465,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"ProgressReport"> | string
     description?: StringNullableWithAggregatesFilter<"ProgressReport"> | string | null
     fileUrl?: StringNullableWithAggregatesFilter<"ProgressReport"> | string | null
+    reportType?: StringWithAggregatesFilter<"ProgressReport"> | string
     status?: StringWithAggregatesFilter<"ProgressReport"> | string
     createdAt?: DateTimeWithAggregatesFilter<"ProgressReport"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProgressReport"> | Date | string
@@ -13214,6 +13233,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     fileUrl?: string | null
+    reportType?: string
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13226,6 +13246,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     fileUrl?: string | null
+    reportType?: string
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13235,6 +13256,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13247,6 +13269,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13258,6 +13281,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     fileUrl?: string | null
+    reportType?: string
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13267,6 +13291,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13278,6 +13303,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13970,6 +13996,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     fileUrl?: SortOrder
+    reportType?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13986,6 +14013,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     fileUrl?: SortOrder
+    reportType?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13997,6 +14025,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     fileUrl?: SortOrder
+    reportType?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15388,6 +15417,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     fileUrl?: string | null
+    reportType?: string
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15398,6 +15428,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     fileUrl?: string | null
+    reportType?: string
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15743,6 +15774,7 @@ export namespace Prisma {
     title?: StringFilter<"ProgressReport"> | string
     description?: StringNullableFilter<"ProgressReport"> | string | null
     fileUrl?: StringNullableFilter<"ProgressReport"> | string | null
+    reportType?: StringFilter<"ProgressReport"> | string
     status?: StringFilter<"ProgressReport"> | string
     createdAt?: DateTimeFilter<"ProgressReport"> | Date | string
     updatedAt?: DateTimeFilter<"ProgressReport"> | Date | string
@@ -16685,6 +16717,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     fileUrl?: string | null
+    reportType?: string
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16727,6 +16760,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16737,6 +16771,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16747,6 +16782,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
