@@ -28,16 +28,37 @@ import { ref, onMounted } from 'vue'
 
 const isLoading = ref(false)
 const nuxtApp = useNuxtApp()
+const router = useRouter()
 
-// Hooks for page routing and async data
+// Use router hooks for guaranteed execution on navigation end/error
+router.beforeEach((to, from, next) => {
+  if (to.path !== from.path) {
+    isLoading.value = true
+  }
+  next()
+})
+
+router.afterEach(() => {
+  setTimeout(() => {
+    isLoading.value = false
+  }, 100)
+})
+
+router.onError(() => {
+  isLoading.value = false
+})
+
+// Fallback hooks
 nuxtApp.hook('page:start', () => {
   isLoading.value = true
 })
 nuxtApp.hook('page:finish', () => {
   isLoading.value = false
 })
-// Catch errors so loader doesn't get stuck
 nuxtApp.hook('vue:error', () => {
+  isLoading.value = false
+})
+nuxtApp.hook('app:error', () => {
   isLoading.value = false
 })
 

@@ -118,14 +118,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">ชื่อ-นามสกุล</label>
-                <input type="text" v-model="user.fullname" :disabled="!isEditing" 
+                <input type="text" v-model="formData.fullname" :disabled="!isEditing" 
                        :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-slate-50 dark:bg-slate-900/50 border-transparent text-slate-700 dark:text-slate-300'"
                        class="w-full border text-sm font-semibold rounded-2xl px-5 py-3.5 outline-none transition-all placeholder-slate-300">
               </div>
               <div>
                 <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">รหัสนักศึกษา</label>
                 <div class="relative">
-                  <input type="text" v-model="user.username" disabled 
+                  <input type="text" v-model="formData.username" disabled 
                          class="bg-slate-50 dark:bg-slate-900/50 border-transparent text-slate-500 dark:text-slate-400 w-full border text-sm font-semibold rounded-2xl px-5 py-3.5 outline-none">
                   <span class="material-symbols-rounded absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600 text-lg">lock</span>
                 </div>
@@ -147,7 +147,7 @@
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">เบอร์โทรศัพท์มือถือ</label>
                   <div class="relative group">
                     <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2" :class="isEditing ? 'text-indigo-500' : 'text-slate-400'">phone_iphone</span>
-                    <input type="text" v-model="user.tel" :disabled="!isEditing" 
+                    <input type="text" v-model="formData.tel" :disabled="!isEditing" 
                            :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-slate-50 dark:bg-slate-900/50 border-transparent text-slate-700 dark:text-slate-300'"
                            class="w-full border text-sm font-semibold rounded-2xl pl-12 pr-5 py-3.5 outline-none transition-all placeholder-slate-300">
                   </div>
@@ -157,7 +157,7 @@
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">อีเมล (Email)</label>
                   <div class="relative group">
                     <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2" :class="isEditing ? 'text-indigo-500' : 'text-slate-400'">alternate_email</span>
-                    <input type="email" v-model="user.email" :disabled="!isEditing" 
+                    <input type="email" v-model="formData.email" :disabled="!isEditing" 
                            :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-slate-50 dark:bg-slate-900/50 border-transparent text-slate-700 dark:text-slate-300'"
                            class="w-full border text-sm font-semibold rounded-2xl pl-12 pr-5 py-3.5 outline-none transition-all placeholder-slate-300">
                   </div>
@@ -167,7 +167,7 @@
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">LINE ID</label>
                   <div class="relative group">
                     <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2" :class="isEditing ? 'text-indigo-500' : 'text-slate-400'">chat</span>
-                    <input type="text" v-model="user.lineId" :disabled="!isEditing" 
+                    <input type="text" v-model="formData.lineId" :disabled="!isEditing" 
                            :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-slate-50 dark:bg-slate-900/50 border-transparent text-slate-700 dark:text-slate-300'"
                            class="w-full border text-sm font-semibold rounded-2xl pl-12 pr-5 py-3.5 outline-none transition-all placeholder-slate-300">
                   </div>
@@ -177,7 +177,7 @@
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">โทรศัพท์บ้าน (ถ้ามี)</label>
                   <div class="relative group">
                     <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2" :class="isEditing ? 'text-indigo-500' : 'text-slate-400'">call</span>
-                    <input type="text" v-model="user.homePhone" :disabled="!isEditing" 
+                    <input type="text" v-model="formData.homePhone" :disabled="!isEditing" 
                            :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-slate-50 dark:bg-slate-900/50 border-transparent text-slate-700 dark:text-slate-300'"
                            class="w-full border text-sm font-semibold rounded-2xl pl-12 pr-5 py-3.5 outline-none transition-all placeholder-slate-300">
                   </div>
@@ -187,7 +187,7 @@
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">เบอร์โทรกรณีฉุกเฉิน</label>
                   <div class="relative group">
                     <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2" :class="isEditing ? 'text-rose-500' : 'text-slate-400'">emergency</span>
-                    <input type="text" v-model="user.emergencyContact" :disabled="!isEditing" 
+                    <input type="text" v-model="formData.emergencyContact" :disabled="!isEditing" 
                            :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-slate-50 dark:bg-slate-900/50 border-transparent text-slate-700 dark:text-slate-300'"
                            class="w-full border text-sm font-semibold rounded-2xl pl-12 pr-5 py-3.5 outline-none transition-all placeholder-slate-300">
                   </div>
@@ -208,25 +208,25 @@
               <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
                 <div class="col-span-2 md:col-span-1">
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">บ้านเลขที่</label>
-                  <input type="text" v-model="user.addressNo" :disabled="!isEditing" 
+                  <input type="text" v-model="formData.addressNo" :disabled="!isEditing" 
                          :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-white dark:bg-slate-800/50 border-transparent text-slate-700 dark:text-slate-300'"
                          class="w-full border text-sm font-semibold rounded-xl px-4 py-3.5 outline-none transition-all">
                 </div>
                 <div class="col-span-2 md:col-span-1">
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">หมู่ที่</label>
-                  <input type="text" v-model="user.moo" :disabled="!isEditing" 
+                  <input type="text" v-model="formData.moo" :disabled="!isEditing" 
                          :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-white dark:bg-slate-800/50 border-transparent text-slate-700 dark:text-slate-300'"
                          class="w-full border text-sm font-semibold rounded-xl px-4 py-3.5 outline-none transition-all">
                 </div>
                 <div class="col-span-2 md:col-span-1">
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">ซอย</label>
-                  <input type="text" v-model="user.soi" :disabled="!isEditing" 
+                  <input type="text" v-model="formData.soi" :disabled="!isEditing" 
                          :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-white dark:bg-slate-800/50 border-transparent text-slate-700 dark:text-slate-300'"
                          class="w-full border text-sm font-semibold rounded-xl px-4 py-3.5 outline-none transition-all">
                 </div>
                 <div class="col-span-2 md:col-span-1">
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">ถนน</label>
-                  <input type="text" v-model="user.road" :disabled="!isEditing" 
+                  <input type="text" v-model="formData.road" :disabled="!isEditing" 
                          :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-white dark:bg-slate-800/50 border-transparent text-slate-700 dark:text-slate-300'"
                          class="w-full border text-sm font-semibold rounded-xl px-4 py-3.5 outline-none transition-all">
                 </div>
@@ -236,7 +236,7 @@
                 <div>
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">จังหวัด</label>
                   <div class="relative">
-                    <select v-model="user.province" @change="handleProvinceChange" :disabled="!isEditing" 
+                    <select v-model="formData.province" @change="handleProvinceChange" :disabled="!isEditing" 
                             :class="isEditing ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-white dark:bg-slate-800/50 border-transparent text-slate-700 dark:text-slate-300'"
                             class="w-full border text-sm font-semibold rounded-xl px-4 py-3.5 outline-none appearance-none transition-all">
                       <option value="">-- เลือกจังหวัด --</option>
@@ -248,31 +248,31 @@
                 <div>
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">อำเภอ/เขต</label>
                   <div class="relative">
-                    <select v-model="user.district" @change="handleDistrictChange" :disabled="!isEditing || !user.province" 
-                            :class="isEditing && user.province ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-white dark:bg-slate-800/50 border-transparent text-slate-700 dark:text-slate-300'"
+                    <select v-model="formData.district" @change="handleDistrictChange" :disabled="!isEditing || !formData.province" 
+                            :class="isEditing && formData.province ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-white dark:bg-slate-800/50 border-transparent text-slate-700 dark:text-slate-300'"
                             class="w-full border text-sm font-semibold rounded-xl px-4 py-3.5 outline-none appearance-none transition-all">
                       <option value="">-- เลือกอำเภอ --</option>
                       <option v-for="d in districts" :key="d" :value="d">{{ d }}</option>
                     </select>
-                    <span class="material-symbols-rounded absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" v-if="isEditing && user.province">expand_more</span>
+                    <span class="material-symbols-rounded absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" v-if="isEditing && formData.province">expand_more</span>
                   </div>
                 </div>
                 <div>
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">ตำบล/แขวง</label>
                   <div class="relative">
-                    <select v-model="user.subdistrict" @change="handleSubdistrictChange" :disabled="!isEditing || !user.district" 
-                            :class="isEditing && user.district ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-white dark:bg-slate-800/50 border-transparent text-slate-700 dark:text-slate-300'"
+                    <select v-model="formData.subdistrict" @change="handleSubdistrictChange" :disabled="!isEditing || !formData.district" 
+                            :class="isEditing && formData.district ? 'bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500/30 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 dark:text-white shadow-sm' : 'bg-white dark:bg-slate-800/50 border-transparent text-slate-700 dark:text-slate-300'"
                             class="w-full border text-sm font-semibold rounded-xl px-4 py-3.5 outline-none appearance-none transition-all">
                       <option value="">-- เลือกตำบล --</option>
                       <option v-for="s in subdistricts" :key="s.subdistrict" :value="s.subdistrict">{{ s.subdistrict }}</option>
                     </select>
-                    <span class="material-symbols-rounded absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" v-if="isEditing && user.district">expand_more</span>
+                    <span class="material-symbols-rounded absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" v-if="isEditing && formData.district">expand_more</span>
                   </div>
                 </div>
                 <div>
                   <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 ml-1">รหัสไปรษณีย์</label>
                   <div class="relative">
-                    <input type="text" v-model="user.zipcode" disabled 
+                    <input type="text" v-model="formData.zipcode" disabled 
                            class="bg-white dark:bg-slate-800/50 border-transparent text-slate-500 dark:text-slate-400 w-full border text-sm font-semibold rounded-xl px-4 py-3.5 outline-none">
                     <span class="material-symbols-rounded absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600">lock</span>
                   </div>
@@ -307,7 +307,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watchEffect, watch } from 'vue'
 import { getProvinces, getDistricts, getSubdistricts } from '~/utils/thaiAddress'
 
 useHead({
@@ -327,6 +327,33 @@ const userCookie = useCookie('user_session')
 const user = computed(() => userCookie.value)
 const { success: alertSuccess, error: alertError } = useAlerts()
 
+// Form data for editing without mutating the cookie on every keystroke
+const formData = ref({})
+
+// Sync formData when component mounts or user cookie changes
+watchEffect(() => {
+  if (user.value) {
+    // Only copy if we're not actively editing to avoid replacing what the user typed
+    if (!isEditing.value) {
+      formData.value = { ...user.value }
+    }
+  }
+})
+
+// Watch isEditing to reset formData if canceled
+watch(isEditing, (newVal) => {
+  if (!newVal && user.value) {
+    formData.value = { ...user.value }
+    // Reset district and subdistricts based on original values
+    if (user.value.province) {
+      districts.value = getDistricts(user.value.province)
+    }
+    if (user.value.province && user.value.district) {
+      subdistricts.value = getSubdistricts(user.value.province, user.value.district)
+    }
+  }
+})
+
 // ดึงข้อมูลโครงงานจริง
 const { data: projectData } = await useFetch("/api/student/my-project")
 const project = computed(() => projectData.value?.project)
@@ -336,37 +363,37 @@ const districts = ref([])
 const subdistricts = ref([])
 
 onMounted(() => {
-  if (user.value?.province) {
-    districts.value = getDistricts(user.value.province)
+  if (formData.value?.province) {
+    districts.value = getDistricts(formData.value.province)
   }
-  if (user.value?.province && user.value?.district) {
-    subdistricts.value = getSubdistricts(user.value.province, user.value.district)
+  if (formData.value?.province && formData.value?.district) {
+    subdistricts.value = getSubdistricts(formData.value.province, formData.value.district)
   }
 })
 
 const handleProvinceChange = () => {
-  if (user.value) {
-    user.value.district = ''
-    user.value.subdistrict = ''
-    user.value.zipcode = ''
-    districts.value = getDistricts(user.value.province)
+  if (formData.value) {
+    formData.value.district = ''
+    formData.value.subdistrict = ''
+    formData.value.zipcode = ''
+    districts.value = getDistricts(formData.value.province)
     subdistricts.value = []
   }
 }
 
 const handleDistrictChange = () => {
-  if (user.value) {
-    user.value.subdistrict = ''
-    user.value.zipcode = ''
-    subdistricts.value = getSubdistricts(user.value.province, user.value.district)
+  if (formData.value) {
+    formData.value.subdistrict = ''
+    formData.value.zipcode = ''
+    subdistricts.value = getSubdistricts(formData.value.province, formData.value.district)
   }
 }
 
 const handleSubdistrictChange = () => {
-  if (user.value) {
-    const selected = subdistricts.value.find(s => s.subdistrict === user.value.subdistrict)
+  if (formData.value) {
+    const selected = subdistricts.value.find(s => s.subdistrict === formData.value.subdistrict)
     if (selected) {
-      user.value.zipcode = selected.zipcode
+      formData.value.zipcode = selected.zipcode
     }
   }
 }
@@ -376,27 +403,27 @@ const saveProfile = async () => {
     const data = await $fetch('/api/student/update-profile', {
       method: 'POST',
       body: {
-        fullname: user.value.fullname,
-        tel: user.value.tel,
-        email: user.value.email,
-        lineId: user.value.lineId,
-        addressNo: user.value.addressNo,
-        moo: user.value.moo,
-        soi: user.value.soi,
-        road: user.value.road,
-        subdistrict: user.value.subdistrict,
-        district: user.value.district,
-        province: user.value.province,
-        zipcode: user.value.zipcode,
-        homePhone: user.value.homePhone,
-        emergencyContact: user.value.emergencyContact
+        fullname: formData.value.fullname,
+        tel: formData.value.tel,
+        email: formData.value.email,
+        lineId: formData.value.lineId,
+        addressNo: formData.value.addressNo,
+        moo: formData.value.moo,
+        soi: formData.value.soi,
+        road: formData.value.road,
+        subdistrict: formData.value.subdistrict,
+        district: formData.value.district,
+        province: formData.value.province,
+        zipcode: formData.value.zipcode,
+        homePhone: formData.value.homePhone,
+        emergencyContact: formData.value.emergencyContact
       }
     })
 
     if (data?.success) {
       alertSuccess('บันทึกสำเร็จ', 'ข้อมูลโปรไฟล์ของคุณถูกอัปเดตเรียบร้อยแล้ว')
       // Update cookie to reflect new data
-      Object.assign(user.value, data.user)
+      userCookie.value = { ...userCookie.value, ...data.user }
       isEditing.value = false
     }
   } catch (e) {
