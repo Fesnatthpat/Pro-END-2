@@ -51,7 +51,6 @@ export default defineEventHandler(async (event) => {
         description: title,
         status: 'pending',
         icon: reportType === 'thesis' ? 'description' : 'code',
-        fileUrl: fileUrl,
         actorName: event.context.auth?.fullname || 'นักศึกษา'
       }
     })
