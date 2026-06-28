@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: 'Prompt', sans-serif;
+}
+
 @variant dark (&:where(.dark, .dark *));
 @layer utilities {
   /* Optimize rendering on low-end devices */

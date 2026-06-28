@@ -1,89 +1,79 @@
 <template>
-  <div class="p-4 md:p-10">
+  <div class="p-4 md:p-8 font-['PROMPT',_sans-serif]">
     
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
-      <div class="relative">
-        <h3 class="text-slate-900 dark:text-white md: mb-2 tracking-tight text-xl md:text-2xl font-bold">Dashboard</h3>
-        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-          <span class="w-8 h-px bg-indigo-200"></span>
-          <p class="text-sm font-medium">ยินดีต้อนรับกลับ, Admin System 👋</p>
-        </div>
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+      <div>
+        <h3 class="font-bold text-slate-900 text-2xl md:text-3xl mb-1">Dashboard</h3>
+        <p class="text-slate-500 text-sm">ยินดีต้อนรับกลับ, Admin System 👋</p>
       </div>
-      <div class="glass-card px-6 py-3 rounded-2xl shadow-sm text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center gap-3 border border-slate-200/50 dark:border-slate-700/50 dark:bg-slate-800/50">
-        <div class="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
-          <span class="material-symbols-rounded text-lg">calendar_today</span>
-        </div>
-        {{ currentDate }}
+      <div class="bg-white px-4 py-2.5 rounded-full shadow-sm text-[#1a1a40] font-bold text-sm border border-slate-100 flex items-center gap-2">
+        <i class="bi bi-calendar-event"></i> {{ currentDate }}
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       
-      <NuxtLink v-for="stat in statCards" :key="stat.to" :to="stat.to" 
-        class="group relative overflow-hidden rounded-[32px] p-8 transition-all duration-500 premium-shadow-hover"
-        :class="stat.bg">
-        <!-- Background Decoration -->
-        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-        
-        <div class="relative z-10 flex flex-col h-full">
-          <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-6 border border-white/30 group-hover:rotate-12 transition-transform duration-500">
-            <span class="material-symbols-rounded text-white text-3xl">{{ stat.icon }}</span>
-          </div>
-          <div class="mt-auto">
-            <div class="text-4xl font-bold text-white mb-1 tracking-tight">{{ stat.value }}</div>
-            <div class="text-sm font-semibold text-white/80 uppercase tracking-wider">{{ stat.label }}</div>
-          </div>
-        </div>
+      <NuxtLink to="/admin/students/students" class="bg-gradient-to-br from-[#4099ff] to-[#73b4ff] rounded-[24px] p-6 text-white relative overflow-hidden shadow-lg shadow-blue-500/20 hover:-translate-y-1 transition-transform duration-300 block">
+        <i class="bi bi-people-fill absolute right-4 top-1/2 -translate-y-1/2 text-[4rem] opacity-20"></i>
+        <div class="text-[2.8rem] font-bold leading-none mb-1">{{ stats.students }}</div>
+        <div class="text-sm font-medium opacity-90">นักศึกษาทั้งหมด</div>
+      </NuxtLink>
+
+      <NuxtLink to="/admin/projects" class="bg-gradient-to-br from-[#2ed8b6] to-[#59e0c5] rounded-[24px] p-6 text-white relative overflow-hidden shadow-lg shadow-emerald-500/20 hover:-translate-y-1 transition-transform duration-300 block">
+        <i class="bi bi-folder-fill absolute right-4 top-1/2 -translate-y-1/2 text-[4rem] opacity-20"></i>
+        <div class="text-[2.8rem] font-bold leading-none mb-1">{{ stats.projects }}</div>
+        <div class="text-sm font-medium opacity-90">โครงงานในระบบ</div>
+      </NuxtLink>
+
+      <NuxtLink to="/admin/exam-topic" class="bg-gradient-to-br from-[#FFB64D] to-[#ffcb80] rounded-[24px] p-6 text-white relative overflow-hidden shadow-lg shadow-amber-500/20 hover:-translate-y-1 transition-transform duration-300 block">
+        <i class="bi bi-clipboard-data absolute right-4 top-1/2 -translate-y-1/2 text-[4rem] opacity-20"></i>
+        <div class="text-[2.8rem] font-bold leading-none mb-1">{{ stats.cp1 }}</div>
+        <div class="text-sm font-medium opacity-90">รอสอบหัวข้อ (CP1)</div>
+      </NuxtLink>
+
+      <NuxtLink to="/admin/exam-final" class="bg-gradient-to-br from-[#FF5370] to-[#ff869a] rounded-[24px] p-6 text-white relative overflow-hidden shadow-lg shadow-rose-500/20 hover:-translate-y-1 transition-transform duration-300 block">
+        <i class="bi bi-mortarboard-fill absolute right-4 top-1/2 -translate-y-1/2 text-[4rem] opacity-20"></i>
+        <div class="text-[2.8rem] font-bold leading-none mb-1">{{ stats.cp2 }}</div>
+        <div class="text-sm font-medium opacity-90">รอสอบจบ (CP2)</div>
       </NuxtLink>
 
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
       
       <div class="lg:col-span-8">
-        <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden group">
-          <div class="p-8 border-b border-slate-50 dark:border-slate-700 flex justify-between items-center bg-slate-50/30 dark:bg-slate-800/50">
-            <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xl flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-900/30 text-rose-500 dark:text-rose-400 flex items-center justify-center">
-                <span class="material-symbols-rounded">history_edu</span>
-              </div>
-              คำร้องล่าสุดที่ต้องตรวจสอบ
+        <div class="bg-white rounded-[24px] p-6 shadow-sm border border-slate-100 h-full">
+          <div class="flex justify-between items-center mb-6">
+            <h5 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+              <i class="bi bi-pin-angle-fill text-rose-500"></i> คำร้องล่าสุดที่ต้องตรวจสอบ
             </h5>
-            <NuxtLink to="/admin/projects" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 px-4 py-2 rounded-xl transition-all border border-indigo-100 dark:border-indigo-800">
+            <NuxtLink to="/admin/projects" class="text-xs font-bold bg-slate-50 text-slate-600 px-4 py-2 rounded-full hover:bg-[#1a1a40] hover:text-white transition-colors">
               ดูทั้งหมด
             </NuxtLink>
           </div>
 
           <div class="overflow-x-auto">
-            <table class="w-full text-left">
+            <table class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-slate-50/50 dark:bg-slate-700/30">
-                  <th class="px-8 py-5 admin-table-header">ชื่อโครงงาน</th>
-                  <th class="px-8 py-5 admin-table-header">นักศึกษา</th>
-                  <th class="px-8 py-5 admin-table-header">สถานะ</th>
-                  <th class="px-8 py-5 admin-table-header text-center">จัดการ</th>
+                <tr class="border-b border-slate-100 text-slate-400 text-sm">
+                  <th class="pb-3 font-medium">ชื่อโครงงาน</th>
+                  <th class="pb-3 font-medium">นักศึกษา</th>
+                  <th class="pb-3 font-medium">สถานะขั้นตอน</th>
+                  <th class="pb-3 font-medium text-center">จัดการ</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
-                <tr v-for="(item, index) in recentProjects" :key="index" class="admin-table-row group/row">
-                  <td class="px-8 py-5 font-bold text-slate-700 dark:text-slate-300 max-w-[240px]">
-                    <div class="truncate" :title="item.title">{{ item.title }}</div>
+                <tr v-for="(item, index) in recentProjects" :key="index" class="border-b border-slate-50 hover:bg-slate-50 transition-colors">
+                  <td class="py-4 pr-4 font-bold text-slate-700 truncate max-w-[200px]" :title="item.title">{{ item.title }}</td>
+                  <td class="py-4 pr-4 text-slate-500">{{ item.student }}</td>
+                  <td class="py-4 pr-4">
+                    <span v-if="item.step === 1" class="px-3 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-600 border border-blue-100">สอบหัวข้อ</span>
+                    <span v-else-if="item.step === 4" class="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-100">สอบจบ</span>
+                    <span v-else class="px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500 border border-slate-200">ดำเนินการ</span>
                   </td>
-                  <td class="px-8 py-5 text-slate-500 dark:text-slate-400 font-medium">{{ item.student }}</td>
-                  <td class="px-8 py-5">
-                    <span v-if="item.step === 1" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800/50">
-                      <span class="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"></span> สอบหัวข้อ
-                    </span>
-                    <span v-else-if="item.step === 4" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800/50">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse"></span> สอบจบ
-                    </span>
-                    <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> ดำเนินการ
-                    </span>
-                  </td>
-                  <td class="px-8 py-5 text-center">
-                    <NuxtLink :to="`/admin/project/${item.id}`" class="w-10 h-10 inline-flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-indigo-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-indigo-200 dark:hover:shadow-none group-hover/row:scale-110">
-                      <span class="material-symbols-rounded">arrow_forward</span>
+                  <td class="py-4 text-center">
+                    <NuxtLink :to="`/admin/project/${item.id}`" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-[#1a1a40] hover:text-white transition-colors mx-auto">
+                      <span class="material-symbols-rounded text-[20px]">chevron_right</span>
                     </NuxtLink>
                   </td>
                 </tr>
@@ -96,75 +86,68 @@
         </div>
       </div>
 
-      <div class="lg:col-span-4 flex flex-col gap-10">
+      <div class="lg:col-span-4 flex flex-col gap-6">
         
-        <div class="admin-card p-8 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800 border border-slate-100 dark:border-slate-700">
-          <div class="flex justify-between items-center mb-8">
-            <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xl flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
-                <span class="material-symbols-rounded">how_to_reg</span>
-              </div>
-              รออนุมัติ
+        <div class="bg-white rounded-[24px] p-6 shadow-sm border border-slate-100">
+          <div class="flex justify-between items-center mb-5">
+            <h5 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+              <i class="bi bi-person-fill-add text-blue-500"></i> รออนุมัติเข้าใช้งาน
             </h5>
-            <span class="bg-rose-500 text-white text-xs font-black px-2.5 py-1 rounded-full shadow-lg shadow-rose-200 dark:shadow-none">{{ pendingStudents.length }}</span>
+            <span class="bg-rose-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ pendingStudents.length }}</span>
           </div>
 
-          <div v-if="pendingStudents.length > 0" class="space-y-4">
-            <div v-for="student in pendingStudents" :key="student.id" class="flex items-center justify-between p-4 rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800/50 hover:border-indigo-200 dark:hover:border-indigo-700 hover:shadow-md transition-all duration-300 group">
-              <div class="flex items-center gap-4 overflow-hidden">
-                <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-500 dark:text-indigo-400 flex items-center justify-center font-bold text-lg shrink-0 border border-indigo-100 dark:border-indigo-800/50">
+          <div v-if="pendingStudents.length > 0" class="space-y-3">
+            <div v-for="student in pendingStudents" :key="student.id" class="flex items-center justify-between p-3 rounded-2xl border border-slate-100 bg-slate-50 hover:bg-white transition-colors group">
+              <div class="flex items-center gap-3 overflow-hidden">
+                <div class="w-10 h-10 rounded-full bg-white text-slate-400 flex items-center justify-center font-bold text-sm shadow-sm shrink-0 border border-slate-100">
                   {{ student.name.substring(0, 1) }}
                 </div>
                 <div class="overflow-hidden">
-                  <div class="font-bold text-slate-700 dark:text-slate-300 text-sm truncate">{{ student.name }}</div>
-                  <div class="text-xs text-slate-400 font-medium tracking-tight">{{ student.code }}</div>
+                  <div class="font-bold text-slate-700 text-sm truncate">{{ student.name }}</div>
+                  <div class="text-xs text-slate-400">{{ student.code }}</div>
                 </div>
               </div>
               
-              <button @click="approveStudent(student.id, student.name)" class="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-600 dark:hover:bg-emerald-600 hover:text-white dark:hover:text-white transition-all duration-300 shrink-0 shadow-sm" title="อนุมัติ">
-                <span class="material-symbols-rounded text-xl">check</span>
+              <button @click="approveStudent(student.id, student.name)" class="w-9 h-9 flex items-center justify-center rounded-full bg-white border-2 border-emerald-100 text-emerald-500 hover:bg-emerald-500 hover:border-emerald-500 hover:text-white transition-colors shrink-0 shadow-sm" title="อนุมัติ">
+                <i class="bi bi-check-lg text-lg"></i>
               </button>
             </div>
 
-            <div class="pt-4">
-              <NuxtLink to="/admin/students/approve" class="group flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-slate-900 hover:text-white transition-all duration-300">
-                จัดการทั้งหมด 
-                <span class="material-symbols-rounded text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
-              </NuxtLink>
+            <div class="pt-2 text-center">
+             <NuxtLink to="/admin/students/approve" class="text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors underline">
+  จัดการนักศึกษาที่รออนุมัติทั้งหมด <i class="bi bi-arrow-right"></i>
+</NuxtLink>
             </div>
           </div>
           
-          <div v-else class="text-center py-10">
-            <div class="w-16 h-16 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-500 dark:text-emerald-400 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-4 border-2 border-emerald-100/50 dark:border-emerald-800/50">
-              <span class="material-symbols-rounded">check_circle</span>
+          <div v-else class="text-center py-6">
+            <div class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-3">
+              <i class="bi bi-check-circle-fill"></i>
             </div>
-            <div class="text-base font-bold text-slate-700 dark:text-slate-300 mb-1">ไม่มีคำร้องใหม่</div>
-            <div class="text-sm text-slate-400">นักศึกษาทุกคนได้รับการอนุมัติแล้ว</div>
+            <div class="text-sm font-bold text-slate-700">ไม่มีคำร้องใหม่</div>
+            <div class="text-xs text-slate-400">นักศึกษาทุกคนได้รับการอนุมัติแล้ว</div>
           </div>
         </div>
 
-        <div class="admin-card bg-white dark:bg-slate-800 p-8 border border-slate-100 dark:border-slate-700">
-          <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xl mb-8 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-              <span class="material-symbols-rounded">bolt</span>
-            </div>
-            Quick Actions
+        <div class="bg-white rounded-[24px] p-6 shadow-sm border border-slate-100">
+          <h5 class="font-bold text-slate-800 text-lg mb-5 flex items-center gap-2">
+            <i class="bi bi-lightning-charge-fill text-amber-400"></i> Quick Actions
           </h5>
           
-          <div class="grid grid-cols-1 gap-4">
-            <NuxtLink to="/admin/exam-topic" class="flex items-center p-5 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-amber-400 dark:hover:border-amber-500/50 bg-white dark:bg-slate-800 hover:bg-amber-50/30 dark:hover:bg-amber-900/10 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mr-5 group-hover:scale-110 group-hover:rotate-6 transition-all"><span class="material-symbols-rounded">calendar_month</span></div>
+          <div class="space-y-3">
+            <NuxtLink to="/admin/exam-topic" class="flex items-center p-3.5 rounded-2xl border-2 border-amber-50 hover:border-amber-400 bg-white hover:bg-amber-50 transition-all group">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg mr-4 group-hover:scale-110 transition-transform"><i class="bi bi-calendar-check-fill"></i></div>
               <div>
-                <div class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-amber-700 text-base">จัดตารางสอบหัวข้อ</div>
-                <div class="text-xs text-slate-400 font-medium">จัดการคำร้อง CP1</div>
+                <div class="font-bold text-slate-700 group-hover:text-amber-700 text-sm">จัดตารางสอบหัวข้อ</div>
+                <div class="text-[11px] text-slate-400">จัดการคำร้อง CP1</div>
               </div>
             </NuxtLink>
 
-            <NuxtLink to="/admin/reports" class="flex items-center p-5 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500/50 bg-white dark:bg-slate-800 hover:bg-indigo-50/30 dark:hover:bg-indigo-900/10 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mr-5 group-hover:scale-110 group-hover:rotate-6 transition-all"><span class="material-symbols-rounded">analytics</span></div>
+            <NuxtLink to="/admin/reports" class="flex items-center p-3.5 rounded-2xl border-2 border-emerald-50 hover:border-emerald-500 bg-white hover:bg-emerald-50 transition-all group">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg mr-4 group-hover:scale-110 transition-transform"><i class="bi bi-file-earmark-bar-graph-fill"></i></div>
               <div>
-                <div class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-700 text-base">ดูรายงานสรุปผล</div>
-                <div class="text-xs text-slate-400 font-medium">สถิติภาพรวมประจำปี</div>
+                <div class="font-bold text-slate-700 group-hover:text-emerald-700 text-sm">ดูรายงานสรุปผล</div>
+                <div class="text-[11px] text-slate-400">สถิติภาพรวมประจำปี</div>
               </div>
             </NuxtLink>
           </div>

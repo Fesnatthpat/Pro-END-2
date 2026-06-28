@@ -1,101 +1,91 @@
 <template>
-  <div class="p-4 md:p-10">
+  <div class="p-4 md:p-10 font-['PROMPT',_sans-serif]">
     
-    <div class="mb-8">
-      <NuxtLink to="/admin" class="group inline-flex items-center gap-2 text-slate-400 hover:text-indigo-600 font-bold text-sm transition-all">
-        <span class="material-symbols-rounded group-hover:-translate-x-1 transition-transform">arrow_back</span> 
+    <div class="mb-6">
+      <NuxtLink to="/admin" class="group inline-flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-bold text-sm transition-all">
+        <span class="material-symbols-rounded text-[20px] group-hover:-translate-x-1 transition-transform">arrow_back</span> 
         <span>ย้อนกลับไปหน้า Dashboard</span>
       </NuxtLink>
     </div>
 
     <div class="mb-10">
-      <div class="flex items-center gap-2 text-indigo-500 font-black mb-2 uppercase tracking-widest text-xs">
-        <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
-        Account Registration Control
+      <div class="flex items-center gap-2 text-blue-600 font-bold mb-2 text-sm">
+        <span class="material-symbols-rounded text-[20px]">person_add</span>
+        คำร้องเข้าใช้งานใหม่
       </div>
-      <h2 class="text-slate-900 dark:text-white md: mb-2 tracking-tight text-2xl md:text-3xl font-bold">อนุมัติบัญชีนักศึกษาใหม่</h2>
-      <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-        <span class="w-8 h-px bg-slate-200"></span>
-        <p class="text-sm font-medium">ตรวจสอบและเปิดใช้งานบัญชีผู้ใช้งานสำหรับนักศึกษาที่เพิ่งลงทะเบียน</p>
-      </div>
+      <h2 class="text-[#1a1a40] dark:text-white tracking-tight text-3xl font-black mb-2">จัดการการอนุมัตินักศึกษา</h2>
+      <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">ตรวจสอบรายชื่อนักศึกษาใหม่ที่รอการยืนยันสิทธิ์ (ยังไม่มีข้อมูลโครงงาน)</p>
     </div>
 
-    <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden">
-      <div class="bg-indigo-600 p-8 text-white relative overflow-hidden">
-        <!-- Background Decoration -->
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-        <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-indigo-400/20 rounded-full blur-2xl"></div>
+    <div class="bg-white dark:bg-slate-800 rounded-[24px] shadow-sm border border-slate-100 overflow-hidden">
+      
+      <!-- Card Header -->
+      <div class="p-6 md:p-8 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-slate-50">
+        <div class="font-bold text-lg flex items-center gap-2 text-[#1a1a40] dark:text-white">
+          รายการที่รอตรวจสอบ <span class="text-blue-600 mx-1">{{ pendingList.length }}</span> รายการ
+        </div>
         
-        <div class="relative z-10 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div class="font-bold text-xl flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
-              <span class="material-symbols-rounded">group_add</span>
-            </div>
-            <span>รายการที่รออนุมัติทั้งหมด</span> 
-            <span class="bg-white dark:bg-slate-800 text-indigo-600 px-4 py-1 rounded-2xl text-2xl font-black ml-2 shadow-lg">{{ pendingList.length }}</span>
-          </div>
+        <div class="flex items-center gap-3 w-full md:w-auto">
+          <button @click="bulkDelete" :disabled="selectedStudents.length === 0" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all" :class="selectedStudents.length > 0 ? 'bg-rose-50 text-rose-600 hover:bg-rose-100' : 'bg-slate-50 text-slate-400 cursor-not-allowed'">
+            <span class="material-symbols-rounded text-[20px]">delete</span>
+            ลบคำร้อง ({{ selectedStudents.length }})
+          </button>
+          
+          <button @click="bulkApprove" :disabled="selectedStudents.length === 0" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all" :class="selectedStudents.length > 0 ? 'bg-blue-50 text-blue-600 hover:bg-blue-100' : 'bg-slate-50 text-slate-400 cursor-not-allowed'">
+            <span class="material-symbols-rounded text-[20px]">check</span>
+            อนุมัติที่เลือก ({{ selectedStudents.length }})
+          </button>
         </div>
       </div>
 
-      <div v-if="!pendingList || pendingList.length === 0" class="py-32 text-center animate-[fadeIn_0.5s_ease-out]">
-        <div class="w-24 h-24 bg-slate-50 dark:bg-slate-900 text-slate-200 rounded-[32px] flex items-center justify-center mx-auto mb-6">
-          <span class="material-symbols-rounded text-6xl">how_to_reg</span>
+      <!-- Empty State -->
+      <div v-if="!pendingList || pendingList.length === 0" class="py-24 text-center animate-[fadeIn_0.5s_ease-out]">
+        <div class="w-20 h-20 bg-slate-50 dark:bg-slate-900 text-slate-300 rounded-[24px] flex items-center justify-center mx-auto mb-6">
+          <span class="material-symbols-rounded text-5xl">how_to_reg</span>
         </div>
-        <h3 class="text-slate-800 dark:text-slate-200 mb-2 text-xl md:text-2xl font-bold">ไม่มีบัญชีที่รอการอนุมัติ</h3>
-        <p class="text-slate-400 font-medium max-w-xs mx-auto text-sm">นักศึกษาทุกคนที่ลงทะเบียนได้รับการตรวจสอบเรียบร้อยแล้ว</p>
+        <h3 class="text-[#1a1a40] dark:text-slate-200 mb-2 text-xl font-bold">ไม่มีบัญชีที่รอการอนุมัติ</h3>
+        <p class="text-slate-400 font-medium text-sm">นักศึกษาทุกคนที่ลงทะเบียนได้รับการตรวจสอบเรียบร้อยแล้ว</p>
       </div>
 
-      <div v-else class="animate-[fadeIn_0.3s_ease-out]">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left min-w-[800px]">
-            <thead>
-              <tr class="bg-slate-50/50">
-                <th class="px-8 py-5 admin-table-header w-[120px] text-center">โปรไฟล์</th>
-                <th class="px-8 py-5 admin-table-header">รหัสนักศึกษา</th>
-                <th class="px-8 py-5 admin-table-header">ชื่อ - นามสกุล</th>
-                <th class="px-8 py-5 admin-table-header">อีเมล</th>
-                <th class="px-8 py-5 admin-table-header text-center">สถานะ</th>
-                <th class="px-8 py-5 admin-table-header text-center">จัดการ</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-50 text-sm">
-              <tr v-for="student in pendingList" :key="student.id" class="admin-table-row group/row">
-                <td class="px-8 py-6 text-center">
-                  <div v-if="student.profileImage" class="w-14 h-14 rounded-2xl border-2 border-white shadow-md mx-auto overflow-hidden group-hover/row:scale-110 transition-transform">
-                    <img :src="student.profileImage" alt="Profile" class="w-full h-full object-cover">
-                  </div>
-                  <div v-else class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-500 font-black text-xl flex items-center justify-center border border-indigo-200 mx-auto group-hover/row:scale-110 transition-transform">
-                    {{ student.fullname.substring(0, 1) }}
-                  </div>
-                </td>
-                <td class="px-8 py-6 font-bold text-slate-500 dark:text-slate-400 tracking-tight">{{ student.username }}</td>
-                <td class="px-8 py-6 font-black text-slate-800 dark:text-slate-200 text-base">{{ student.fullname }}</td>
-                <td class="px-8 py-6 text-slate-500 dark:text-slate-400 font-medium italic">{{ student.email }}</td>
-                <td class="px-8 py-6 text-center">
-                  <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 text-xs font-black uppercase tracking-widest">
-                    <span class="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span> รอตรวจสอบ
-                  </span>
-                </td>
-                <td class="px-8 py-6 text-center">
-                  <div class="flex items-center justify-center gap-2">
-                    <button @click="approveStudent(student.id, student.fullname)" class="group/btn relative overflow-hidden bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl font-black text-xs transition-all shadow-lg shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center gap-1 border-b-2 border-emerald-700" title="อนุมัติบัญชี">
-                      <span class="material-symbols-rounded text-lg group-hover/btn:rotate-12 transition-transform">verified_user</span> 
-                      <span>อนุมัติ</span>
-                    </button>
-                    <button @click="rejectStudent(student.id, student.fullname)" class="group/btn relative overflow-hidden bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl font-black text-xs transition-all shadow-lg shadow-amber-100 dark:shadow-none active:scale-95 flex items-center gap-1 border-b-2 border-amber-700" title="ปฏิเสธบัญชี">
-                      <span class="material-symbols-rounded text-lg group-hover/btn:-rotate-12 transition-transform">cancel</span> 
-                      <span>ปฏิเสธ</span>
-                    </button>
-                    <button @click="deleteStudent(student.id, student.fullname)" class="group/btn relative overflow-hidden bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-xl font-black text-xs transition-all shadow-lg shadow-rose-100 dark:shadow-none active:scale-95 flex items-center gap-1 border-b-2 border-rose-700" title="ลบบัญชี">
-                      <span class="material-symbols-rounded text-lg group-hover/btn:rotate-12 transition-transform">delete</span> 
-                      <span>ลบทิ้ง</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <!-- Table -->
+      <div v-else class="animate-[fadeIn_0.3s_ease-out] overflow-x-auto">
+        <table class="w-full text-left min-w-[800px]">
+          <thead>
+            <tr class="bg-slate-50/50 text-slate-500 text-[13px]">
+              <th class="px-8 py-4 w-[80px] text-center">
+                <input type="checkbox" v-model="selectAll" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer">
+              </th>
+              <th class="px-4 py-4 font-bold w-[80px]">รูป</th>
+              <th class="px-4 py-4 font-bold w-[150px]">รหัสนักศึกษา</th>
+              <th class="px-4 py-4 font-bold">ชื่อ - นามสกุล</th>
+              <th class="px-4 py-4 font-bold">อีเมล (Email)</th>
+              <th class="px-8 py-4 font-bold w-[120px]">สถานะ</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-50 text-sm">
+            <tr v-for="student in pendingList" :key="student.id" class="hover:bg-slate-50/50 transition-colors group">
+              <td class="px-8 py-5 text-center">
+                <input type="checkbox" :value="student.id" v-model="selectedStudents" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer">
+              </td>
+              <td class="px-4 py-5">
+                <div v-if="student.profileImage" class="w-10 h-10 rounded-full border border-slate-200 mx-auto overflow-hidden">
+                  <img :src="student.profileImage" alt="Profile" class="w-full h-full object-cover">
+                </div>
+                <div v-else class="w-10 h-10 rounded-full bg-slate-100 text-slate-400 font-bold text-sm flex items-center justify-center border border-slate-200">
+                  {{ student.fullname.substring(0, 1) }}
+                </div>
+              </td>
+              <td class="px-4 py-5 font-bold text-slate-500">{{ student.username }}</td>
+              <td class="px-4 py-5 font-bold text-[#1a1a40] dark:text-slate-200">{{ student.fullname }}</td>
+              <td class="px-4 py-5 text-slate-500">{{ student.email }}</td>
+              <td class="px-8 py-5">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 text-amber-600 border border-amber-100 text-[11px] font-bold whitespace-nowrap">
+                  <span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse shrink-0"></span> รออนุมัติ
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
     </div>
@@ -103,7 +93,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useAlerts } from '~/composables/useAlerts'
 
 definePageMeta({ layout: 'admin' })
@@ -112,56 +102,60 @@ const alerts = useAlerts()
 const { data: result, refresh } = await useFetch('/api/admin/pending-students')
 const pendingList = computed(() => result.value?.students || [])
 
-const approveStudent = async (userId, name) => {
-  const confirm = await alerts.confirm('ยืนยันการอนุมัติ', `คุณต้องการอนุมัติบัญชีของ "${name}" เข้าใช้งานระบบใช่หรือไม่?`, 'question')
+const selectedStudents = ref([])
+
+const selectAll = computed({
+  get: () => pendingList.value.length > 0 && selectedStudents.value.length === pendingList.value.length,
+  set: (val) => {
+    if (val) {
+      selectedStudents.value = pendingList.value.map(s => s.id)
+    } else {
+      selectedStudents.value = []
+    }
+  }
+})
+
+const bulkApprove = async () => {
+  if (selectedStudents.value.length === 0) return
+  
+  const confirm = await alerts.confirm('ยืนยันการอนุมัติ', `คุณต้องการอนุมัติบัญชีนักศึกษาจำนวน ${selectedStudents.value.length} รายการ ใช่หรือไม่?`, 'question')
   if (!confirm.isConfirmed) return
 
   try {
-    const res = await $fetch('/api/admin/approve-student', {
-      method: 'POST',
-      body: { userId }
-    })
+    const results = await Promise.allSettled(
+      selectedStudents.value.map(userId => 
+        $fetch('/api/admin/approve-student', { method: 'POST', body: { userId } })
+      )
+    )
+    
+    const successCount = results.filter(r => r.status === 'fulfilled' && r.value.success).length
 
-    if (res.success) {
-      alerts.success('สำเร็จ!', `อนุมัติบัญชี ${name} เรียบร้อยแล้ว`)
-      refresh()
-    }
+    alerts.success('สำเร็จ!', `อนุมัติบัญชีนักศึกษาเรียบร้อยแล้ว ${successCount} รายการ`)
+    selectedStudents.value = []
+    refresh()
   } catch (error) {
     alerts.error('ข้อผิดพลาด', error.statusMessage || 'เกิดข้อผิดพลาดในการอนุมัติ')
   }
 }
 
-const rejectStudent = async (userId, name) => {
-  const confirm = await alerts.confirm('ยืนยันการปฏิเสธ', `คุณต้องการปฏิเสธบัญชีของ "${name}" ใช่หรือไม่? ข้อมูลบัญชีนี้จะถูกนำออกจากระบบการรออนุมัติ`, 'warning')
+const bulkDelete = async () => {
+  if (selectedStudents.value.length === 0) return
+  
+  const confirm = await alerts.confirm('ยืนยันการลบทิ้ง', `คุณต้องการลบคำร้องบัญชีนักศึกษาจำนวน ${selectedStudents.value.length} รายการ ถาวรใช่หรือไม่?`, 'error')
   if (!confirm.isConfirmed) return
 
   try {
-    const res = await $fetch(`/api/admin/students?id=${userId}`, {
-      method: 'DELETE'
-    })
+    const results = await Promise.allSettled(
+      selectedStudents.value.map(userId => 
+        $fetch(`/api/admin/students?id=${userId}`, { method: 'DELETE' })
+      )
+    )
+    
+    const successCount = results.filter(r => r.status === 'fulfilled' && r.value.success).length
 
-    if (res.success) {
-      alerts.success('สำเร็จ!', `ปฏิเสธบัญชี ${name} เรียบร้อยแล้ว`)
-      refresh()
-    }
-  } catch (error) {
-    alerts.error('ข้อผิดพลาด', error.statusMessage || 'เกิดข้อผิดพลาดในการปฏิเสธ')
-  }
-}
-
-const deleteStudent = async (userId, name) => {
-  const confirm = await alerts.confirm('ยืนยันการลบทิ้ง', `คุณต้องการลบบัญชีของ "${name}" อย่างถาวรใช่หรือไม่? ข้อมูลนี้จะไม่สามารถกู้คืนได้`, 'error')
-  if (!confirm.isConfirmed) return
-
-  try {
-    const res = await $fetch(`/api/admin/students?id=${userId}`, {
-      method: 'DELETE'
-    })
-
-    if (res.success) {
-      alerts.success('สำเร็จ!', `ลบบัญชี ${name} เรียบร้อยแล้ว`)
-      refresh()
-    }
+    alerts.success('สำเร็จ!', `ลบคำร้องเรียบร้อยแล้ว ${successCount} รายการ`)
+    selectedStudents.value = []
+    refresh()
   } catch (error) {
     alerts.error('ข้อผิดพลาด', error.statusMessage || 'เกิดข้อผิดพลาดในการลบ')
   }

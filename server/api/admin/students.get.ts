@@ -25,6 +25,8 @@ export default defineEventHandler(async (event) => {
           lineId: true,
           profileImage: true,
           isApproved: true,
+          projects1: { select: { titleTh: true } },
+          projects2: { select: { titleTh: true } },
           createdAt: true,
           updatedAt: true
         },

@@ -3,22 +3,15 @@
 
     <!-- Desktop Sidebar -->
     <aside
-      class="w-[280px] bg-[#0f172a] text-white flex flex-col shadow-2xl shrink-0 hidden lg:flex sticky top-0 h-screen overflow-hidden print:hidden">
-      
-      <!-- Sidebar Background Decoration -->
-      <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-        <div class="absolute -top-24 -left-24 w-64 h-64 bg-indigo-600 rounded-full blur-[80px]"></div>
-        <div class="absolute top-1/2 -right-24 w-48 h-48 bg-purple-600 rounded-full blur-[60px]"></div>
-      </div>
+      class="w-[280px] bg-gradient-to-b from-[#0f0c29] to-[#302b63] text-white flex flex-col shadow-2xl shrink-0 hidden lg:flex sticky top-0 h-screen overflow-hidden print:hidden">
 
       <div v-if="admin" class="relative z-10 p-8 mb-4 border-b border-white/5 flex items-center gap-4">
-        <div
-          class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center font-bold text-2xl shadow-lg shrink-0 overflow-hidden border-2 border-white/10">
+        <div class="w-14 h-14 rounded-full bg-white text-[#0f0c29] flex items-center justify-center font-black text-2xl shadow-lg shrink-0 overflow-hidden">
           {{ admin.fullname?.charAt(0) || 'A' }}
         </div>
         <div class="overflow-hidden">
-          <span class="block font-bold truncate text-base tracking-tight">{{ admin.fullname }}</span>
-          <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 text-[10px] font-bold uppercase tracking-wider border border-indigo-500/30 mt-1">{{ admin.role }}</span>
+          <span class="block font-bold truncate text-base tracking-tight text-white">{{ admin.fullname }}</span>
+          <span class="block text-slate-300 text-xs mt-0.5">{{ admin.role === 'admin' ? 'Administrator' : admin.role }}</span>
         </div>
       </div>
 
@@ -26,20 +19,19 @@
         <div class="px-4 mb-2 text-[11px] font-bold text-white/30 uppercase tracking-widest">Main Menu</div>
         
         <NuxtLink v-for="link in navigationLinks" :key="link.to" :to="link.to" 
-          exact-active-class="bg-white/10 text-white !font-semibold shadow-sm border-r-4 border-indigo-500"
-          class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-white/5 px-4 py-3 rounded-xl transition-all duration-300 group relative">
-          <span class="material-symbols-rounded text-[22px] group-hover:scale-110 transition-transform duration-300" :class="{'text-indigo-400': $route.path === link.to}">{{ link.icon }}</span>
+          exact-active-class="bg-white !text-[#0f0c29] !font-bold shadow-md"
+          class="flex items-center gap-3 text-slate-300 hover:text-white px-4 py-3 rounded-xl transition-all duration-300 group relative">
+          <span class="material-symbols-rounded text-[22px] group-hover:scale-110 transition-transform duration-300" :class="$route.path === link.to ? 'text-[#0f0c29]' : ''">{{ link.icon }}</span>
           <span class="text-[14px]">{{ link.label }}</span>
           <span v-if="link.badgeKey && badges[link.badgeKey] > 0" class="ml-auto bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
             {{ badges[link.badgeKey] }}
           </span>
-          <div v-if="$route.path === link.to" class="absolute left-0 w-1 h-6 bg-indigo-500 rounded-r-full"></div>
         </NuxtLink>
       </nav>
 
-      <div class="relative z-10 p-4 mt-auto border-t border-white/5 bg-white/5 backdrop-blur-sm">
+      <div class="relative z-10 p-4 mt-auto">
         <button @click="handleLogout"
-          class="w-full flex items-center justify-center gap-2 bg-rose-500/10 hover:bg-rose-500 text-rose-500 hover:text-white font-bold px-4 py-3.5 rounded-xl transition-all duration-300 group">
+          class="w-full flex items-center justify-center gap-2 bg-slate-200 hover:bg-white text-[#0f0c29] font-bold px-4 py-3.5 rounded-xl transition-all duration-300 group shadow-sm">
           <span class="material-symbols-rounded text-lg group-hover:rotate-12 transition-transform">logout</span> ออกจากระบบ
         </button>
       </div>
@@ -70,7 +62,7 @@
 
     <!-- Mobile Sidebar Drawer -->
     <aside :class="isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'"
-      class="fixed top-0 left-0 bottom-0 z-[102] w-[300px] bg-[#0f172a] text-white flex flex-col transition-transform duration-300 ease-out lg:hidden shadow-2xl">
+      class="fixed top-0 left-0 bottom-0 z-[102] w-[300px] bg-gradient-to-b from-[#0f0c29] to-[#302b63] text-white flex flex-col transition-transform duration-300 ease-out lg:hidden shadow-2xl">
 
       <div class="p-6 border-b border-white/5 flex items-center justify-between">
         <div class="flex items-center gap-4">
@@ -109,7 +101,7 @@
     </aside>
 
     <main class="flex-grow w-full max-w-full overflow-x-hidden pt-16 lg:pt-0">
-      <div class="max-w-7xl mx-auto min-h-screen relative">
+      <div class="w-full min-h-screen relative">
         <!-- Page Transition Wrapper -->
         <slot />
       </div>

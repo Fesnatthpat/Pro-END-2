@@ -1,117 +1,117 @@
 <template>
-  <div class="p-4 md:p-10">
+  <div class="p-4 md:p-8">
     
-    <div class="mb-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 print:hidden">
-      <div class="relative">
-        <h2 class="text-slate-900 dark:text-white md: mb-2 tracking-tight text-2xl md:text-3xl font-bold">รายงานสรุปผล</h2>
-        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-          <span class="w-8 h-px bg-indigo-200"></span>
-          <p class="text-sm font-medium">สถิติภาพรวมโครงงานนักศึกษา แยกตามปีการศึกษา</p>
-        </div>
+    <div class="mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 print:hidden">
+      <div>
+        <h2 class="text-slate-900 dark:text-white mb-1 text-2xl font-bold">รายงานสรุปผล</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400">สถิติภาพรวมโครงงานนักศึกษา แยกตามปีการศึกษา</p>
       </div>
       
-      <div class="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
-        <div class="relative w-full sm:w-[220px] group">
-          <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none text-indigo-500 group-focus-within:scale-110 transition-transform">
-            <span class="material-symbols-rounded">calendar_month</span>
+      <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+        <div class="relative w-full sm:w-[220px]">
+          <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none text-slate-500">
+            <span class="material-symbols-rounded text-[20px]">calendar_month</span>
           </div>
           <select 
             v-model="selectedYear" 
-            class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-bold rounded-2xl pl-14 pr-12 py-4 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none cursor-pointer shadow-sm"
+            class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 text-sm rounded-lg pl-10 pr-10 py-2.5 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all appearance-none cursor-pointer shadow-sm"
           >
             <option value="all">ทุกปีการศึกษา</option>
             <option v-for="year in availableYears" :key="year" :value="year">ปีการศึกษา {{ year }}</option>
           </select>
-          <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
-            <span class="material-symbols-rounded font-bold">expand_more</span>
+          <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
+            <span class="material-symbols-rounded text-[20px]">expand_more</span>
           </div>
         </div>
 
         <button 
           @click="printReport"
-          class="group relative overflow-hidden bg-slate-900 hover:bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-slate-200 dark:shadow-none flex items-center justify-center gap-3 w-full sm:w-auto shrink-0 active:scale-95"
+          class="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto shrink-0"
         >
-          <span class="material-symbols-rounded group-hover:rotate-12 transition-transform">print</span> 
+          <span class="material-symbols-rounded text-[18px]">print</span> 
           <span>พิมพ์รายงาน</span>
-          <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
         </button>
       </div>
     </div>
 
-    <div class="hidden print:block text-center mb-12 border-b-2 border-black pb-8">
-      <h1 class="text-black mb-2 tracking-tight uppercase text-3xl md:text-4xl lg:text-5xl font-black">Project Summary Report</h1>
-      <h3 class="text-xl text-black mb-4 text-xl md:text-2xl font-bold">รายงานสรุปโครงงานนักศึกษา</h3>
-      <p class="text-lg text-black font-medium">
+    <div class="hidden print:block text-center mb-10 border-b-2 border-black pb-6">
+      <h1 class="text-black mb-2 uppercase text-3xl font-bold">Project Summary Report</h1>
+      <h3 class="text-xl text-black mb-3 font-semibold">รายงานสรุปโครงงานนักศึกษา</h3>
+      <p class="text-base text-black">
         ปีการศึกษา: {{ selectedYear === 'all' ? 'ทั้งหมด' : selectedYear }} | วันที่พิมพ์: {{ new Date().toLocaleDateString('th-TH') }}
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       
-      <div class="admin-card p-8 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white shadow-xl shadow-indigo-100 dark:shadow-none print:bg-white print:text-black print:border-2 print:border-black print:shadow-none relative overflow-hidden group">
-        <span class="material-symbols-rounded absolute -right-4 -bottom-4 text-8xl text-white/10 group-hover:scale-125 transition-transform duration-700 print:hidden">folder_open</span>
-        <div class="relative z-10 text-center">
-          <div class="text-5xl font-black mb-2 tracking-tighter">{{ stats.total }}</div>
-          <div class="text-xs font-black uppercase tracking-widest opacity-80">โครงงานทั้งหมด</div>
+      <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between print:border-black print:shadow-none">
+        <div>
+          <div class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">โครงงานทั้งหมด</div>
+          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">{{ stats.total }}</div>
+        </div>
+        <div class="w-12 h-12 rounded-lg bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center print:hidden">
+          <span class="material-symbols-rounded text-2xl">folder_open</span>
         </div>
       </div>
 
-      <div class="admin-card p-8 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-xl shadow-emerald-100 dark:shadow-none print:bg-white print:text-black print:border-2 print:border-black print:shadow-none relative overflow-hidden group">
-        <span class="material-symbols-rounded absolute -right-4 -bottom-4 text-8xl text-white/10 group-hover:scale-125 transition-transform duration-700 print:hidden">verified</span>
-        <div class="relative z-10 text-center">
-          <div class="text-5xl font-black mb-2 tracking-tighter">{{ stats.passed }}</div>
-          <div class="text-xs font-black uppercase tracking-widest opacity-80">สอบผ่าน / จบแล้ว</div>
+      <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between print:border-black print:shadow-none">
+        <div>
+          <div class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">สอบผ่าน / จบแล้ว</div>
+          <div class="text-3xl font-bold text-emerald-600">{{ stats.passed }}</div>
+        </div>
+        <div class="w-12 h-12 rounded-lg bg-emerald-50 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center print:hidden">
+          <span class="material-symbols-rounded text-2xl">verified</span>
         </div>
       </div>
 
-      <div class="admin-card p-8 bg-gradient-to-br from-amber-400 to-amber-500 text-white shadow-xl shadow-amber-100 dark:shadow-none print:bg-white print:text-black print:border-2 print:border-black print:shadow-none relative overflow-hidden group">
-        <span class="material-symbols-rounded absolute -right-4 -bottom-4 text-8xl text-white/10 group-hover:scale-125 transition-transform duration-700 print:hidden">pending_actions</span>
-        <div class="relative z-10 text-center">
-          <div class="text-5xl font-black mb-2 tracking-tighter">{{ stats.doing }}</div>
-          <div class="text-xs font-black uppercase tracking-widest opacity-80">กำลังดำเนินการ</div>
+      <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between print:border-black print:shadow-none">
+        <div>
+          <div class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">กำลังดำเนินการ</div>
+          <div class="text-3xl font-bold text-amber-600">{{ stats.doing }}</div>
+        </div>
+        <div class="w-12 h-12 rounded-lg bg-amber-50 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center print:hidden">
+          <span class="material-symbols-rounded text-2xl">pending_actions</span>
         </div>
       </div>
 
     </div>
 
-    <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden print:shadow-none print:border-none print:p-0">
-      <div class="p-8 border-b border-slate-50 flex items-center gap-4 bg-slate-50/30 print:hidden">
-        <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
-          <span class="material-symbols-rounded">format_list_bulleted</span>
-        </div>
-        <h5 class="font-black text-slate-800 dark:text-slate-200 text-xl tracking-tight">รายชื่อโครงงาน</h5>
+    <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm print:shadow-none print:border-none print:rounded-none">
+      <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center gap-3 bg-slate-50/50 dark:bg-slate-800/50 print:hidden">
+        <span class="material-symbols-rounded text-slate-500">format_list_bulleted</span>
+        <h5 class="font-bold text-slate-800 dark:text-slate-200 text-lg">รายชื่อโครงงาน</h5>
       </div>
       
-      <div class="overflow-x-auto animate-[fadeIn_0.3s_ease-out]">
-        <table class="w-full text-left min-w-[900px] print:min-w-full print:border print:border-black">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm print:min-w-full print:border print:border-black">
           <thead>
-            <tr class="bg-slate-50/50 print:bg-gray-100">
-              <th class="px-8 py-5 admin-table-header text-center w-[140px] print:border-r print:border-black">รหัสนักศึกษา</th>
-              <th class="px-8 py-5 admin-table-header w-[220px] print:border-r print:border-black">ชื่อ - นามสกุล</th>
-              <th class="px-8 py-5 admin-table-header print:border-r print:border-black">ชื่อโครงงาน</th>
-              <th class="px-8 py-5 admin-table-header text-center w-[120px] print:border-r print:border-black">ปีการศึกษา</th>
-              <th class="px-8 py-5 admin-table-header text-center w-[140px] print:border-r print:border-black">สถานะ</th>
-              <th class="px-8 py-5 admin-table-header text-center w-[140px]">วันสอบจบ</th>
+            <tr class="bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700 print:bg-gray-100">
+              <th class="px-6 py-3 font-semibold text-slate-700 dark:text-slate-300 text-center w-[120px] print:border-r print:border-black">รหัสนักศึกษา</th>
+              <th class="px-6 py-3 font-semibold text-slate-700 dark:text-slate-300 w-[200px] print:border-r print:border-black">ชื่อ - นามสกุล</th>
+              <th class="px-6 py-3 font-semibold text-slate-700 dark:text-slate-300 print:border-r print:border-black">ชื่อโครงงาน</th>
+              <th class="px-6 py-3 font-semibold text-slate-700 dark:text-slate-300 text-center w-[100px] print:border-r print:border-black">ปีการศึกษา</th>
+              <th class="px-6 py-3 font-semibold text-slate-700 dark:text-slate-300 text-center w-[120px] print:border-r print:border-black">สถานะ</th>
+              <th class="px-6 py-3 font-semibold text-slate-700 dark:text-slate-300 text-center w-[120px]">วันสอบจบ</th>
             </tr>
           </thead>
-          <tbody class="text-sm divide-y divide-slate-50">
-            <tr v-for="project in filteredProjects" :key="project.id" class="admin-table-row group/row print:border-b print:border-black">
-              <td class="px-8 py-6 text-center font-bold text-slate-500 dark:text-slate-400 tracking-tight print:text-black print:border-r print:border-black">{{ project.student1.username }}</td>
-              <td class="px-8 py-6 font-black text-slate-800 dark:text-slate-200 text-base print:text-black print:border-r print:border-black">{{ project.student1.fullname }}</td>
-              <td class="px-8 py-6 text-slate-600 dark:text-slate-400 font-medium leading-relaxed print:text-black print:border-r print:border-black">{{ project.titleTh || '-' }}</td>
-              <td class="px-8 py-6 text-center font-black text-slate-500 dark:text-slate-400 print:text-black print:border-r print:border-black">{{ project.academicYear }}</td>
-              <td class="px-8 py-6 text-center print:border-r print:border-black">
-                <span v-if="project.step === 5 && project.status === 'approved'" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 text-xs font-black uppercase tracking-widest print:bg-transparent print:border-none print:text-black">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 print:hidden"></span> COMPLETED
+          <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
+            <tr v-for="project in filteredProjects" :key="project.id" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors print:border-b print:border-black">
+              <td class="px-6 py-4 text-center text-slate-600 dark:text-slate-400 print:text-black print:border-r print:border-black">{{ project.student1.username }}</td>
+              <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-200 print:text-black print:border-r print:border-black">{{ project.student1.fullname }}</td>
+              <td class="px-6 py-4 text-slate-600 dark:text-slate-300 print:text-black print:border-r print:border-black">{{ project.titleTh || '-' }}</td>
+              <td class="px-6 py-4 text-center text-slate-600 dark:text-slate-400 print:text-black print:border-r print:border-black">{{ project.academicYear }}</td>
+              <td class="px-6 py-4 text-center print:border-r print:border-black">
+                <span v-if="project.step === 5 && project.status === 'approved'" class="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-medium print:bg-transparent print:border-none print:text-black">
+                  เสร็จสิ้น
                 </span>
-                <span v-else class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 text-xs font-black uppercase tracking-widest print:bg-transparent print:border-none print:text-black">
-                  <span class="w-1.5 h-1.5 rounded-full bg-slate-400 print:hidden"></span> IN PROGRESS
+                <span v-else class="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-50 text-amber-700 border border-amber-200 text-xs font-medium print:bg-transparent print:border-none print:text-black">
+                  กำลังดำเนินการ
                 </span>
               </td>
-              <td class="px-8 py-6 text-center text-slate-500 dark:text-slate-400 font-bold italic print:text-black">{{ project.examDate ? formatDate(project.examDate) : '-' }}</td>
+              <td class="px-6 py-4 text-center text-slate-500 dark:text-slate-400 print:text-black">{{ project.examDate ? formatDate(project.examDate) : '-' }}</td>
             </tr>
             <tr v-if="filteredProjects.length === 0">
-              <td colspan="6" class="px-8 py-24 text-center text-slate-400 font-bold italic">ไม่พบข้อมูลโครงงานในปีการศึกษานี้</td>
+              <td colspan="6" class="px-6 py-12 text-center text-slate-500">ไม่พบข้อมูลโครงงานในปีการศึกษานี้</td>
             </tr>
           </tbody>
         </table>
