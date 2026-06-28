@@ -2,35 +2,82 @@
   <NuxtLayout :name="layoutName">
     <div class="min-h-screen bg-gray-100 dark:bg-slate-700 py-8 px-4  print:bg-white print:py-0 print:px-0">
       
-      <div class="max-w-[210mm] mx-auto mb-6 flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
-        <button @click="$router.back()" class="flex items-center gap-2 text-gray-600 dark:text-slate-400 hover:text-[#1a1a40] transition-colors font-medium bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
-          <span class="material-symbols-rounded">arrow_back</span> ย้อนกลับ
-        </button>
-        
-        <div class="flex flex-wrap justify-center gap-2 md:gap-3">
-          <button v-if="!isAdmin" @click="clearDraft" class="bg-rose-50 text-rose-600 border border-rose-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-rose-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
-            <span class="material-symbols-rounded text-base">delete_sweep</span> ล้างฉบับร่าง
-          </button>
-          <button v-if="!isAdmin" @click="saveDraft" class="bg-blue-50 text-blue-600 border border-blue-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-blue-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
-            <span class="material-symbols-rounded">save</span> บันทึกข้อมูล
-          </button>
-          <button @click="printDocument" class="bg-[#1a1a40] text-white px-4 md:px-6 py-2 rounded-full font-medium hover:bg-[#2a2a5c] transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
-            <span class="material-symbols-rounded">print</span> พิมพ์เอกสาร (CP2)
-          </button>
-          <button v-if="!isAdmin && !isSubmitted" @click="submitDocument" class="bg-emerald-50 text-emerald-600 border border-emerald-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-emerald-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
-            <span class="material-symbols-rounded">send</span> ยืนยันส่งให้แอดมิน
-          </button>
-          <div v-if="!isAdmin && isSubmitted" class="bg-slate-50 text-slate-500 border border-slate-200 px-4 md:px-6 py-2 rounded-full font-medium shadow-sm flex items-center gap-2 text-sm md:text-base cursor-not-allowed">
-            <span class="material-symbols-rounded text-emerald-500">check_circle</span> ส่งเอกสารแล้ว
+      <div class="max-w-[210mm] mx-auto mb-6 flex flex-col gap-4 print:hidden">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+          <NuxtLink to="/student" class="flex items-center gap-2 text-gray-600 dark:text-slate-400 hover:text-[#1a1a40] transition-colors font-medium bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
+            <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
+          </NuxtLink>
+          
+          <div class="flex flex-wrap justify-center gap-2 md:gap-3">
+            <button v-if="!isAdmin && !isSubmitted" @click="clearDraft" class="bg-rose-50 text-rose-600 border border-rose-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-rose-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
+              <span class="material-symbols-rounded text-base">delete_sweep</span> ล้างฉบับร่าง
+            </button>
+            <button v-if="!isAdmin && !isSubmitted" @click="saveDraft" class="bg-blue-50 text-blue-600 border border-blue-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-blue-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
+              <span class="material-symbols-rounded">save</span> บันทึกข้อมูล
+            </button>
+            <button @click="printDocument" class="bg-[#1a1a40] text-white px-4 md:px-6 py-2 rounded-full font-medium hover:bg-[#2a2a5c] transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
+              <span class="material-symbols-rounded">print</span> พิมพ์เอกสาร (CP2)
+            </button>
+            <button v-if="!isAdmin && !isSubmitted" @click="submitDocument" class="bg-emerald-50 text-emerald-600 border border-emerald-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-emerald-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
+              <span class="material-symbols-rounded">send</span> ยืนยันส่งให้แอดมิน
+            </button>
           </div>
+        </div>
+
+        <div v-if="isSubmitted && !isAdmin" class="bg-white dark:bg-slate-800 p-8 rounded-[32px] border border-gray-100 dark:border-slate-700 shadow-sm animate-[fadeIn_0.5s_ease-out]">
+          <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-100 dark:border-slate-700">
+            <div>
+              <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">รายการประวัติการยื่นขอสอบโครงงาน</h3>
+              <p class="text-sm text-gray-500 dark:text-slate-400">ข้อมูลล่าสุดที่บันทึกไว้ในระบบ</p>
+            </div>
+            <div class="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span>
+              ส่งเอกสารแล้ว
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center gap-6 p-6 rounded-2xl bg-gray-50/50 border border-gray-100 dark:border-slate-700">
+              <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-800 text-indigo-600 shadow-sm flex items-center justify-center text-2xl shrink-0">
+                <span class="material-symbols-rounded">title</span>
+              </div>
+              <div class="flex-grow">
+                <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">ชื่อโครงงาน (ภาษาไทย)</div>
+                <div class="text-base font-bold text-[#1a1a40] dark:text-white">{{ form.projectTitleTh }}</div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="flex items-center gap-4 p-5 rounded-2xl bg-gray-50/50 border border-gray-100 dark:border-slate-700">
+                <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 text-blue-600 shadow-sm flex items-center justify-center text-xl shrink-0">
+                  <span class="material-symbols-rounded">person_pin</span>
+                </div>
+                <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">อาจารย์ที่ปรึกษาหลัก</div>
+                  <div class="text-sm font-bold text-[#1a1a40] dark:text-white">{{ form.advisorName || '-' }}</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-5 rounded-2xl bg-gray-50/50 border border-gray-100 dark:border-slate-700">
+                <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 text-emerald-600 shadow-sm flex items-center justify-center text-xl shrink-0">
+                  <span class="material-symbols-rounded">history</span>
+                </div>
+                <div>
+                  <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">สถานะเอกสาร CP2</div>
+                  <div class="text-sm font-bold text-[#1a1a40] dark:text-white">รอดำเนินการสอบ</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-else class="bg-indigo-50 p-4 rounded-2xl border border-indigo-100 flex items-center gap-3 text-indigo-600">
+          <span class="material-symbols-rounded">info</span>
+          <span class="text-sm font-bold">กรุณากรอกข้อมูลให้ครบถ้วน จากนั้นกดบันทึกข้อมูลและยืนยันส่งเอกสารให้แอดมิน</span>
         </div>
       </div>
 
-      <div class="flex flex-col items-center print:block print:w-full print:m-0 print:p-0">
+      <div class="flex flex-col items-center gap-8 print:block print:w-full print:gap-0" :class="isSubmitted ? 'pointer-events-none' : ''">
         
-        <div class="w-full overflow-x-auto flex justify-center pb-4 print:overflow-visible print:pb-0">
-          
-          <div class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[16px] leading-relaxed print:shadow-none">
+        <div class="paper-a4 page-break bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[16px] leading-relaxed print:shadow-none">
             
             <div class="text-center mb-6">
               <img src="/bsru_logo.jpg" alt="BSRU Logo" class="w-[80px] mx-auto mb-2 print:w-[70px]">
@@ -164,7 +211,6 @@
             </div>
             
           </div>
-        </div> 
       </div>
     </div>
   </NuxtLayout>

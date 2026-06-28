@@ -535,7 +535,7 @@ const formatDate = (date) => {
                   class="absolute -left-[32px] top-1.5 w-6 h-6 rounded-full border-4 border-white dark:border-slate-800 shadow-xl transition-all duration-500 group-hover/step:scale-125">
                 </div>
                 <div class="pl-10">
-                  <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-4">ยื่นสอบจบ (CP2/CP3)</h4>
+                  <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-4">ยื่นสอบจบ (CP2)</h4>
                   
                   <!-- เอกสาร CP2/CP3 (แสดงเฉพาะเมื่ออยู่ขั้นที่ 4 หรือสูงกว่า) -->
                   <div v-if="project.step >= 4" class="flex flex-wrap items-center gap-3 mb-6">
@@ -610,6 +610,7 @@ const formatDate = (date) => {
                         placeholder="ระบุข้อความถึงนักศึกษาสำหรับขั้นตอนนี้..."></textarea>
                     </div>
                     <div class="flex flex-wrap gap-3">
+                      
                       <button @click="updateProject(4, 'approved')" :disabled="updating" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs transition-all shadow-md shadow-emerald-100 dark:shadow-none active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50">
                         <span class="material-symbols-rounded text-sm">verified</span>
                         <span>อนุมัติและไปขั้นตอนถัดไป</span>
@@ -797,7 +798,7 @@ const formatDate = (date) => {
                 <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-lg shadow-amber-200 dark:shadow-none">
                   <span class="material-symbols-rounded">calendar_add_on</span>
                 </div>
-                <h3 class="text-slate-900 dark:text-white tracking-tight text-xl md:text-2xl font-bold">ระบุวันสอบหัวข้อ</h3>
+                <h3 class="text-slate-900 dark:text-white tracking-tight text-xl md:text-2xl font-bold">ระบุวันสอบจบโครงงาน</h3>
               </div>
               <button @click="showScheduleModal = false" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
                 <span class="material-symbols-rounded">close</span>
