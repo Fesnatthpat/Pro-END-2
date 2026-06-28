@@ -42,10 +42,11 @@ export default defineEventHandler(async (event) => {
     })
     const submissionNumber = count + 1
 
-    // อัปเดตข้อมูลโปรเจค (เฉพาะลำดับขั้นตอน)
+    // อัปเดตข้อมูลโปรเจค (ลำดับขั้นตอน และลิงก์เล่ม)
     const project = await prisma.project.update({
       where: { id: parsedProjectId },
       data: {
+        thesisUrl: thesisUrl,
         step: {
           set: Math.max(3, (await prisma.project.findUnique({ where: { id: parsedProjectId } }))?.step || 0)
         }

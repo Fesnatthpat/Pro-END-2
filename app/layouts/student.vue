@@ -61,14 +61,14 @@
               <NuxtLink @click="isMenuOpen = false" to="/senior-projects"
                 active-class="bg-indigo-500/20 text-indigo-200 ring-1 ring-indigo-500/30"
                 class="flex items-center justify-center lg:justify-start gap-2 text-slate-300 hover:text-white hover:bg-white/10 px-5 py-2.5 rounded-2xl transition-all duration-300 font-medium text-[15px] w-full whitespace-nowrap">
-                <i class="bi bi-collection-play-fill"></i> โครงงานรุ่นพี่
+                <i class="bi bi-collection-play-fill"></i> บัณฑิตนิพนธ์รุ่นพี่
               </NuxtLink>
             </li>
 
             <li class="w-full lg:w-auto">
               <a @click="isMenuOpen = false" href="/thesis_manual.pdf" target="_blank"
                 class="flex items-center justify-center lg:justify-start gap-2 text-slate-300 hover:text-white hover:bg-white/10 px-5 py-2.5 rounded-2xl transition-all duration-300 font-medium text-[15px] w-full whitespace-nowrap">
-                <i class="bi bi-book-half"></i> คู่มือทำเล่ม
+                <i class="bi bi-book-half"></i> คู่มือทำเล่มบัณฑิตนิพนธ์
               </a>
             </li>
           </ul>

@@ -17,6 +17,12 @@
           <button @click="printDocument" class="bg-[#1a1a40] text-white px-4 md:px-6 py-2 rounded-full font-medium hover:bg-[#2a2a5c] transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
             <span class="material-symbols-rounded">print</span> พิมพ์เอกสาร (CP3)
           </button>
+          <button v-if="!isAdmin && !isSubmitted" @click="submitDocument" class="bg-blue-50 text-blue-600 border border-blue-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-blue-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
+            <span class="material-symbols-rounded">send</span> ยืนยันส่งให้แอดมิน
+          </button>
+          <div v-if="!isAdmin && isSubmitted" class="bg-slate-50 text-slate-500 border border-slate-200 px-4 md:px-6 py-2 rounded-full font-medium shadow-sm flex items-center gap-2 text-sm md:text-base cursor-not-allowed">
+            <span class="material-symbols-rounded text-blue-500">check_circle</span> ส่งเอกสารแล้ว
+          </div>
         </div>
       </div>
 
@@ -454,15 +460,17 @@ watchEffect(() => {
     }
     
     // Merge draft data if DB values are missing
-    const saved = localStorage.getItem('cp3_draft')
-    if (saved) {
-      try {
-        const data = JSON.parse(saved)
-        if (!form.semester && data.form?.semester) form.semester = data.form.semester
-        if (!form.academicYear && data.form?.academicYear) form.academicYear = data.form.academicYear
-        if (!form.projectTitleTh && data.form?.projectTitleTh) form.projectTitleTh = data.form.projectTitleTh
-      } catch (e) {
-        console.error('Failed to merge CP3 draft:', e)
+    if (import.meta.client) {
+      const saved = localStorage.getItem('cp3_draft')
+      if (saved) {
+        try {
+          const data = JSON.parse(saved)
+          if (!form.semester && data.form?.semester) form.semester = data.form.semester
+          if (!form.academicYear && data.form?.academicYear) form.academicYear = data.form.academicYear
+          if (!form.projectTitleTh && data.form?.projectTitleTh) form.projectTitleTh = data.form.projectTitleTh
+        } catch (e) {
+          console.error('Failed to merge CP3 draft:', e)
+        }
       }
     }
   }
@@ -497,6 +505,31 @@ const clearForm = async () => {
 
 const printDocument = () => {
   window.print()
+}
+
+const isSubmitted = computed(() => {
+  return project.value?.reports?.some(r => r.reportType === 'cp3')
+})
+
+const submitDocument = async () => {
+  const result = await alertConfirm('ยืนยันการส่งเอกสาร', 'คุณต้องการยืนยันการส่งเอกสาร CP3 ให้แอดมินใช่หรือไม่?')
+  if (result.isConfirmed) {
+    submitting.value = true
+    try {
+      const response = await $fetch('/api/student/submit-cp-document', {
+        method: 'POST',
+        body: { projectId: project.value?.id, type: 'cp3' }
+      })
+      if (response.success) {
+        alertSuccess('สำเร็จ', 'ยืนยันการส่งเอกสารเรียบร้อยแล้ว')
+        window.location.reload()
+      }
+    } catch (error) {
+      alertError('ข้อผิดพลาด', error.statusMessage || 'เกิดข้อผิดพลาดในการส่งเอกสาร')
+    } finally {
+      submitting.value = false
+    }
+  }
 }
 
 const saveDraft = async () => {

@@ -402,7 +402,7 @@ const steps = computed(() => [
   {
     id: 4,
     percentage: 80,
-    title: "ยื่นขอสอบจบ (CP2, CP3)",
+    title: "ยื่นขอสอบจบ (CP2)",
     statusText: isThesisPassed.value
       ? isExamPassed.value
         ? "สอบผ่านแล้ว"
@@ -431,7 +431,7 @@ const steps = computed(() => [
   {
     id: 5,
     percentage: 100,
-    title: "ส่งเล่มและโปรแกรม",
+    title: "ส่งบัณฑิตนิพนธ์และโปรแกรมฉบับสมบูรณ์",
     statusText: isExamPassed.value 
       ? (isProjectFinished.value ? "เสร็จสมบูรณ์" : "กำลังดำเนินการ") 
       : "รอผ่านสอบจบ (CP2)",

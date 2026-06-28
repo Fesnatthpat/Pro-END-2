@@ -8,7 +8,7 @@
             <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
           </NuxtLink>
           <h2 class="md: text-[#1a1a40] dark:text-white text-2xl md:text-3xl font-bold">
-            📄 เล่มบัณฑิตนิพนธ์
+            📄 รายงานความก้าวหน้าเล่มบัณฑิตนิพนธ์
           </h2>
         </div>
       </div>
@@ -101,7 +101,7 @@
           @click="showAddModal = true" 
           class="bg-white dark:bg-slate-800 border-2 border-[#1a1a40] text-[#1a1a40] dark:text-white px-5 py-2 rounded-full font-bold hover:bg-[#1a1a40] hover:text-white transition-all flex items-center gap-2 text-sm"
         >
-          <span class="material-symbols-rounded">add</span> เพิ่มบันทึก
+          <span class="material-symbols-rounded">add</span> รายงานความก้าวหน้าใหม่
         </button>
       </div>
 
@@ -151,7 +151,7 @@
     <div v-if="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden animate-[fadeIn_0.2s_ease-out]">
         <div class="p-8 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-purple-50/30">
-          <h3 class="text-xl text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">บันทึกความก้าวหน้า</h3>
+          <h3 class="text-xl text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">รายงานความก้าวหน้าใหม่</h3>
           <button @click="showAddModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
             <span class="material-symbols-rounded">close</span>
           </button>

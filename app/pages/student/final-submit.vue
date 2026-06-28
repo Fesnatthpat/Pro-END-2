@@ -105,31 +105,16 @@
               </h3>
               
               <div class="flex p-1 bg-gray-100 dark:bg-slate-700 rounded-xl w-fit ml-0 md:ml-10 shrink-0">
-                <button type="button" @click="submitMode = 'url'" :class="submitMode === 'url' ? 'bg-white dark:bg-slate-800 text-blue-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
+                <button type="button" class="bg-white dark:bg-slate-800 text-blue-600 shadow-sm px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-default">
                   <span class="material-symbols-rounded text-base">link</span> ลิงก์
-                </button>
-                <button type="button" @click="submitMode = 'file'" :class="submitMode === 'file' ? 'bg-white dark:bg-slate-800 text-blue-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
-                  <span class="material-symbols-rounded text-base">upload_file</span> อัปโหลด
                 </button>
               </div>
             </div>
 
             <div class="ml-0 md:ml-10">
-              <div v-if="submitMode === 'url'" class="animate-[fadeIn_0.3s_ease-out]">
-                <input v-model="form.thesisUrl" type="url" :required="submitMode === 'url'" placeholder="https://drive.google.com/..." class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-blue-600 outline-none transition-all text-sm bg-gray-50/50 font-medium">
+              <div class="animate-[fadeIn_0.3s_ease-out]">
+                <input v-model="form.thesisUrl" type="url" required placeholder="https://drive.google.com/..." class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-blue-600 outline-none transition-all text-sm bg-gray-50/50 font-medium">
                 <p class="text-xs text-gray-400 mt-2 font-bold uppercase tracking-widest px-1">แนบลิงก์ที่สามารถเข้าถึงเพื่อดาวน์โหลดไฟล์ได้</p>
-              </div>
-              <div v-else class="animate-[fadeIn_0.3s_ease-out]">
-                <div class="relative group">
-                  <input type="file" accept=".pdf" @change="e => onFileChange(e, 'thesis')" :required="submitMode === 'file'" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
-                  <div class="px-5 py-8 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 bg-gray-50/30 group-hover:bg-white group-hover:border-blue-400 transition-all flex flex-col items-center justify-center gap-3 text-center">
-                    <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center">
-                      <span class="material-symbols-rounded text-2xl">picture_as_pdf</span>
-                    </div>
-                    <div class="text-sm font-black text-slate-600 dark:text-slate-400">{{ selectedFile ? selectedFile.name : 'คลิกหรือลากไฟล์ PDF มาวางที่นี่' }}</div>
-                    <div class="text-xs text-slate-400 font-bold uppercase tracking-widest">ขนาดสูงสุด 20MB</div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -145,30 +130,15 @@
               </h3>
               
               <div class="flex p-1 bg-gray-100 dark:bg-slate-700 rounded-xl w-fit ml-0 md:ml-10 shrink-0">
-                <button type="button" @click="programMode = 'url'" :class="programMode === 'url' ? 'bg-white dark:bg-slate-800 text-emerald-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
+                <button type="button" class="bg-white dark:bg-slate-800 text-emerald-600 shadow-sm px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-default">
                   <span class="material-symbols-rounded text-base">link</span> ลิงก์
-                </button>
-                <button type="button" @click="programMode = 'file'" :class="programMode === 'file' ? 'bg-white dark:bg-slate-800 text-emerald-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
-                  <span class="material-symbols-rounded text-base">upload_file</span> อัปโหลด
                 </button>
               </div>
             </div>
 
             <div class="ml-0 md:ml-10">
-              <div v-if="programMode === 'url'" class="animate-[fadeIn_0.3s_ease-out]">
-                <input v-model="form.programUrl" type="url" :required="programMode === 'url'" placeholder="https://github.com/... หรือ Google Drive" class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-emerald-600 outline-none transition-all text-sm bg-gray-50/50 font-medium">
-              </div>
-              <div v-else class="animate-[fadeIn_0.3s_ease-out]">
-                <div class="relative group">
-                  <input type="file" @change="e => onFileChange(e, 'program')" :required="programMode === 'file'" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
-                  <div class="px-5 py-8 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 bg-gray-50/30 group-hover:bg-white group-hover:border-emerald-400 transition-all flex flex-col items-center justify-center gap-3 text-center">
-                    <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center">
-                      <span class="material-symbols-rounded text-2xl">code</span>
-                    </div>
-                    <div class="text-sm font-black text-slate-600 dark:text-slate-400">{{ selectedProgram ? selectedProgram.name : 'คลิกเพื่อเลือกไฟล์ซอร์สโค้ด (ZIP/PDF)' }}</div>
-                    <div class="text-xs text-slate-400 font-bold uppercase tracking-widest">ขนาดสูงสุด 20MB</div>
-                  </div>
-                </div>
+              <div class="animate-[fadeIn_0.3s_ease-out]">
+                <input v-model="form.programUrl" type="url" required placeholder="https://github.com/... หรือ Google Drive" class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-emerald-600 outline-none transition-all text-sm bg-gray-50/50 font-medium">
               </div>
             </div>
           </div>
@@ -184,30 +154,15 @@
               </h3>
               
               <div class="flex p-1 bg-gray-100 dark:bg-slate-700 rounded-xl w-fit ml-0 md:ml-10 shrink-0">
-                <button type="button" @click="manualMode = 'url'" :class="manualMode === 'url' ? 'bg-white dark:bg-slate-800 text-amber-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
+                <button type="button" class="bg-white dark:bg-slate-800 text-amber-600 shadow-sm px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-default">
                   <span class="material-symbols-rounded text-base">link</span> ลิงก์
-                </button>
-                <button type="button" @click="manualMode = 'file'" :class="manualMode === 'file' ? 'bg-white dark:bg-slate-800 text-amber-600 shadow-sm' : 'text-gray-500 dark:text-slate-400'" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2">
-                  <span class="material-symbols-rounded text-base">upload_file</span> อัปโหลด
                 </button>
               </div>
             </div>
 
             <div class="ml-0 md:ml-10">
-              <div v-if="manualMode === 'url'" class="animate-[fadeIn_0.3s_ease-out]">
-                <input v-model="form.manualUrl" type="url" :required="manualMode === 'url'" placeholder="ระบุลิงก์คู่มือการใช้งาน..." class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-amber-600 outline-none transition-all text-sm bg-gray-50/50 font-medium">
-              </div>
-              <div v-else class="animate-[fadeIn_0.3s_ease-out]">
-                <div class="relative group">
-                  <input type="file" accept=".pdf" @change="e => onFileChange(e, 'manual')" :required="manualMode === 'file'" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
-                  <div class="px-5 py-8 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 bg-gray-50/30 group-hover:bg-white group-hover:border-amber-400 transition-all flex flex-col items-center justify-center gap-3 text-center">
-                    <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center">
-                      <span class="material-symbols-rounded text-2xl">menu_book</span>
-                    </div>
-                    <div class="text-sm font-black text-slate-600 dark:text-slate-400">{{ selectedManual ? selectedManual.name : 'คลิกเพื่ออัปโหลดคู่มือการใช้งาน (PDF)' }}</div>
-                    <div class="text-xs text-slate-400 font-bold uppercase tracking-widest">ขนาดสูงสุด 20MB</div>
-                  </div>
-                </div>
+              <div class="animate-[fadeIn_0.3s_ease-out]">
+                <input v-model="form.manualUrl" type="url" required placeholder="ระบุลิงก์คู่มือการใช้งาน..." class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-amber-600 outline-none transition-all text-sm bg-gray-50/50 font-medium">
               </div>
             </div>
           </div>
@@ -215,7 +170,7 @@
           <div class="flex justify-end pt-10 border-t border-gray-50">
             <button 
               type="submit" 
-              :disabled="submitting || (submitMode === 'file' && !selectedFile) || (programMode === 'file' && !selectedProgram) || (manualMode === 'file' && !selectedManual)"
+              :disabled="submitting"
               class="bg-[#1a1a40] hover:bg-indigo-600 text-white font-black py-4 px-12 rounded-2xl transition-all flex items-center gap-3 shadow-xl shadow-indigo-100 dark:shadow-none disabled:opacity-50 active:scale-95"
             >
               <span class="material-symbols-rounded">rocket_launch</span> 
@@ -249,14 +204,6 @@ const user = userCookie.value
 const supabase = useSupabaseClient()
 const submitting = ref(false)
 
-const submitMode = ref('url') // 'url' or 'file' (for Thesis)
-const programMode = ref('url') // 'url' or 'file'
-const manualMode = ref('url') // 'url' or 'file'
-
-const selectedFile = ref(null) // for Thesis
-const selectedProgram = ref(null)
-const selectedManual = ref(null)
-
 const form = reactive({
   thesisUrl: '',
   programUrl: '',
@@ -282,38 +229,6 @@ const showHistory = computed(() => {
 
 const { success: alertSuccess, error: alertError, confirm: alertConfirm } = useAlerts()
 
-const onFileChange = (e, target) => {
-  const file = e.target.files[0]
-  if (file) {
-    if (file.size > 20 * 1024 * 1024) { // ขยายเป็น 20MB สำหรับ final
-      alertError('ไฟล์ใหญ่เกินไป', 'กรุณาอัปโหลดไฟล์ขนาดไม่เกิน 20MB')
-      e.target.value = ''
-      return
-    }
-    
-    if (target === 'thesis') selectedFile.value = file
-    if (target === 'program') selectedProgram.value = file
-    if (target === 'manual') selectedManual.value = file
-  }
-}
-
-const uploadToSupabase = async (file, prefix) => {
-  const lastDotIndex = file.name.lastIndexOf('.')
-  const extension = lastDotIndex !== -1 ? file.name.substring(lastDotIndex) : ''
-  const fileName = `${prefix}_${project.value.id}_${Date.now()}${extension}`
-  const { data, error } = await supabase.storage
-    .from('documents')
-    .upload(fileName, file)
-
-  if (error) throw new Error(`อัปโหลด ${prefix} ไม่สำเร็จ: ${error.message}`)
-
-  const { data: publicUrlData } = supabase.storage
-    .from('documents')
-    .getPublicUrl(fileName)
-  
-  return publicUrlData.publicUrl
-}
-
 const handleSubmit = async () => {
   if (!project.value) return
   
@@ -322,36 +237,17 @@ const handleSubmit = async () => {
 
   submitting.value = true
   try {
-    let finalThesisUrl = form.thesisUrl
-    let finalProgramUrl = form.programUrl
-    let finalManualUrl = form.manualUrl
-
-    // 1. จัดการเล่มวิทยานิพนธ์
-    if (submitMode.value === 'file' && selectedFile.value) {
-      finalThesisUrl = await uploadToSupabase(selectedFile.value, 'final_thesis')
-    }
-
-    // 2. จัดการโปรแกรม
-    if (programMode.value === 'file' && selectedProgram.value) {
-      finalProgramUrl = await uploadToSupabase(selectedProgram.value, 'program')
-    }
-
-    // 3. จัดการคู่มือ
-    if (manualMode.value === 'file' && selectedManual.value) {
-      finalManualUrl = await uploadToSupabase(selectedManual.value, 'manual')
-    }
-
-    if (!finalThesisUrl || !finalProgramUrl || !finalManualUrl) {
-      throw new Error('กรุณาระบุข้อมูลให้ครบทุกช่อง (ลิงก์หรือไฟล์)')
+    if (!form.thesisUrl || !form.programUrl || !form.manualUrl) {
+      throw new Error('กรุณาระบุลิงก์ข้อมูลให้ครบทุกช่อง')
     }
 
     const res = await $fetch('/api/student/final-submit', {
       method: 'POST',
       body: {
         projectId: project.value.id,
-        thesisUrl: finalThesisUrl,
-        programUrl: finalProgramUrl,
-        manualUrl: finalManualUrl
+        thesisUrl: form.thesisUrl,
+        programUrl: form.programUrl,
+        manualUrl: form.manualUrl
       }
     })
     

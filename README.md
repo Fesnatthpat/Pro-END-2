@@ -1,6 +1,16 @@
 # Pro-END 2 - ระบบจัดการโครงงานพิเศษ (Senior Project Management System)
 
-ระบบบริหารจัดการและติดตามความก้าวหน้าการทำโครงงานพิเศษ (Senior Project) สำหรับนักศึกษาระดับปริญญาตรี พัฒนาด้วย **Nuxt 3**, **Prisma**, **PostgreSQL** และ **TailwindCSS** (ผ่าน Nuxt UI / Element Plus)
+ระบบบริหารจัดการและติดตามความก้าวหน้าการทำโครงงานพิเศษ (Senior Project) สำหรับนักศึกษาระดับปริญญาตรี พัฒนาด้วย **Nuxt 4**, **Prisma**, **PostgreSQL** และ **TailwindCSS v4** พร้อมใช้งาน **Pinia**, **Supabase** และ **SweetAlert2**
+
+---
+
+## 🆕 อัปเดตล่าสุดและเทคโนโลยีที่เพิ่มเข้ามา (Recent Updates & Tech Stack)
+- อัปเกรดและใช้งาน **Nuxt 4** เป็น Core Framework (`compatibilityVersion: 4`)
+- อัปเกรดเป็น **TailwindCSS v4** (ใช้คู่กับ `@tailwindcss/vite`)
+- ระบบ State Management จัดการด้วย **Pinia**
+- เพิ่มการรองรับ **Supabase** สำหรับบริการ BaaS/Storage
+- ใช้ **SweetAlert2** สำหรับแสดง Popup แจ้งเตือน และ **Animate.css** เพื่อเพิ่ม Transition สวยงามให้ระบบ
+- เพิ่มระบบประวัติและไทม์ไลน์ (Project Activity Logs) และระบบติดตามสถานะแยกรายขั้นตอน (Project Step Status) ให้ครอบคลุมมากขึ้น
 
 ---
 

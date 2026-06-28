@@ -32,7 +32,7 @@
 
       <!-- Main Status Card -->
       <div
-        class="bg-white dark:bg-slate-800 rounded-[40px] p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.03)] border border-white relative overflow-hidden mb-10">
+        class="max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-[40px] p-8 md:p-2 shadow-[0_20px_50px_rgba(0,0,0,0.03)] border border-red-500 relative overflow-hidden mb-10">
         <!-- Decoration Gradients -->
         <div
           class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-50 to-blue-50/20 rounded-full -mr-32 -mt-32 blur-3xl opacity-60">
@@ -153,13 +153,24 @@
               <span class="material-symbols-rounded text-5xl">grading</span>
             </div>
             <h3 class="text-[#1a1a40] dark:text-white mb-4 text-xl md:text-2xl font-bold">ยื่นคำร้องขอสอบจบโครงงาน</h3>
-            <p class="text-slate-500 dark:text-slate-400 max-w-[500px] mx-auto mb-10 text-lg leading-relaxed">
+            <p class="text-slate-500 dark:text-slate-400 max-w-[500px] mx-auto mb-6 text-lg leading-relaxed">
               หากคุณดำเนินงานโครงงานและจัดทำรูปเล่มฉบับร่างเสร็จสมบูรณ์แล้ว
-              สามารถกดยืนยันเพื่อขอรับการนัดหมายวันสอบจากคณะกรรมการได้ทันทีครับ
+              กรุณาเข้าไปยืนยันการส่งเอกสาร CP2 และ CP3 ให้ครบถ้วนก่อนยื่นคำร้องขอสอบจบครับ
             </p>
 
-            <button @click="handleNotifyReadiness" :disabled="submitting"
-              class="inline-flex items-center gap-3 px-12 py-5 bg-blue-600 text-white rounded-[24px] font-black text-lg hover:bg-indigo-600 transition-all shadow-2xl shadow-blue-200 dark:shadow-none hover:-translate-y-1 active:scale-95 disabled:opacity-50 group">
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+              <div :class="hasCp2 ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-rose-50 text-rose-600 border-rose-200'" class="px-6 py-3 rounded-2xl border flex items-center gap-3 shadow-sm transition-all duration-300">
+                <span class="material-symbols-rounded">{{ hasCp2 ? 'check_circle' : 'cancel' }}</span>
+                <span class="font-bold text-sm">การส่งเอกสารขอสอบ (CP2)</span>
+              </div>
+              <div :class="hasCp3 ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-rose-50 text-rose-600 border-rose-200'" class="px-6 py-3 rounded-2xl border flex items-center gap-3 shadow-sm transition-all duration-300">
+                <span class="material-symbols-rounded">{{ hasCp3 ? 'check_circle' : 'cancel' }}</span>
+                <span class="font-bold text-sm">การส่งแบบประเมินสอบ (CP3)</span>
+              </div>
+            </div>
+
+            <button @click="handleNotifyReadiness" :disabled="submitting || !hasCp2 || !hasCp3"
+              class="inline-flex items-center gap-3 px-12 py-5 bg-blue-600 text-white rounded-[24px] font-black text-lg hover:bg-indigo-600 transition-all shadow-2xl shadow-blue-200 dark:shadow-none hover:-translate-y-1 active:scale-95 disabled:opacity-50 group disabled:hover:-translate-y-0 disabled:active:scale-100">
               <span class="material-symbols-rounded text-2xl" v-if="!submitting">check_circle</span>
               <span>{{ submitting ? 'กำลังประมวลผล...' : 'ยืนยันความพร้อมและยื่นคำร้อง' }}</span>
               <span class="material-symbols-rounded group-hover:translate-x-1 transition-transform"
@@ -226,7 +237,7 @@
           </div>
         </div>
 
-        <NuxtLink v-else-if="project?.step >= 4" to="/student/cp3"
+        <NuxtLink v-else-if="project?.step >= 3" to="/student/cp3"
           class="bg-white dark:bg-slate-800 rounded-[35px] p-8 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-6 group hover:shadow-2xl hover:shadow-indigo-100 dark:hover:shadow-none hover:border-indigo-100 transition-all duration-500 relative overflow-hidden">
           <div
             class="absolute top-0 right-0 w-16 h-16 bg-indigo-50 rounded-full -mr-8 -mt-8 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -254,7 +265,7 @@
           </div>
           <div>
             <h3 class="text-xl text-slate-400 mb-1 text-xl md:text-2xl font-bold">แบบประเมินสอบ (CP3)</h3>
-            <p class="text-slate-400 text-xs font-bold uppercase tracking-wide">กรุณายื่นคำร้องขอสอบก่อน</p>
+            <p class="text-slate-400 text-xs font-bold uppercase tracking-wide">กรุณาดำเนินการโครงงานให้ถึงขั้นตอนที่ 3 ก่อน</p>
           </div>
         </div>
 
@@ -286,6 +297,9 @@ const finalExam = computed(() => {
   return project.value.exams.find(e => e.type === 'CP2' && e.status === 'pending') ||
     project.value.exams.find(e => e.type === 'CP2')
 })
+
+const hasCp2 = computed(() => project.value?.reports?.some(r => r.reportType === 'cp2'))
+const hasCp3 = computed(() => project.value?.reports?.some(r => r.reportType === 'cp3'))
 
 const { success: alertSuccess, error: alertError } = useAlerts()
 

@@ -49,9 +49,9 @@
               </div>
               <h3 class="text-xl text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">{{ report.title }}</h3>
             </div>
-            <span :class="getStatusBadgeClass(report.status)" class="px-4 py-1.5 rounded-full text-xs font-bold border">
+            <!-- <span :class="getStatusBadgeClass(report.status)" class="px-4 py-1.5 rounded-full text-xs font-bold border">
               {{ getStatusText(report.status) }}
-            </span>
+            </span> -->
           </div>
           
           <p class="text-gray-600 dark:text-slate-400 text-base mb-6 whitespace-pre-line">{{ report.description }}</p>

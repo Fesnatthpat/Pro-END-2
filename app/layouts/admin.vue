@@ -3,7 +3,7 @@
 
     <!-- Desktop Sidebar -->
     <aside
-      class="w-[280px] bg-[#0f172a] text-white flex flex-col shadow-2xl shrink-0 hidden lg:flex sticky top-0 h-screen overflow-hidden">
+      class="w-[280px] bg-[#0f172a] text-white flex flex-col shadow-2xl shrink-0 hidden lg:flex sticky top-0 h-screen overflow-hidden print:hidden">
       
       <!-- Sidebar Background Decoration -->
       <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
@@ -47,7 +47,7 @@
 
     <!-- Mobile Header -->
     <div
-      class="lg:hidden fixed top-0 left-0 right-0 z-[100] bg-[#0f172a] text-white px-4 h-16 flex items-center justify-between shadow-lg border-b border-white/5">
+      class="lg:hidden fixed top-0 left-0 right-0 z-[100] bg-[#0f172a] text-white px-4 h-16 flex items-center justify-between shadow-lg border-b border-white/5 print:hidden">
       <div class="flex items-center gap-3">
         <button @click="isMobileMenuOpen = true"
           class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 transition-all border border-white/10">

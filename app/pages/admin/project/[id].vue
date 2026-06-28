@@ -2,41 +2,49 @@
 import { ref, computed, watchEffect } from 'vue'
 import { useAlerts } from '~/composables/useAlerts'
 
+// กำหนดว่าหน้านี้ใช้ Layout สำหรับ Admin
 definePageMeta({ layout: 'admin' })
 
 const alerts = useAlerts()
 const route = useRoute()
 const projectId = route.params.id
 
-// ดึงข้อมูลจริงจาก API
+// --- ส่วนการดึงข้อมูลหลัก (Data Fetching) ---
+// ดึงข้อมูลรายละเอียดของโปรเจกต์จาก API โดยอิงจาก projectId ใน URL
 const { data: result, pending, refresh } = await useFetch('/api/admin/project-detail', {
   query: { id: projectId }
 })
 
+// ตัวแปร computed สำหรับดึงข้อมูลย่อยออกมาให้เรียกใช้ง่ายขึ้น
 const project = computed(() => result.value?.project)
+// คัดกรองเฉพาะรายงานประเภท 'progress' (ความก้าวหน้า)
 const progressReports = computed(() => project.value?.reports?.filter(r => r.reportType === 'progress') || [])
+// คัดกรองเฉพาะรายงานประเภท 'thesis' (เล่มร่าง)
 const thesisReports = computed(() => project.value?.reports?.filter(r => r.reportType === 'thesis') || [])
 
-// Find active exams
+// ค้นหาการนัดหมายสอบ (Exams) ในแต่ละประเภท (CP1: สอบหัวข้อ, CP2: สอบความก้าวหน้า/จบ)
 const cp1Exam = computed(() => project.value?.exams?.find(e => e.type === 'CP1'))
+const cp2Exam = computed(() => project.value?.exams?.find(e => e.type === 'CP2'))
 const finalExam = computed(() => project.value?.exams?.find(e => e.type === 'CP2'))
 
-// --- ส่วนของการจัดการ (Admin Management) ---
-const updating = ref(false)
-const feedbackText = ref('')
+// --- ส่วนของการจัดการสถานะโครงงาน (Admin Management / Approval) ---
+const updating = ref(false) // State เช็คว่ากำลังโหลดบันทึกอยู่หรือไม่
+const feedbackText = ref('') // State สำหรับเก็บข้อความความเห็นจากแอดมินที่จะส่งให้นักศึกษา
 
+// watchEffect จะทำงานเมื่อค่า project เปลี่ยนไป (เช่น โหลดข้อมูลเสร็จ) เพื่อเอา feedback เดิมมาแสดง
 watchEffect(() => {
   if (project.value) {
     feedbackText.value = project.value.feedback || ''
   }
 })
 
+// ฟังก์ชันหลักสำหรับการกด อนุมัติ (approved), ปฏิเสธ (rejected), หรือให้แก้ไข (revision)
 const updateProject = async (step, status) => {
   let nextStep = step
   let finalStatus = status
   let advisorId = undefined
 
-  // --- ส่วนของการตรวจสอบความพร้อม (Validation) ---
+  // --- ส่วนของการตรวจสอบเงื่อนไขความพร้อม (Validation) ก่อนอนุมัติ ---
   if (status === 'approved') {
     if (step === 1) {
       if (!cp1Exam.value) {
@@ -121,17 +129,22 @@ const isProjectComplete = (p) => {
   return p && (p.step > 5 || (p.step === 5 && p.status === 'approved'))
 }
 
-// --- ส่วนของการจัดการสอบ (Exam Management) ---
-const showScheduleModal = ref(false)
-const scheduleForm = ref({ date: '', time: '', room: '' })
-const resultForm = ref({ status: 'pass', advisorMain: '', grade: 'A', details: '' })
+// --- ส่วนของการจัดการสอบ (Exam Management Modal) ---
+const showScheduleModal = ref(false) // State เปิด/ปิด Modal กำหนดการสอบ
+const scheduleForm = ref({ date: '', time: '', room: '' }) // State เก็บข้อมูลฟอร์มนัดสอบ
+const resultForm = ref({ status: 'pass', advisorMain: '', grade: 'A', details: '' }) // State เก็บข้อมูลผลการสอบ
 
-// ดึงรายชื่ออาจารย์สำหรับ Select ใน Modal ผลสอบ
+// ดึงรายชื่ออาจารย์ทั้งหมด สำหรับให้แอดมินเลือกใน Select dropdown (ถ้ามี)
 const { data: teachersData } = await useFetch('/api/admin/teachers')
 const teachers = computed(() => teachersData.value?.teachers || [])
 
-const openScheduleModal = () => {
-  const pendingExam = project.value?.exams?.find(e => e.type === 'CP1' && e.status === 'pending')
+const schedulingStep = ref(1) // ระบุว่ากำลังจัดตารางสอบของ Step ไหน (1=หัวข้อ, 4=สอบจบ)
+
+// ฟังก์ชันสำหรับเปิด Modal จัดตารางสอบ พร้อมดึงข้อมูลเก่า (ถ้ามี) มาใส่ช่อง
+const openScheduleModal = (step = 1) => {
+  schedulingStep.value = step
+  const type = step === 4 ? 'CP2' : 'CP1'
+  const pendingExam = project.value?.exams?.find(e => e.type === type && e.status === 'pending')
   scheduleForm.value.date = pendingExam?.examDate ? new Date(pendingExam.examDate).toISOString().split('T')[0] : ''
   scheduleForm.value.time = pendingExam?.examTime || ''
   scheduleForm.value.room = pendingExam?.examLocation || ''
@@ -144,6 +157,7 @@ const saveSchedule = async () => {
       method: 'POST',
       body: {
         projectId: project.value.id,
+        step: schedulingStep.value,
         examDate: scheduleForm.value.date,
         examTime: scheduleForm.value.time,
         examLocation: scheduleForm.value.room,
@@ -151,7 +165,7 @@ const saveSchedule = async () => {
       }
     })
     if (res.success) {
-      alerts.success('สำเร็จ!', 'จัดตารางสอบหัวข้อเรียบร้อยแล้ว')
+      alerts.success('สำเร็จ!', 'จัดตารางสอบเรียบร้อยแล้ว')
       showScheduleModal.value = false
       refresh()
     }
@@ -288,7 +302,7 @@ const formatDate = (date) => {
                       <span>ดูเอกสาร CP1</span>
                     </a>
                     
-                    <button v-if="!cp1Exam || cp1Exam.status === 'pending'" @click="openScheduleModal" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition-all font-bold text-xs shadow-sm">
+                    <button v-if="!cp1Exam || cp1Exam.status === 'pending'" @click="openScheduleModal(1)" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition-all font-bold text-xs shadow-sm">
                       <span class="material-symbols-rounded text-lg">calendar_month</span>
                       <span>{{ cp1Exam ? 'แก้ไขวันสอบ' : 'ระบุวันสอบ' }}</span>
                     </button>
@@ -524,30 +538,54 @@ const formatDate = (date) => {
                   <h4 class="font-black text-xl text-slate-800 dark:text-slate-200 mb-4">ยื่นสอบจบ (CP2/CP3)</h4>
                   
                   <!-- เอกสาร CP2/CP3 (แสดงเฉพาะเมื่ออยู่ขั้นที่ 4 หรือสูงกว่า) -->
-                  <div v-if="project.step >= 4" class="flex items-center gap-3 mb-6">
-                    <NuxtLink :to="`/student/cp2?projectId=${project.id}`" target="_blank" class="px-4 py-2 rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all font-black text-xs tracking-widest border border-indigo-100 flex items-center gap-2">
+                  <div v-if="project.step >= 4" class="flex flex-wrap items-center gap-3 mb-6">
+                    <NuxtLink v-if="project.reports?.some(r => r.reportType === 'cp2')" :to="`/student/cp2?projectId=${project.id}`" target="_blank" class="px-4 py-2 rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all font-black text-xs tracking-widest border border-indigo-100 flex items-center gap-2">
                       <span class="material-symbols-rounded">picture_as_pdf</span> 
                       <span>ดูแบบขอสอบ (CP2)</span>
                     </NuxtLink>
-                    <NuxtLink :to="`/student/cp3?projectId=${project.id}`" target="_blank" class="px-4 py-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all font-black text-xs tracking-widest border border-rose-100 flex items-center gap-2">
+                    <div v-else class="px-4 py-2 rounded-xl bg-slate-50 text-slate-400 font-black text-xs tracking-widest border border-slate-200 flex items-center gap-2">
+                      <span class="material-symbols-rounded text-sm">lock</span>
+                      <span>นักศึกษายังไม่ส่ง (CP2)</span>
+                    </div>
+
+                    <NuxtLink v-if="project.reports?.some(r => r.reportType === 'cp3')" :to="`/student/cp3?projectId=${project.id}`" target="_blank" class="px-4 py-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all font-black text-xs tracking-widest border border-rose-100 flex items-center gap-2">
                       <span class="material-symbols-rounded">picture_as_pdf</span>
                       <span>ดูผลการประเมิน (CP3)</span>
                     </NuxtLink>
+                    <div v-else class="px-4 py-2 rounded-xl bg-slate-50 text-slate-400 font-black text-xs tracking-widest border border-slate-200 flex items-center gap-2">
+                      <span class="material-symbols-rounded text-sm">lock</span>
+                      <span>นักศึกษายังไม่ส่ง (CP3)</span>
+                    </div>
                   </div>
 
-                  <div v-if="project.step === 4 && project.examDate"
-                    class="bg-gradient-to-br from-indigo-600 to-indigo-700 p-6 rounded-[32px] text-white shadow-xl shadow-indigo-100 dark:shadow-none mb-4 relative overflow-hidden">
-                    <span
-                      class="material-symbols-rounded absolute -right-4 -bottom-4 text-8xl text-white/10">event_available</span>
-                    <div class="relative z-10">
-                      <div
-                        class="text-xs font-black text-indigo-200 uppercase tracking-widest mb-3 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 bg-white dark:bg-slate-800 rounded-full animate-pulse"></span>
-                        นัดหมายการสอบจบโครงงาน
+                    <div class="flex items-center gap-2 mt-4 md:mt-0 mb-4">
+                      <button v-if="project.step === 4 && (!cp2Exam || cp2Exam.status === 'pending')" @click="openScheduleModal(4)" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition-all font-bold text-xs shadow-sm">
+                        <span class="material-symbols-rounded text-lg">calendar_month</span>
+                        <span>{{ cp2Exam ? 'แก้ไขวันสอบ' : 'ระบุวันสอบ' }}</span>
+                      </button>
+                    </div>
+
+                  <div v-if="project.step >= 4 && cp2Exam"
+                    :class="cp2Exam.status === 'pass' ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'"
+                    class="border p-5 rounded-[24px] mb-4 relative overflow-hidden">
+                    <div class="relative z-10 flex items-center gap-4">
+                      <div :class="cp2Exam.status === 'pass' ? 'bg-emerald-500' : 'bg-amber-500'"
+                        class="w-10 h-10 rounded-xl text-white flex items-center justify-center shadow-md">
+                        <span class="material-symbols-rounded">{{ cp2Exam.status === 'pass' ? 'check_circle' :
+                          'calendar_month' }}</span>
                       </div>
-                      <div class="text-lg font-black mb-1">วันที่: {{ formatDate(project.examDate) }}</div>
-                      <div class="text-sm font-bold opacity-90 mb-4">เวลา: {{ project.examTime }} น. | สถานที่: {{
-                        project.examLocation }}</div>
+                      <div>
+                        <div :class="cp2Exam.status === 'pass' ? 'text-emerald-600' : 'text-amber-600'"
+                          class="text-xs font-black uppercase tracking-widest mb-0.5">
+                          {{ cp2Exam.status === 'pass' ? 'ผ่านการสอบจบแล้ว' : 'นัดหมายสอบจบโครงงาน' }}
+                        </div>
+                        <div class="text-sm font-bold"
+                          :class="cp2Exam.status === 'pass' ? 'text-emerald-900' : 'text-amber-900'">วันที่: {{
+                            formatDate(cp2Exam.examDate) }}</div>
+                        <div class="text-xs font-bold"
+                          :class="cp2Exam.status === 'pass' ? 'text-emerald-700' : 'text-amber-700'">เวลา: {{
+                          cp2Exam.examTime }} น. | สถานที่: {{ cp2Exam.examLocation }}</div>
+                      </div>
                     </div>
                   </div>
                   <div class="flex items-center gap-2">

@@ -37,6 +37,10 @@ export default defineEventHandler(async (event) => {
           orderBy: { createdAt: 'desc' }
         },
         stepStatuses: true,
+        reports: {
+          where: { reportType: { in: ['cp2', 'cp3'] } },
+          select: { reportType: true, status: true, createdAt: true }
+        },
         _count: {
           select: { reports: true }
         }

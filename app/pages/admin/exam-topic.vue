@@ -177,22 +177,30 @@
 import { ref, computed } from 'vue'
 import { useAlerts } from '~/composables/useAlerts'
 
+// กำหนด Layout สำหรับหน้านี้ให้เป็น 'admin'
 definePageMeta({ layout: 'admin' })
 
 const alerts = useAlerts()
+// State สำหรับจัดการแท็บที่กำลังเปิดอยู่ (waiting = รอดำเนินการ, scheduled = ตารางนัดสอบ)
 const activeTab = ref('waiting')
 
-// ดึงข้อมูลจริงจาก API
+// --- ส่วนการดึงข้อมูล (Data Fetching) ---
+// ดึงข้อมูลโครงงานทั้งหมดที่อยู่ใน Step 1 (ช่วงทำ CP1) มาจาก API
 const { data: projectsData, pending, refresh } = await useFetch('/api/admin/projects-by-step', {
   query: { step: 1 }
 })
 
+// ตัวแปรเก็บรายชื่อโครงงานทั้งหมดที่ได้จาก API (ถ้าไม่มีข้อมูลให้เป็น array ว่าง)
 const projects = computed(() => projectsData.value?.projects || [])
 
-// แบ่งกลุ่มข้อมูล
+// --- ส่วนแบ่งกลุ่มข้อมูล (Data Filtering) ---
+// 1. กลุ่มรอดำเนินการ (waitList): โครงงานที่ยังไม่มีการนัดสอบหัวข้อ
 const waitList = computed(() => projects.value.filter(p => !p.exams || p.exams.length === 0))
+
+// 2. กลุ่มนัดสอบแล้ว (scheduleList): โครงงานที่มีการนัดสอบประเภท 'CP1' และสถานะยังเป็น 'pending' (รอสอบ)
 const scheduleList = computed(() => projects.value.filter(p => p.exams && p.exams.some(e => e.type === 'CP1' && e.status === 'pending')))
 
+// ฟังก์ชันแปลงวันที่ให้อ่านง่าย (format: วันที่ เดือน ปี)
 const formatDate = (date) => {
   if (!date) return '-'
   return new Date(date).toLocaleDateString('th-TH', { 

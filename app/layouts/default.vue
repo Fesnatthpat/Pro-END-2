@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen bg-[#f8f9fa] dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
     
-    <nav class="sticky top-0 z-50 bg-[#252243] py-3 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+    <nav class="sticky top-0 z-50 bg-[#252243] py-3 shadow-[0_4px_20px_rgba(0,0,0,0.1)] print:hidden">
       <div class="w-full xl:max-w-[1400px] mx-auto px-4 md:px-8 flex flex-wrap items-center justify-between">
         
         <NuxtLink to="/student" class="text-white font-bold text-[1.4rem] flex items-center gap-2 no-underline shrink-0">
@@ -119,20 +119,37 @@
 import Swal from 'sweetalert2'
 import { ref, computed } from "vue";
 
+// State สำหรับจัดการสถานะการเปิด/ปิดเมนูบนมือถือ (Hamburger menu)
 const isMenuOpen = ref(false);
+
+// ดึง Pinia store สำหรับระบบ Auth
 const { $pinia } = useNuxtApp()
 const authStore = useAuthStore()
+
+// computed property ดึงข้อมูล user ปัจจุบันจาก store (ถ้าล็อกอินอยู่จะมีข้อมูล)
 const user = computed(() => authStore.user)
 
-// ตรวจสอบสิทธิ์การเข้าใช้งานจากข้อมูลจริง
+// ตรวจสอบสิทธิ์การเข้าใช้งาน: เช็คว่านักศึกษาได้รับการอนุมัติ (isApproved) จากแอดมินหรือยัง
+// ถ้ายังไม่ได้รับการอนุมัติ จะถูกซ่อนเมนูบางอย่าง (เช่น เมนู "โครงงานของฉัน")
 const isApproved = computed(() => user.value?.isApproved || false)
 
+// ฟังก์ชันจัดการการออกจากระบบ (Logout)
 const handleLogout = async () => {
-  const result = await Swal.fire({ title: 'ยืนยันการดำเนินการ', text: "คุณต้องการออกจากระบบใช่หรือไม่?", icon: 'warning', showCancelButton: true, confirmButtonColor: '#dc3545', cancelButtonColor: '#6c757d', confirmButtonText: 'ยืนยัน', cancelButtonText: 'ยกเลิก' });
+  // เรียกใช้ SweetAlert2 เพื่อเด้ง Popup ยืนยันก่อนออกจากระบบ
+  const result = await Swal.fire({ 
+    title: 'ยืนยันการดำเนินการ', 
+    text: "คุณต้องการออกจากระบบใช่หรือไม่?", 
+    icon: 'warning', 
+    showCancelButton: true, 
+    confirmButtonColor: '#dc3545', 
+    cancelButtonColor: '#6c757d', 
+    confirmButtonText: 'ยืนยัน', 
+    cancelButtonText: 'ยกเลิก' 
+  });
+  
+  // ถ้ากดยืนยัน ให้เรียกฟังก์ชัน logout() ใน Pinia Store
   if (result.isConfirmed) {
     await authStore.logout()
   }
 };
-
-
 </script>
