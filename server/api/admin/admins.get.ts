@@ -1,9 +1,11 @@
 import { getPrisma } from '../../utils/prisma'
 
+// API Endpoint สำหรับดึงข้อมูลบัญชีผู้ดูแลระบบ (Admin) ทั้งหมดในระบบ
 export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
+    // ค้นหาบัญชีผู้ดูแลระบบทั้งหมด โดยเจาะจงเฉพาะข้อมูลสำคัญที่จำเป็น
     const admins = await prisma.admin.findMany({
       select: {
         id: true,
@@ -13,6 +15,7 @@ export default defineEventHandler(async (event) => {
         role: true,
         createdAt: true
       },
+      // เรียงลำดับตาม ID ของผู้ใช้ผู้ดูแลระบบ
       orderBy: {
         id: 'asc'
       }

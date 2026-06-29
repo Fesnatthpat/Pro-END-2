@@ -235,18 +235,20 @@
             <div class="mb-5">
               <div class="font-bold text-center mb-2">คนที่ 1</div>
               <div class="flex items-end mb-2 gap-2 w-full">
-                <span class="shrink-0">ชื่อนักศึกษา (นาย/นาง/นางสาว)</span>
+              <span class="shrink-0">ชื่อนักศึกษา (นาย/นาง/นางสาว)</span>
                 <input type="text" v-model="s1.name" class="form-dotted flex-1 min-w-0 text-center">
                 <span class="shrink-0">รหัสนักศึกษา</span>
                 <input type="text" v-model="s1.studentId" class="form-dotted w-40 min-w-0 text-center">
               </div>
-              <div class="flex items-end gap-2 w-full">
+              <div class="flex items-end gap-2 w-full mb-2">
                 <span class="shrink-0">โทรศัพท์มือถือ</span>
-                <input type="text" v-model="s1.phone" class="form-dotted flex-1 min-w-0 text-center">
-                <span class="shrink-0">E-mail</span>
-                <input type="email" v-model="s1.email" class="form-dotted flex-1 min-w-0 text-center">
+                <input type="text" v-model="s1.phone" class="form-dotted w-48 min-w-0 text-center">
                 <span class="shrink-0">Line Id</span>
                 <input type="text" v-model="s1.lineId" class="form-dotted flex-1 min-w-0 text-center">
+              </div>
+              <div class="flex items-end gap-2 w-full">
+                <span class="shrink-0">E-mail</span>
+                <input type="email" v-model="s1.email" class="form-dotted flex-1 min-w-0 px-2">
               </div>
             </div>
 
@@ -258,13 +260,15 @@
                 <span class="shrink-0">รหัสนักศึกษา</span>
                 <input type="text" v-model="s2.studentId" class="form-dotted w-40 min-w-0 text-center">
               </div>
-              <div class="flex items-end gap-2 w-full">
+              <div class="flex items-end gap-2 w-full mb-2">
                 <span class="shrink-0">โทรศัพท์มือถือ</span>
-                <input type="text" v-model="s2.phone" class="form-dotted flex-1 min-w-0 text-center">
-                <span class="shrink-0">E-mail</span>
-                <input type="email" v-model="s2.email" class="form-dotted flex-1 min-w-0 text-center">
+                <input type="text" v-model="s2.phone" class="form-dotted w-48 min-w-0 text-center">
                 <span class="shrink-0">Line Id</span>
                 <input type="text" v-model="s2.lineId" class="form-dotted flex-1 min-w-0 text-center">
+              </div>
+              <div class="flex items-end gap-2 w-full">
+                <span class="shrink-0">E-mail</span>
+                <input type="email" v-model="s2.email" class="form-dotted flex-1 min-w-0 px-2">
               </div>
             </div>
 

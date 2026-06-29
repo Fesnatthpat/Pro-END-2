@@ -1,9 +1,11 @@
 <template>
+  <!-- ปุ่มสำหรับสลับโหมดสว่าง/มืด (จะถูกซ่อนเมื่อสั่งพิมพ์เอกสาร print:hidden) -->
   <button 
     @click="toggleTheme" 
     class="fixed bottom-5 right-5 z-50 p-3 rounded-full bg-white dark:bg-[#1a1a40] text-[#1a1a40] dark:text-white shadow-[0_5px_15px_rgba(0,0,0,0.1)] dark:shadow-[0_5px_15px_rgba(0,0,0,0.5)] transition-all duration-300 hover:scale-110 flex items-center justify-center border border-gray-200 dark:border-slate-700 dark:border-gray-700 print:hidden"
     :title="isDark ? 'เปลี่ยนเป็นโหมดสว่าง' : 'เปลี่ยนเป็นโหมดมืด'"
   >
+    <!-- แสดงไอคอนดวงอาทิตย์เมื่ออยู่ในโหมดมืด และไอคอนดวงจันทร์เมื่ออยู่ในโหมดสว่าง -->
     <span v-if="isDark" class="material-symbols-rounded block">light_mode</span>
     <span v-else class="material-symbols-rounded block">dark_mode</span>
   </button>
@@ -12,14 +14,17 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
+// ตัวแปร Reactive สำหรับเก็บสถานะโหมดมืด (true = มืด, false = สว่าง)
 const isDark = ref(false)
 
+// ฟังก์ชันสลับโหมดเมื่อกดปุ่ม
 const toggleTheme = () => {
   console.log('ThemeToggle: Button clicked, current dark state:', isDark.value)
   isDark.value = !isDark.value
   updateTheme()
 }
 
+// ฟังก์ชันอัปเดต Class "dark" บนแท็ก html และบันทึกค่าลงใน LocalStorage
 const updateTheme = () => {
   console.log('ThemeToggle: Updating theme, isDark should be:', isDark.value)
   if (isDark.value) {
@@ -31,9 +36,13 @@ const updateTheme = () => {
   }
 }
 
+// เมื่อ Component ถูกโหลด (Mounted)
 onMounted(() => {
+  // ดึงค่าธีมที่เคยบันทึกไว้ใน LocalStorage
   const savedTheme = localStorage.getItem('theme')
   console.log('ThemeToggle: Mounted, saved theme:', savedTheme)
+  
+  // ตรวจสอบค่าธีมที่บันทึกไว้ หรือตรวจสอบค่าเริ่มต้นจากระบบปฏิบัติการของผู้ใช้งาน (System Preference)
   if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     isDark.value = true
   } else {

@@ -1,7 +1,9 @@
 <template>
+  <!-- หน้าแสดงประวัติกิจกรรมและไทม์ไลน์โครงการของฝั่งนักศึกษา -->
   <div class="min-h-screen py-8 px-4 bg-[#f8f9fa] dark:bg-slate-900">
     <div class="max-w-[1000px] mx-auto w-full">
       
+      <!-- ส่วนหัวข้อหน้าเว็บพร้อมปุ่มย้อนกลับ -->
       <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <NuxtLink to="/student" class="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-[#1a1a40] transition-colors mb-2 font-medium w-fit">
@@ -14,10 +16,12 @@
         </div>
       </div>
 
+      <!-- แสดง loading เมื่ออยู่ระหว่างโหลดข้อมูลโครงงาน -->
       <div v-if="pending" class="flex justify-center py-20">
         <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600"></div>
       </div>
 
+      <!-- กรณีที่ผู้ใช้ล็อกอินยังไม่มีโครงการที่ยื่นเข้าระบบ -->
       <div v-else-if="!project" class="bg-white dark:bg-slate-800 rounded-[32px] p-16 text-center shadow-sm border border-gray-100 dark:border-slate-700">
         <div class="w-20 h-20 bg-gray-50 dark:bg-slate-800 text-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
           <span class="material-symbols-rounded">folder_off</span>
@@ -27,8 +31,9 @@
       </div>
 
       <div v-else>
-        <!-- สรุปสถานะปัจจุบัน -->
+        <!-- 1. การ์ดสรุปสถานะปัจจุบัน 3 การ์ด (ขั้นตอนปัจจุบัน, สถานะล่าสุด, อัปเดตเมื่อ) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <!-- การ์ดขั้นตอนปัจจุบัน -->
           <div class="bg-white dark:bg-slate-800 p-6 rounded-[28px] shadow-sm border border-gray-100 dark:border-slate-700 flex items-center gap-4">
             <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
               <span class="material-symbols-rounded">ads_click</span>
@@ -38,6 +43,7 @@
               <div class="text-sm font-bold text-[#1a1a40] dark:text-white">{{ getStepName(project.step) }}</div>
             </div>
           </div>
+          <!-- การ์ดสถานะล่าสุด -->
           <div class="bg-white dark:bg-slate-800 p-6 rounded-[28px] shadow-sm border border-gray-100 dark:border-slate-700 flex items-center gap-4">
             <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
               <span class="material-symbols-rounded">sync</span>
@@ -49,6 +55,7 @@
               </div>
             </div>
           </div>
+          <!-- การ์ดวันที่ปรับปรุงล่าสุด -->
           <div class="bg-white dark:bg-slate-800 p-6 rounded-[28px] shadow-sm border border-gray-100 dark:border-slate-700 flex items-center gap-4">
             <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
               <span class="material-symbols-rounded">update</span>
@@ -60,7 +67,7 @@
           </div>
         </div>
 
-        <!-- คอมโพเนนต์ไทม์ไลน์ -->
+        <!-- 2. คอมโพเนนต์แสดงผลตารางประวัติกิจกรรม (Timeline component) -->
         <ActivityTimeline :project-id="project.id" />
       </div>
 
@@ -71,11 +78,14 @@
 <script setup>
 import { computed } from 'vue'
 
+// กำหนด Layout ของนักศึกษาให้กับเพจนี้
 definePageMeta({ layout: 'student' })
 
+// ดึงข้อมูลโครงการปัจจุบันของนักศึกษาที่ล็อกอิน
 const { data: projectData, pending } = await useFetch('/api/student/my-project')
 const project = computed(() => projectData.value?.project)
 
+// ฟังก์ชันแปลงเลข Step ของระบบ (1-5) เป็นชื่อขั้นตอนภาษาไทย
 const getStepName = (step) => {
   const steps = {
     1: 'ยื่นเสนอหัวข้อ (CP1)',
@@ -87,6 +97,7 @@ const getStepName = (step) => {
   return steps[step] || 'ไม่ระบุ'
 }
 
+// ฟังก์ชันดึงสถานะแปลไทย
 const getStatusText = (status) => {
   const maps = {
     'pending': 'รอการตรวจสอบ',
@@ -97,6 +108,7 @@ const getStatusText = (status) => {
   return maps[status] || status
 }
 
+// ฟังก์ชันฟอร์แมตจัดรูปแบบวันที่
 const formatDateShort = (date) => {
   if (!date) return '-'
   return new Date(date).toLocaleDateString('th-TH', { 

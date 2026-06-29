@@ -1,9 +1,11 @@
 import { getPrisma } from '~~/server/utils/prisma'
 
+// API Endpoint สำหรับดึงรายชื่ออาจารย์ทั้งหมดในระบบ
 export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
+    // ดึงข้อมูลอาจารย์ทั้งหมด โดยเจาะจงเฉพาะฟิลด์ที่จำเป็น (Prisma Select)
     const teachers = await prisma.teacher.findMany({
       select: {
         id: true,
@@ -19,6 +21,7 @@ export default defineEventHandler(async (event) => {
         createdAt: true,
         updatedAt: true
       },
+      // เรียงลำดับชื่อตามตัวอักษรภาษาไทยจาก ก-ฮ (fullname: 'asc')
       orderBy: {
         fullname: 'asc'
       }

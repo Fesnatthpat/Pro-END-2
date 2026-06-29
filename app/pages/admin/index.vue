@@ -4,7 +4,7 @@
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
       <div>
         <h3 class="font-bold text-slate-900 text-2xl md:text-3xl mb-1">Dashboard</h3>
-        <p class="text-slate-500 text-sm">ยินดีต้อนรับกลับ, Admin System 👋</p>
+        <p class="text-slate-500 text-sm">ยินดีต้อนรับกลับ, Admin</p>
       </div>
       <div class="bg-white px-4 py-2.5 rounded-full shadow-sm text-[#1a1a40] font-bold text-sm border border-slate-100 flex items-center gap-2">
         <i class="bi bi-calendar-event"></i> {{ currentDate }}

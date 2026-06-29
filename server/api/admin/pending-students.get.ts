@@ -1,9 +1,11 @@
 import { getPrisma } from '~~/server/utils/prisma'
 
+// API Endpoint สำหรับดึงรายชื่อนักศึกษาที่เพิ่งสมัครสมาชิกใหม่และรอรับการยืนยันอนุมัติบัญชี
 export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
+    // ค้นหาแถวในตารางนักศึกษาเฉพาะกลุ่มที่ยังไม่ผ่านการอนุมัติสิทธิ์ (isApproved: false)
     const pendingStudents = await prisma.student.findMany({
       where: {
         isApproved: false
@@ -21,6 +23,7 @@ export default defineEventHandler(async (event) => {
         createdAt: true,
         updatedAt: true
       },
+      // เรียงลำดับตามวันที่ลงทะเบียนล่าสุดเข้ามาหาแรกสุด (createdAt: 'desc')
       orderBy: {
         createdAt: 'desc'
       }

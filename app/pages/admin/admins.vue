@@ -1,6 +1,8 @@
 <template>
+  <!-- หน้าจัดการรายชื่อผู้ดูแลระบบ (Admin/Superadmin Account Management) -->
   <div class="p-4 md:p-10">
     
+    <!-- ส่วนหัวเพจแสดงชื่อ และ ปุ่มเปิดโมดัลสำหรับเพิ่มแอดมินใหม่ -->
     <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="relative">
         <h1 class="md: text-slate-900 dark:text-white mb-2 tracking-tight text-3xl md:text-4xl lg:text-5xl font-black">จัดการผู้ดูแลระบบ</h1>
@@ -10,6 +12,7 @@
         </div>
       </div>
       
+      <!-- ปุ่มเปิดโมดัลเพิ่มผู้ดูแลระบบ -->
       <button 
         @click="openModal()"
         class="group relative overflow-hidden bg-slate-900 hover:bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-slate-200 dark:shadow-none flex items-center gap-3 w-fit active:scale-95"
@@ -20,9 +23,10 @@
       </button>
     </div>
 
-    <!-- Table Section -->
+    <!-- ส่วนตารางแสดงรายชื่อแอดมินทั้งหมดในระบบ -->
     <div class="admin-card bg-white dark:bg-slate-800 overflow-hidden">
       
+      <!-- โหมดดาวน์โหลดข้อมูล (loading) -->
       <div v-if="pending" class="flex flex-col items-center justify-center py-32">
         <div class="relative w-20 h-20">
           <div class="absolute inset-0 border-4 border-indigo-100 rounded-full"></div>
@@ -31,6 +35,7 @@
         <p class="mt-6 text-slate-400 font-bold animate-pulse">กำลังโหลดข้อมูลผู้ดูแล...</p>
       </div>
 
+      <!-- ตารางข้อมูล -->
       <div v-else class="overflow-x-auto">
         <table class="w-full text-left min-w-[900px]">
           <thead>
@@ -43,6 +48,7 @@
           </thead>
           <tbody class="divide-y divide-slate-50 text-sm">
             <tr v-for="admin in admins" :key="admin.id" class="admin-table-row group/row">
+              <!-- ข้อมูลชื่อ-นามสกุลและอักษรแรกในกรอบไล่สี -->
               <td class="px-8 py-6">
                 <div class="flex items-center gap-4">
                   <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-lg border border-indigo-200 shadow-sm group-hover/row:scale-110 transition-transform">
@@ -51,12 +57,14 @@
                   <span class="font-bold text-slate-800 dark:text-slate-200 text-base">{{ admin.fullname }}</span>
                 </div>
               </td>
+              <!-- บัญชีผู้ใช้งานและอีเมล -->
               <td class="px-8 py-6">
                 <div class="flex flex-col gap-1">
                   <div class="font-bold text-slate-700 dark:text-slate-300">{{ admin.username }}</div>
                   <div class="text-slate-400 font-medium text-xs">{{ admin.email }}</div>
                 </div>
               </td>
+              <!-- ป้ายแสดงบทบาท (Super Admin สีม่วง / Admin สีน้ำเงิน) -->
               <td class="px-8 py-6">
                 <span 
                   :class="admin.role === 'superadmin' ? 'bg-purple-50 text-purple-600 border-purple-100' : 'bg-blue-50 text-blue-600 border-blue-100'"
@@ -66,6 +74,7 @@
                   {{ admin.role }}
                 </span>
               </td>
+              <!-- ปุ่มจัดการ (แก้ไข / ลบ) -->
               <td class="px-8 py-6">
                 <div class="flex items-center justify-center gap-3">
                   <button 
@@ -85,6 +94,7 @@
                 </div>
               </td>
             </tr>
+            <!-- กรณีไม่มีข้อมูลแอดมิน -->
             <tr v-if="admins?.length === 0">
               <td colspan="4" class="px-8 py-20 text-center">
                 <div class="w-20 h-20 bg-slate-50 dark:bg-slate-900 text-slate-200 rounded-[28px] flex items-center justify-center mx-auto mb-6">
@@ -98,10 +108,11 @@
       </div>
     </div>
 
-    <!-- Admin Modal -->
+    <!-- โมดัลสำหรับกรอกข้อมูลเพิ่ม/แก้ไขผู้ดูแลระบบ (Admin Modal Form) -->
     <Transition name="fade">
       <div v-if="showModal" class="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
         <div class="bg-white dark:bg-slate-800 w-full max-w-lg rounded-[32px] shadow-2xl overflow-hidden animate-[fadeIn_0.3s_ease-out] border border-white/20">
+          <!-- ส่วนหัวของโมดัล -->
           <div class="px-8 py-6 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-200 dark:shadow-none">
@@ -114,6 +125,7 @@
             </button>
           </div>
           
+          <!-- ฟอร์มกรอกข้อมูล -->
           <form @submit.prevent="handleSubmit" class="p-8 space-y-6">
             <div class="space-y-1.5">
               <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">ชื่อ-นามสกุล</label>
@@ -149,6 +161,7 @@
               <input v-model="form.password" type="password" :required="!editingId" class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all text-sm font-bold bg-slate-50/50" placeholder="••••••••">
             </div>
 
+            <!-- ปุ่มกดยืนยัน / ยกเลิกฟอร์ม -->
             <div class="pt-6 flex gap-4">
               <button type="button" @click="closeModal" class="flex-1 px-8 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-50 transition-all active:scale-95"> ยกเลิก </button>
               <button type="submit" :disabled="submitting" class="flex-[1.5] bg-slate-900 hover:bg-indigo-600 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-slate-200 dark:shadow-none disabled:opacity-50 active:scale-95 flex items-center justify-center gap-2">
@@ -168,17 +181,21 @@
 import { ref } from 'vue'
 import { useAlerts } from '~/composables/useAlerts'
 
+// เปิดใช้งาน Layout หลักของผู้ดูแลระบบ
 definePageMeta({
   layout: 'admin'
 })
 
 const alerts = useAlerts()
+
+// ดึงรายชื่อแอดมินทั้งหมดที่มีในระบบ
 const { data: admins, pending, refresh } = useFetch('/api/admin/admins')
 
 const showModal = ref(false)
 const submitting = ref(false)
 const editingId = ref(null)
 
+// เก็บข้อมูลฟอร์ม
 const form = ref({
   fullname: '',
   username: '',
@@ -187,6 +204,7 @@ const form = ref({
   role: 'admin'
 })
 
+// ฟังก์ชันเปิดฟอร์ม (ถ้าส่งข้อมูลแอดมินเข้ามาจะเป็นโหมดแก้ไข Patch)
 const openModal = (admin = null) => {
   if (admin) {
     editingId.value = admin.id
@@ -210,11 +228,13 @@ const openModal = (admin = null) => {
   showModal.value = true
 }
 
+// ฟังก์ชันปิดฟอร์ม
 const closeModal = () => {
   showModal.value = false
   editingId.value = null
 }
 
+// ส่งข้อมูลบันทึกบัญชี (POST สำหรับแอดมินใหม่, PATCH สำหรับแก้ไขแอดมินเดิม)
 const handleSubmit = async () => {
   submitting.value = true
   try {
@@ -239,6 +259,7 @@ const handleSubmit = async () => {
   }
 }
 
+// ยืนยันการลบบัญชีผู้ดูแลระบบ
 const confirmDelete = async (admin) => {
   const result = await alerts.confirm('ยืนยันการลบ', `คุณต้องการลบผู้ดูแลระบบ "${admin.fullname}" ใช่หรือไม่?`, 'warning');
   if (result.isConfirmed) {
@@ -258,6 +279,7 @@ const confirmDelete = async (admin) => {
 </script>
 
 <style scoped>
+/* อนิเมชันการสลับโหมดเปิดปิดกล่อง Modal ป็อปอัพ */
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.3s ease;
 }
