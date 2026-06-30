@@ -132,11 +132,12 @@
       </div>
     </div>
 
-    <div class="flex flex-col items-center gap-8 print:block print:w-full print:gap-0"
-      :class="isSubmitted ? 'pointer-events-none' : ''">
+    <div class="w-full overflow-x-auto pb-8 print:overflow-visible print:pb-0">
+      <div class="flex flex-col items-center gap-8 min-w-[210mm] print:block print:w-full print:gap-0"
+        :class="isSubmitted ? 'pointer-events-none' : ''">
 
-      <div
-        class="paper-a4 page-break bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[16px] leading-relaxed print:shadow-none">
+        <div
+          class="paper-a4 page-break bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[16px] leading-relaxed print:shadow-none shrink-0">
 
         <div class="text-center mb-5">
           <img src="/bsru_logo.jpg" alt="BSRU Logo" class="w-[80px] mx-auto mb-1 print:w-[70px]">
@@ -349,7 +350,7 @@
       </div>
 
       <div
-        class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[16px] leading-relaxed flex flex-col justify-between print:shadow-none">
+        class="paper-a4 bg-white dark:bg-slate-800 shadow-lg relative text-black dark:text-slate-100 text-[16px] leading-relaxed flex flex-col justify-between print:shadow-none shrink-0">
 
         <div>
           <div class="text-right mb-4 text-sm font-bold">CP-1</div>
@@ -401,6 +402,7 @@
 
       </div>
 
+      </div>
     </div>
 
   </div>
