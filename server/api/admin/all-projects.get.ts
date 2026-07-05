@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
     where.OR = [
       { titleTh: { contains: search, mode: 'insensitive' } },
       { student1: { fullname: { contains: search, mode: 'insensitive' } } },
-      { student2: { is: { fullname: { contains: search, mode: 'insensitive' } } } }
+      { student2: { fullname: { contains: search, mode: 'insensitive' } } }
     ]
   }
 

@@ -25,9 +25,9 @@
               <h3 class="text-xl text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">รายการประวัติการส่งงาน</h3>
               <p class="text-sm text-gray-500 dark:text-slate-400">ข้อมูลล่าสุดที่จัดเก็บในระบบ</p>
             </div>
-            <div :class="project?.status === 'approved' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'" class="px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest flex items-center gap-2">
+            <div :class="project?.step >= 6 ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'" class="px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span>
-              {{ project?.status === 'approved' ? 'อนุมัติสมบูรณ์' : 'รอการตรวจสอบ' }}
+              {{ project?.step >= 6 ? 'เสร็จสมบูรณ์' : 'รอการตรวจสอบ' }}
             </div>
           </div>
 
@@ -85,7 +85,7 @@
           </div>
 
           <!-- สถานะการอนุมัติ -->
-          <div v-if="project?.status === 'approved'" class="p-8 rounded-[32px] bg-emerald-50 border border-emerald-100 text-center mt-10">
+          <div v-if="project?.step >= 6" class="p-8 rounded-[32px] bg-emerald-50 border border-emerald-100 text-center mt-10">
             <div class="w-20 h-20 bg-white dark:bg-slate-800 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-sm border border-emerald-50">
               <span class="material-symbols-rounded">military_tech</span>
             </div>

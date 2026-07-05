@@ -40,18 +40,15 @@
               <td class="py-4 px-4 font-bold text-slate-800 text-[15px] max-w-[250px] truncate" :title="item.titleTh">{{ item.titleTh }}</td>
               <td class="py-4 text-slate-600">
                 <div class="flex flex-col gap-1">
-                  <div class="text-xs">{{ item.student1?.fullname }}</div>
-                  <div class="text-xs" v-if="item.student2">{{ item.student2.fullname }}</div>
+                  <div class="text-md">{{ item.student1?.fullname }}</div>
+                  <div class="text-md" v-if="item.student2">{{ item.student2.fullname }}</div>
                 </div>
               </td>
-              <td class="py-4 text-slate-500 text-sm">{{ formatDate(item.updatedAt) }}</td>
+              <td class="py-4 text-slate-500 text-md">{{ formatDate(item.updatedAt) }}</td>
               <td class="py-4">
                 <div class="flex items-center justify-center gap-2">
                   <NuxtLink :to="`/student/cp2?projectId=${item.id}`" target="_blank" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-3 py-1.5 rounded-full text-xs font-bold transition-colors flex items-center gap-1.5 border border-indigo-100">
                     <i class="bi bi-file-earmark-pdf-fill"></i> CP2
-                  </NuxtLink>
-                  <NuxtLink :to="`/student/cp3?projectId=${item.id}`" target="_blank" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-3 py-1.5 rounded-full text-xs font-bold transition-colors flex items-center gap-1.5 border border-rose-100">
-                    <i class="bi bi-file-earmark-pdf-fill"></i> CP3
                   </NuxtLink>
                 </div>
               </td>
@@ -78,6 +75,7 @@
               <th class="pb-4 font-medium">เวลา</th>
               <th class="pb-4 font-medium text-center">ห้อง</th>
               <th class="pb-4 font-medium">ผู้วิจัย</th>
+              <th class="pb-4 font-medium text-center">เอกสาร (CP2)</th>
               <th class="pb-4 font-medium text-center">จัดการ</th>
             </tr>
           </thead>
@@ -90,18 +88,30 @@
               </td>
               <td class="py-4 text-slate-600">
                 <div class="flex flex-col gap-1">
-                  <div class="text-xs">{{ item.student1?.fullname }}</div>
-                  <div class="text-xs" v-if="item.student2">{{ item.student2.fullname }}</div>
+                  <div class="text-md">{{ item.student1?.fullname }}</div>
+                  <div class="text-md" v-if="item.student2">{{ item.student2.fullname }}</div>
                 </div>
               </td>
               <td class="py-4 text-center">
-                <button @click="openResultModal(item)" class="bg-[#1a1a40] hover:bg-emerald-600 text-white px-5 py-1.5 rounded-full text-sm font-bold transition-all shadow-sm flex items-center gap-2 mx-auto">
-                  <i class="bi bi-mortarboard"></i> บันทึกผลสอบจบ
-                </button>
+                <div class="flex items-center justify-center gap-2">
+                  <NuxtLink :to="`/student/cp2?projectId=${item.id}`" target="_blank" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-3 py-1.5 rounded-full text-xs font-bold transition-colors flex items-center gap-1.5 border border-indigo-100">
+                    <i class="bi bi-file-earmark-pdf-fill"></i> CP2
+                  </NuxtLink>
+                </div>
+              </td>
+              <td class="py-4 text-center">
+                <div class="flex items-center justify-center gap-2">
+                  <NuxtLink :to="`/student/cp3?projectId=${item.id}`" target="_blank" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-4 py-1.5 rounded-full text-sm font-bold transition-colors flex items-center gap-1.5 border border-rose-100">
+                    <i class="bi bi-file-earmark-pdf-fill"></i> พิมพ์ CP3
+                  </NuxtLink>
+                  <button @click="openResultModal(item)" class="bg-[#1a1a40] hover:bg-emerald-600 text-white px-5 py-1.5 rounded-full text-sm font-bold transition-all shadow-sm flex items-center gap-2">
+                    <i class="bi bi-mortarboard"></i> บันทึกผลสอบจบ
+                  </button>
+                </div>
               </td>
             </tr>
             <tr v-if="scheduleList.length === 0">
-              <td colspan="5" class="py-10 text-center text-slate-400 font-medium">ยังไม่มีตารางนัดสอบจบ</td>
+              <td colspan="6" class="py-10 text-center text-slate-400 font-medium">ยังไม่มีตารางนัดสอบจบ</td>
             </tr>
           </tbody>
         </table>
@@ -115,7 +125,7 @@
           <i class="bi bi-x-lg text-xl"></i>
         </button>
 
-        <h3 class="font-bold text-[28px] text-center text-slate-900 mb-10">ระบุวันสอบจบ (CP2/CP3)</h3>
+        <h3 class="font-bold text-[28px] text-center text-slate-900 mb-10">ระบุวันสอบจบ (CP2)</h3>
         
         <form @submit.prevent="saveSchedule" class="space-y-6">
           <div class="flex flex-col gap-2">
@@ -236,7 +246,7 @@ const { data: projectsData, pending, refresh } = await useFetch('/api/admin/proj
 const projects = computed(() => projectsData.value?.projects || [])
 
 // แบ่งกลุ่มข้อมูล
-const waitList = computed(() => projects.value.filter(p => !p.exams || p.exams.length === 0))
+const waitList = computed(() => projects.value.filter(p => p.status === 'pending' && (!p.exams || p.exams.length === 0)))
 const scheduleList = computed(() => projects.value.filter(p => p.exams && p.exams.some(e => e.type === 'CP2' && e.status === 'pending')))
 
 const openScheduleModal = (item) => {

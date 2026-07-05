@@ -105,7 +105,7 @@
           </div>
 
           <!-- Pending Scheduling State -->
-          <div v-else-if="project?.step === 4" class="animate-[fadeIn_0.6s_ease-out]">
+          <div v-else-if="project?.step === 4 && project?.status === 'pending'" class="animate-[fadeIn_0.6s_ease-out]">
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-gray-100 dark:border-slate-700">
               <div class="mb-4 md:mb-0">
                 <h3 class="text-xl font-bold text-[#1a1a40] dark:text-white">คำร้องขอสอบจบโครงงาน</h3>
@@ -236,7 +236,8 @@ const handleNotifyReadiness = async () => {
 const getProjectStepStatus = () => {
   if (!project.value) return 'ยังไม่ได้เริ่ม'
   if (project.value.step >= 5) return 'รอส่งเล่มสมบูรณ์'
-  if (project.value.step === 4) return 'ยื่นคำร้องสอบจบแล้ว'
+  if (project.value.step === 4 && project.value.status === 'pending') return 'ยื่นคำร้องสอบจบแล้ว'
+  if (project.value.step === 4) return 'พร้อมยื่นคำร้องสอบจบ'
   return 'อยู่ระหว่างทำรูปเล่ม'
 }
 

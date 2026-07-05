@@ -5,11 +5,10 @@ export default defineEventHandler(async (event) => {
   const prisma = getPrisma()
 
   try {
-    // ค้นหาโครงงานที่อยู่ในขั้นตอน 5 (ส่งเล่มสมบูรณ์) และมีสถานะได้รับการอนุมัติปิดโปรเจกต์แล้ว (status: 'approved')
+    // ค้นหาโครงงานที่อยู่ในขั้นตอน 6 (เสร็จสมบูรณ์)
     const projects = await prisma.project.findMany({
       where: {
-        step: 5,
-        status: 'approved'
+        step: 6
       },
       // ดึงรายละเอียดชื่อสมาชิกและอาจารย์ที่ปรึกษาออกมาแสดงด้วย
       include: {

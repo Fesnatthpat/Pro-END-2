@@ -41,6 +41,12 @@ export default defineEventHandler(async (event) => {
       return { success: true, message: 'เอกสารนี้ถูกส่งไปแล้ว' }
     }
 
+    // อัปเดตสถานะโปรเจกต์เป็น pending เพื่อให้แอดมินเห็นในหน้ารอดำเนินการ
+    await prisma.project.update({
+      where: { id: parsedProjectId },
+      data: { status: 'pending' }
+    })
+
     // สร้างบันทึกประวัติการส่ง
     await prisma.progressReport.create({
       data: {

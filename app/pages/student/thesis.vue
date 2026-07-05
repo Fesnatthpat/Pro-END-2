@@ -125,9 +125,14 @@
               </div>
               <h3 class="text-lg text-[#1a1a40] dark:text-white text-xl md:text-2xl font-bold">{{ report.title }}</h3>
             </div>
-            <span :class="getStatusBadgeClass(report.status)" class="px-3 py-1 rounded-full text-xs font-bold border">
-              {{ getStatusText(report.status) }}
-            </span>
+            <div class="flex items-center gap-2">
+              <button @click="openEditModal(report)" class="p-2 text-indigo-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors" title="แก้ไข">
+                <span class="material-symbols-rounded text-[20px]">edit</span>
+              </button>
+              <button @click="deleteReport(report.id)" class="p-2 text-rose-400 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-colors" title="ลบ">
+                <span class="material-symbols-rounded text-[20px]">delete</span>
+              </button>
+            </div>
           </div>
           <p class="text-gray-600 dark:text-slate-400 text-sm leading-relaxed whitespace-pre-line">{{ report.description }}</p>
           
@@ -159,12 +164,23 @@
         
         <form @submit.prevent="handleReportSubmit" class="p-8 space-y-5">
           <div>
-            <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">หัวข้อบันทึก (เช่น แก้ไขบทที่ 2)</label>
-            <input v-model="newReport.title" type="text" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-purple-600 outline-none transition-all text-sm bg-gray-50 dark:bg-slate-800" placeholder="ระบุหัวข้อ...">
+            <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">หัวข้อบันทึก</label>
+            <input v-model="newReport.title" type="text" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-purple-600 outline-none transition-all text-sm bg-gray-50 dark:bg-slate-800" placeholder="ระบุหัวข้อบันทึก...">
           </div>
           <div>
             <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">รายละเอียดสิ่งที่แก้ไข</label>
-            <textarea v-model="newReport.description" rows="4" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-purple-600 outline-none transition-all text-sm bg-gray-50 dark:bg-slate-800" placeholder="อธิบายรายละเอียด..."></textarea>
+            <textarea v-model="newReport.description" rows="4" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-purple-600 outline-none transition-all text-sm bg-gray-50 dark:bg-slate-800" placeholder="อธิบายรายละเอียดสิ่งที่แก้ไข..."></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">แนบไฟล์ PDF (ถ้ามี - สูงสุด 10MB)</label>
+            <div class="relative">
+              <input type="file" accept=".pdf" @change="onReportFileChange" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+              <div class="px-5 py-3 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 flex items-center gap-3 text-sm text-gray-500 dark:text-slate-400 overflow-hidden">
+                <span class="material-symbols-rounded text-purple-400">picture_as_pdf</span>
+                <span class="truncate">{{ selectedReportFile ? selectedReportFile.name : 'เลือกไฟล์ PDF...' }}</span>
+              </div>
+            </div>
           </div>
 
           <div class="pt-4 flex gap-3">
@@ -177,6 +193,49 @@
       </div>
     </div>
 
+    <!-- Modal แก้ไขรายงาน -->
+    <div v-if="showEditModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+      <div class="bg-white dark:bg-slate-800 rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden animate-[fadeIn_0.2s_ease-out]">
+        <div class="p-8 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-purple-50/30">
+          <h3 class="text-xl text-[#1a1a40] dark:text-white md:text-2xl font-bold">แก้ไขรายงานความก้าวหน้า</h3>
+          <button @click="showEditModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </div>
+        
+        <form @submit.prevent="handleEditSubmit" class="p-8 space-y-5">
+          <div>
+            <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">หัวข้อบันทึก</label>
+            <input v-model="editReport.title" type="text" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-purple-600 outline-none transition-all text-sm bg-gray-50 dark:bg-slate-800" placeholder="ระบุหัวข้อบันทึก...">
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">รายละเอียดสิ่งที่แก้ไข</label>
+            <textarea v-model="editReport.description" rows="4" required class="w-full px-5 py-3 rounded-2xl border border-gray-200 dark:border-slate-700 focus:border-purple-600 outline-none transition-all text-sm bg-gray-50 dark:bg-slate-800" placeholder="อธิบายรายละเอียดสิ่งที่แก้ไข..."></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2">แนบไฟล์ PDF ใหม่ (ออปชัน - สูงสุด 10MB)</label>
+            <div class="relative">
+              <input type="file" accept=".pdf" @change="onEditFileChange" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+              <div class="px-5 py-3 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 flex items-center gap-3 text-sm text-gray-500 dark:text-slate-400 overflow-hidden">
+                <span class="material-symbols-rounded text-purple-400">picture_as_pdf</span>
+                <span class="truncate">{{ selectedEditFile ? selectedEditFile.name : 'เลือกไฟล์ PDF ใหม่...' }}</span>
+              </div>
+            </div>
+            <div v-if="editReport.fileUrl && !selectedEditFile" class="text-xs text-blue-500 mt-2">
+              <a :href="editReport.fileUrl" target="_blank" class="hover:underline">ดูไฟล์เดิม</a> (หากไม่อัปโหลดใหม่ จะใช้ไฟล์เดิม)
+            </div>
+          </div>
+
+          <div class="pt-4 flex gap-3">
+            <button type="button" @click="showEditModal = false" class="flex-1 px-6 py-3 rounded-full border border-gray-200 dark:border-slate-700 text-gray-500 dark:text-slate-400 font-bold text-sm hover:bg-gray-50">ยกเลิก</button>
+            <button type="submit" :disabled="submittingReport" class="flex-1 px-6 py-3 rounded-full bg-[#1a1a40] text-white font-bold text-sm hover:bg-[#2c2c54] disabled:opacity-50">
+              {{ submittingReport ? 'กำลังบันทึก...' : 'บันทึกแก้ไข' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -195,8 +254,29 @@ const submitMode = ref('url') // 'url' or 'file'
 const selectedFile = ref(null)
 const submittingThesis = ref(false)
 const showAddModal = ref(false)
+const showEditModal = ref(false)
 const submittingReport = ref(false)
 const newReport = ref({ title: '', description: '' })
+const editReport = ref({ id: null, title: '', description: '', fileUrl: '' })
+const selectedReportFile = ref(null)
+const selectedEditFile = ref(null)
+
+const onReportFileChange = (e) => {
+  const file = e.target.files[0]
+  if (file) {
+    if (file.size > 10 * 1024 * 1024) {
+      alertError('ไฟล์ใหญ่เกินไป', 'กรุณาอัปโหลดไฟล์ขนาดไม่เกิน 10MB')
+      e.target.value = ''
+      return
+    }
+    if (file.type !== 'application/pdf') {
+      alertError('ไฟล์ไม่ถูกต้อง', 'กรุณาอัปโหลดไฟล์ในรูปแบบ PDF เท่านั้น')
+      e.target.value = ''
+      return
+    }
+    selectedReportFile.value = file
+  }
+}
 
 // ดึงข้อมูลโปรเจค
 const { data: projectData, refresh: refreshProject } = await useFetch('/api/student/my-project', {
@@ -218,7 +298,7 @@ const { data: reportsData, pending, refresh: refreshReports } = await useFetch('
 })
 const reports = computed(() => reportsData.value?.reports || [])
 
-const { success: alertSuccess, error: alertError } = useAlerts()
+const { success: alertSuccess, error: alertError, confirm: alertConfirm } = useAlerts()
 
 const onFileChange = (e) => {
   const file = e.target.files[0]
@@ -289,25 +369,136 @@ const handleReportSubmit = async () => {
   if (!project.value) return
   submittingReport.value = true
   try {
+    let fileUrl = ''
+    if (selectedReportFile.value) {
+      const fileName = `progress_${project.value.id}_${Date.now()}.pdf`
+      const { data, error } = await supabase.storage
+        .from('documents')
+        .upload(fileName, selectedReportFile.value)
+
+      if (error) {
+        throw new Error(`อัปโหลดไฟล์ไม่สำเร็จ: ${error.message}`)
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from('documents')
+        .getPublicUrl(fileName)
+      
+      fileUrl = publicUrlData.publicUrl
+    }
+
     const res = await $fetch('/api/student/submit-progress', {
       method: 'POST',
       body: { 
         projectId: project.value.id, 
         reportType: 'thesis',
-        ...newReport.value 
+        title: newReport.value.title,
+        description: newReport.value.description,
+        fileUrl: fileUrl || undefined
       }
     })
     if (res.success) {
       alertSuccess('สำเร็จ', 'บันทึกความก้าวหน้าเรียบร้อยแล้ว')
       showAddModal.value = false
       newReport.value = { title: '', description: '' }
+      selectedReportFile.value = null
       refreshReports()
     }
   } catch (error) {
-    alertError('ข้อผิดพลาด', error.statusMessage || 'เกิดข้อผิดพลาด')
+    alertError('ข้อผิดพลาด', error.message || error.statusMessage || 'เกิดข้อผิดพลาด')
   } finally {
     submittingReport.value = false
   }
+}
+
+const openEditModal = (report) => {
+  editReport.value = {
+    id: report.id,
+    title: report.title,
+    description: report.description,
+    fileUrl: report.fileUrl
+  }
+  selectedEditFile.value = null
+  showEditModal.value = true
+}
+
+const onEditFileChange = (e) => {
+  const file = e.target.files[0]
+  if (file) {
+    if (file.size > 10 * 1024 * 1024) {
+      alertError('ไฟล์ใหญ่เกินไป', 'กรุณาอัปโหลดไฟล์ขนาดไม่เกิน 10MB')
+      e.target.value = ''
+      return
+    }
+    if (file.type !== 'application/pdf') {
+      alertError('ไฟล์ไม่ถูกต้อง', 'กรุณาอัปโหลดไฟล์ในรูปแบบ PDF เท่านั้น')
+      e.target.value = ''
+      return
+    }
+    selectedEditFile.value = file
+  }
+}
+
+const handleEditSubmit = async () => {
+  submittingReport.value = true
+  try {
+    let fileUrl = editReport.value.fileUrl
+
+    if (selectedEditFile.value) {
+      const fileName = `progress_${project.value.id}_${Date.now()}.pdf`
+      const { data, error } = await supabase.storage
+        .from('documents')
+        .upload(fileName, selectedEditFile.value)
+
+      if (error) {
+        throw new Error(`อัปโหลดไฟล์ไม่สำเร็จ: ${error.message}`)
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from('documents')
+        .getPublicUrl(fileName)
+      
+      fileUrl = publicUrlData.publicUrl
+    }
+
+    const res = await $fetch('/api/student/update-progress', {
+      method: 'PUT',
+      body: {
+        reportId: editReport.value.id,
+        title: editReport.value.title,
+        description: editReport.value.description,
+        fileUrl: fileUrl
+      }
+    })
+    
+    if (res.success) {
+      alertSuccess('สำเร็จ', 'แก้ไขรายงานความก้าวหน้าเรียบร้อยแล้ว')
+      showEditModal.value = false
+      selectedEditFile.value = null
+      refreshReports()
+    }
+  } catch (error) {
+    alertError('ข้อผิดพลาด', error.message || error.statusMessage || 'เกิดข้อผิดพลาดในการแก้ไข')
+  } finally {
+    submittingReport.value = false
+  }
+}
+
+const deleteReport = async (id) => {
+  alertConfirm('ยืนยันการลบ', 'คุณต้องการลบรายงานนี้ใช่หรือไม่? ข้อมูลนี้จะไม่สามารถกู้คืนได้', async () => {
+    try {
+      const res = await $fetch('/api/student/delete-progress', {
+        method: 'DELETE',
+        body: { reportId: id }
+      })
+      if (res.success) {
+        alertSuccess('ลบสำเร็จ', 'ลบรายงานความก้าวหน้าเรียบร้อยแล้ว')
+        refreshReports()
+      }
+    } catch (error) {
+      alertError('ข้อผิดพลาด', error.message || error.statusMessage || 'เกิดข้อผิดพลาดในการลบ')
+    }
+  })
 }
 
 // UI Helpers

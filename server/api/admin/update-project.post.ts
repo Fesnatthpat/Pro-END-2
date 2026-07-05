@@ -102,7 +102,7 @@ export default defineEventHandler(async (event) => {
       // If exam data is provided, create or update an exam schedule
       if (examDate || examTime || examLocation) {
         // Find existing pending exam for this step's type
-        const examType = updatedProject.step === 1 ? 'CP1' : 'CP2'
+        const examType = updatedProject.step <= 2 ? 'CP1' : 'CP2'
         const existingExam = await tx.examSchedule.findFirst({
           where: {
             projectId: updatedProject.id,
@@ -135,7 +135,7 @@ export default defineEventHandler(async (event) => {
         }
       } else if (status !== undefined) {
         // If status is updated but no exam data, check if we should update a pending exam
-        const examType = updatedProject.step === 1 ? 'CP1' : 'CP2'
+        const examType = updatedProject.step <= 2 ? 'CP1' : 'CP2'
         const existingExam = await tx.examSchedule.findFirst({
           where: {
             projectId: updatedProject.id,
@@ -151,6 +151,16 @@ export default defineEventHandler(async (event) => {
               status: status === 'approved' ? 'pass' : (status === 'rejected' ? 'fail' : 'pending')
             }
           })
+        }
+        
+        // If CP2 is rejected, allow student to resubmit document
+        if (status === 'rejected' && updatedProject.step === 4) {
+           await tx.progressReport.deleteMany({
+             where: {
+               projectId: updatedProject.id,
+               reportType: 'cp2'
+             }
+           })
         }
       }
 

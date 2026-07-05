@@ -54,7 +54,7 @@
               <td class="py-4 px-2 text-center">
                 <img v-if="teacher.profileImage" :src="teacher.profileImage" alt="Profile" class="w-10 h-10 rounded-full object-cover border border-slate-200 shadow-sm mx-auto" />
                 <div v-else class="w-10 h-10 rounded-full bg-slate-100 text-slate-500 font-bold text-sm flex items-center justify-center border border-slate-200 shadow-inner mx-auto">
-                  {{ teacher.fullname.replace(/^(อ\.|ดร\.|ผศ\.|รศ\.|ศ\.)\s*/, '').substring(0, 1) }}
+                  {{ (teacher.fullname || teacher.username || '?').replace(/^(อ\.|ดร\.|ผศ\.|รศ\.|ศ\.)\s*/, '').substring(0, 1) }}
                 </div>
               </td>
 
@@ -203,7 +203,7 @@ const teachers = computed(() => teachersData.value?.teachers || [])
 const filteredTeachers = computed(() => {
   return teachers.value.filter(t => {
     const search = searchQuery.value.toLowerCase()
-    return t.fullname.toLowerCase().includes(search) || t.username.toLowerCase().includes(search)
+    return (t.fullname || '').toLowerCase().includes(search) || (t.username || '').toLowerCase().includes(search)
   })
 })
 

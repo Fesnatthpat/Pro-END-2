@@ -194,7 +194,7 @@
                 </div>
 
                 <!-- แสดงข้อมูลนัดสอบสำหรับขั้นตอนอื่นๆ (ถ้ามี) -->
-                <div v-if="step.examInfo" class="mb-4 md:mb-0 md:mr-6 flex-grow max-w-md animate-pulse">
+                <div v-if="step.examInfo && !step.isCompleted" class="mb-4 md:mb-0 md:mr-6 flex-grow max-w-md animate-pulse">
                   <div class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800/50 rounded-xl p-3 flex items-center gap-3 transition-colors duration-300">
                     <div class="w-10 h-10 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0">
                       <i class="bi bi-calendar-check"></i>
@@ -298,14 +298,14 @@ const reportCount = computed(() => project.value?._count?.reports || 0);
 
 // สำหรับ CP1 จะถือว่าผ่านเมื่อโปรเจกต์อยู่ Step 2 ขึ้นไป
 const isCp1Passed = computed(() => currentStep.value >= 2);
-const isProgressPassed = computed(() => currentStep.value >= 3); 
+const isProgressPassed = computed(() => currentStep.value >= 4); 
 const isThesisPassed = computed(() => currentStep.value >= 4);
 
 // สำหรับการสอบจบ จะถือว่าผ่านเมื่อโปรเจกต์ขยับไป Step 5 แล้ว
 const isExamPassed = computed(() => currentStep.value >= 5);
 
-// โครงงานสมบูรณ์ 100% เมื่ออยู่ Step 5 และสถานะคือ approved
-const isProjectFinished = computed(() => currentStep.value === 5 && project.value?.status === 'approved');
+// โครงงานสมบูรณ์ 100% เมื่ออยู่ Step 6 (หรือมากกว่า 5)
+const isProjectFinished = computed(() => currentStep.value >= 6);
 
 const projectPercentage = computed(() => {
   if (!project.value) return 0;
@@ -329,9 +329,9 @@ const getProgressStatus = () => {
 };
 
 const getThesisStatus = () => {
-  if (!isProgressPassed.value) return "รอผ่านขั้นตอนที่ 2";
+  if (!isCp1Passed.value) return "รอผ่าน CP1";
   if (isThesisPassed.value) return "ผ่านแล้ว";
-  return project.value?.thesisUrl ? "ส่งเล่มแล้ว/รอตรวจ" : "รอดำเนินการ";
+  return reportCount.value > 0 ? "กำลังดำเนินการ" : "รอดำเนินการ";
 };
 
 const formatDate = (date) => {
@@ -354,15 +354,19 @@ const steps = computed(() => [
         ? "สอบผ่านแล้ว"
         : project.value.status === 'approved' && project.value.step === 1
           ? "ผ่านการสอบหัวข้อแล้ว (รอเจ้าหน้าที่ยืนยัน)"
-          : "กำลังดำเนินการ/รออนุมัติ"
+          : project.value.status === 'rejected' && project.value.step === 1
+            ? "สอบไม่ผ่าน (ยื่นสอบใหม่)"
+            : "กำลังดำเนินการ/รออนุมัติ"
       : "ยังไม่ได้เริ่มดำเนินการ",
     statusColor: isCp1Passed.value
       ? "text-green-600"
       : (project.value?.status === 'approved' && project.value?.step === 1)
         ? "text-emerald-600 font-bold"
-        : project.value
-          ? "text-blue-600"
-          : "text-[#1a1a40] dark:text-white",
+        : (project.value?.status === 'rejected' && project.value?.step === 1)
+          ? "text-rose-600 font-bold"
+          : project.value
+            ? "text-blue-600"
+            : "text-[#1a1a40] dark:text-white",
     icon: isCp1Passed.value ? "bi-eye" : "bi-pencil-square",
     link: "/student/cp1",
     isLocked: false,
@@ -388,7 +392,7 @@ const steps = computed(() => [
     percentage: 60,
     title: "เล่มบัณฑิตนิพนธ์",
     statusText: getThesisStatus(),
-    statusColor: isProgressPassed.value
+    statusColor: isCp1Passed.value
       ? isThesisPassed.value
         ? "text-green-600"
         : "text-blue-600"
@@ -406,19 +410,23 @@ const steps = computed(() => [
     statusText: isThesisPassed.value
       ? isExamPassed.value
         ? "สอบผ่านแล้ว"
-        : finalExam.value
-          ? "กำหนดวันสอบแล้ว"
-          : "คลิกเพื่อจัดการเอกสาร"
+        : project.value.status === 'rejected' && project.value.step === 4
+          ? "สอบไม่ผ่าน (ยื่นสอบใหม่)"
+          : finalExam.value
+            ? "กำหนดวันสอบแล้ว"
+            : "คลิกเพื่อจัดการเอกสาร"
       : "รอผ่านขั้นตอนที่ 2 และ 3",
     statusColor: isThesisPassed.value
       ? isExamPassed.value
         ? "text-green-600"
-        : finalExam.value
-          ? "text-emerald-600 font-bold"
-          : "text-blue-600"
+        : project.value?.status === 'rejected' && project.value?.step === 4
+          ? "text-rose-600 font-bold"
+          : finalExam.value
+            ? "text-emerald-600 font-bold"
+            : "text-blue-600"
       : "text-gray-400",
     icon: isExamPassed.value ? "bi-eye" : (finalExam.value ? "bi-calendar-check" : "bi-folder2-open"),
-    link: "/student/exam-request",
+    link: "/student/cp2",
     isLocked: !isThesisPassed.value,
     isCompleted: isExamPassed.value,
     examInfo: finalExam.value ? {
@@ -433,7 +441,7 @@ const steps = computed(() => [
     percentage: 100,
     title: "ส่งบัณฑิตนิพนธ์และโปรแกรมฉบับสมบูรณ์",
     statusText: isExamPassed.value 
-      ? (isProjectFinished.value ? "เสร็จสมบูรณ์" : "กำลังดำเนินการ") 
+      ? (isProjectFinished.value ? "โครงงานเสร็จสมบูรณ์" : "กำลังดำเนินการ") 
       : "รอผ่านสอบจบ (CP2)",
     statusColor: isProjectFinished.value 
       ? "text-green-600" 

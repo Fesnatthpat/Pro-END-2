@@ -3,23 +3,23 @@
     <div class="min-h-screen bg-gray-100 dark:bg-slate-700 py-8 px-4  print:bg-white print:py-0 print:px-0">
       
       <div class="max-w-[210mm] mx-auto mb-6 flex flex-col gap-4 print:hidden">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-          <NuxtLink to="/student" class="flex items-center gap-2 text-gray-600 dark:text-slate-400 hover:text-[#1a1a40] transition-colors font-medium bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm w-full md:w-auto justify-center">
+        <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4">
+          <NuxtLink to="/student" class="flex items-center gap-2 text-gray-600 dark:text-slate-400 hover:text-[#1a1a40] transition-colors font-bold bg-white dark:bg-slate-800 px-5 py-2.5 rounded-full shadow-sm w-full xl:w-auto justify-center shrink-0">
             <span class="material-symbols-rounded">arrow_back</span> กลับหน้าหลัก
           </NuxtLink>
           
-          <div class="flex flex-wrap justify-center gap-2 md:gap-3">
-            <button v-if="!isAdmin && !isSubmitted" @click="clearDraft" class="bg-rose-50 text-rose-600 border border-rose-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-rose-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
-              <span class="material-symbols-rounded text-base">delete_sweep</span> ล้างฉบับร่าง
+          <div class="grid grid-cols-2 md:flex md:flex-wrap md:justify-end gap-3 w-full xl:w-auto">
+            <button v-if="!isAdmin && !isSubmitted" @click="clearDraft" class="bg-rose-50 text-rose-600 border border-rose-200 px-5 py-2.5 rounded-full font-bold hover:bg-rose-100 transition-colors shadow-sm flex items-center justify-center gap-2 text-sm">
+              <span class="material-symbols-rounded text-lg">delete_sweep</span> ล้างร่าง
             </button>
-            <button v-if="!isAdmin && !isSubmitted" @click="saveDraft" class="bg-blue-50 text-blue-600 border border-blue-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-blue-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
-              <span class="material-symbols-rounded">save</span> บันทึกข้อมูล
+            <button v-if="!isAdmin && !isSubmitted" @click="saveDraft" class="bg-blue-50 text-blue-600 border border-blue-200 px-5 py-2.5 rounded-full font-bold hover:bg-blue-100 transition-colors shadow-sm flex items-center justify-center gap-2 text-sm">
+              <span class="material-symbols-rounded text-lg">save</span> บันทึกข้อมูล
             </button>
-            <button @click="printDocument" class="bg-[#1a1a40] text-white px-4 md:px-6 py-2 rounded-full font-medium hover:bg-[#2a2a5c] transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
-              <span class="material-symbols-rounded">print</span> พิมพ์เอกสาร (CP2)
+            <button @click="printDocument" class="bg-[#1a1a40] text-white px-5 py-2.5 rounded-full font-bold hover:bg-[#2a2a5c] transition-colors shadow-sm flex items-center justify-center gap-2 text-sm">
+              <span class="material-symbols-rounded text-lg">print</span> พิมพ์เอกสาร
             </button>
-            <button v-if="!isAdmin && !isSubmitted" @click="submitDocument" class="bg-emerald-50 text-emerald-600 border border-emerald-200 px-4 md:px-6 py-2 rounded-full font-medium hover:bg-emerald-100 transition-colors shadow-sm flex items-center gap-2 text-sm md:text-base">
-              <span class="material-symbols-rounded">send</span> ยืนยันส่งให้แอดมิน
+            <button v-if="!isAdmin && !isSubmitted" @click="submitDocument" class="col-span-2 md:col-auto bg-emerald-50 text-emerald-600 border border-emerald-200 px-5 py-2.5 rounded-full font-bold hover:bg-emerald-100 transition-colors shadow-sm flex items-center justify-center gap-2 text-sm">
+              <span class="material-symbols-rounded text-lg">send</span> ยืนยันส่งให้แอดมิน
             </button>
           </div>
         </div>

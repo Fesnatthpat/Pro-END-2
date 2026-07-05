@@ -22,18 +22,18 @@ export default defineEventHandler(async (event) => {
         OR: [
           { student1Id: student1.id },
           { student2Id: student1.id }
-        ],
-        status: {
-          in: ['pending', 'approved']
-        }
+        ]
       }
     })
 
     if (existingProject) {
-      throw createError({ 
-        statusCode: 400, 
-        statusMessage: 'คุณมีหัวข้อโครงงานที่อยู่ระหว่างการพิจารณาหรือได้รับการอนุมัติแล้ว ไม่สามารถยื่นซ้ำได้' 
-      })
+      if (existingProject.status === 'pending' || existingProject.status === 'approved') {
+        throw createError({ 
+          statusCode: 400, 
+          statusMessage: 'คุณมีหัวข้อโครงงานที่อยู่ระหว่างการพิจารณาหรือได้รับการอนุมัติแล้ว ไม่สามารถยื่นซ้ำได้' 
+        })
+      }
+      // If status is rejected, we will update this existingProject instead of creating a new one.
     }
 
     // 1. Update Student 1 Profile
@@ -76,29 +76,50 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 404, statusMessage: 'ไม่พบข้อมูลเพื่อนร่วมกลุ่มในระบบ' })
       }
 
-      // Check if student 2 already has a project
-      if (s2User.projects1.length > 0 || s2User.projects2.length > 0) {
-        throw createError({ statusCode: 400, statusMessage: `นักศึกษา ${s2User.fullname} มีกลุ่มโครงงานอยู่แล้ว` })
+      // Check if student 2 already has an active project
+      const hasActiveProject = s2User.projects1.some(p => p.id !== existingProject?.id) || 
+                               s2User.projects2.some(p => p.id !== existingProject?.id)
+      if (hasActiveProject && !existingProject) { // if existingProject exists, s2 might be in it
+         throw createError({ statusCode: 400, statusMessage: `นักศึกษา ${s2User.fullname} มีกลุ่มโครงงานอยู่แล้ว` })
       }
 
       s2Id = s2User.id
     }
 
-    // 3. Create Project
-    const project = await prisma.project.create({
-      data: {
-        titleTh,
-        titleEn: titleEn || '',
-        semester: semester.toString(),
-        academicYear: academicYear.toString(),
-        student1Id: student1.id,
-        student2Id: s2Id,
-        advisorId: advisorId ? parseInt(advisorId) : null,
-        coAdvisorId: coAdvisorId ? parseInt(coAdvisorId) : null,
-        step: 1,
-        status: 'pending'
-      }
-    })
+    // 3. Create or Update Project
+    let project;
+    if (existingProject && existingProject.status === 'rejected') {
+      project = await prisma.project.update({
+        where: { id: existingProject.id },
+        data: {
+          titleTh,
+          titleEn: titleEn || '',
+          semester: semester.toString(),
+          academicYear: academicYear.toString(),
+          student1Id: student1.id,
+          student2Id: s2Id,
+          advisorId: advisorId ? parseInt(advisorId) : null,
+          coAdvisorId: coAdvisorId ? parseInt(coAdvisorId) : null,
+          step: 1,
+          status: 'pending'
+        }
+      })
+    } else {
+      project = await prisma.project.create({
+        data: {
+          titleTh,
+          titleEn: titleEn || '',
+          semester: semester.toString(),
+          academicYear: academicYear.toString(),
+          student1Id: student1.id,
+          student2Id: s2Id,
+          advisorId: advisorId ? parseInt(advisorId) : null,
+          coAdvisorId: coAdvisorId ? parseInt(coAdvisorId) : null,
+          step: 1,
+          status: 'pending'
+        }
+      })
+    }
 
     // 4. Record Activity
     await prisma.projectActivity.create({
@@ -106,7 +127,7 @@ export default defineEventHandler(async (event) => {
         projectId: project.id,
         type: 'CP1_SUBMIT',
         title: 'ยื่นเสนอหัวข้อโครงงาน (CP1)',
-        description: `ยื่นข้อเสนอโครงงานเรื่อง "${titleTh}" เข้าสู่ระบบ`,
+        description: existingProject && existingProject.status === 'rejected' ? `ยื่นข้อเสนอโครงงานเรื่อง "${titleTh}" ใหม่อีกครั้ง` : `ยื่นข้อเสนอโครงงานเรื่อง "${titleTh}" เข้าสู่ระบบ`,
         status: 'pending',
         icon: 'add_task',
         actorName: student1.fullname
@@ -114,8 +135,17 @@ export default defineEventHandler(async (event) => {
     })
 
     // 5. Initial Step Status
-    await prisma.projectStepStatus.create({
-      data: {
+    await prisma.projectStepStatus.upsert({
+      where: {
+        projectId_step: {
+          projectId: project.id,
+          step: 1
+        }
+      },
+      update: {
+        status: 'pending'
+      },
+      create: {
         projectId: project.id,
         step: 1,
         status: 'pending'

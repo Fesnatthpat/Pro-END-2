@@ -15,7 +15,10 @@
           <span :class="getStatusBadgeClass(project?.status)" class="px-4 py-2 rounded-2xl text-sm font-bold shadow-sm border">
             {{ getStatusText(project?.status) }}
           </span>
-          <span class="bg-indigo-50 text-indigo-600 px-4 py-2 rounded-2xl text-sm font-bold border border-indigo-100">
+          <span v-if="project?.step >= 6" class="bg-emerald-50 text-emerald-600 px-4 py-2 rounded-2xl text-sm font-bold border border-emerald-100">
+            เสร็จสมบูรณ์
+          </span>
+          <span v-else class="bg-indigo-50 text-indigo-600 px-4 py-2 rounded-2xl text-sm font-bold border border-indigo-100">
             ขั้นตอนที่ {{ project?.step }}
           </span>
         </div>
@@ -82,7 +85,7 @@
                   <span class="material-symbols-rounded">event_available</span>
                 </div>
                 <div>
-                  <div class="text-xs font-bold text-blue-400 uppercase tracking-widest">ข้อมูลนัดหมายการสอบจบ (CP2/CP3)</div>
+                  <div class="text-xs font-bold text-blue-400 uppercase tracking-widest">ข้อมูลการสอบจบ (CP2/CP3)</div>
                   <div class="text-blue-900 font-bold">วันที่: {{ formatDateNoTime(finalExam.examDate) }}</div>
                   <div class="text-blue-800 text-sm">เวลา: {{ finalExam.examTime }} น. | สถานที่: {{ finalExam.examLocation }}</div>
                 </div>
@@ -185,7 +188,7 @@
                     <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{{ formatDate(report.createdAt) }}</div>
                     <h4 class="font-bold text-slate-800 dark:text-slate-200">{{ report.title }}</h4>
                   </div>
-                  <span :class="getReportStatusClass(report.status)" class="px-3 py-1 rounded-full text-xs font-bold border uppercase">
+                  <span v-if="report.status !== 'pending'" :class="getReportStatusClass(report.status)" class="px-3 py-1 rounded-full text-xs font-bold border uppercase">
                     {{ getReportStatusText(report.status) }}
                   </span>
                 </div>
@@ -214,9 +217,10 @@
             </div>
 
             <div class="space-y-4">
-              <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 text-center">
-                <div class="text-indigo-600 font-bold text-sm mb-1">ขั้นตอนปัจจุบัน</div>
-                <div class="text-indigo-800 font-black text-xl">ขั้นตอนที่ {{ project.step }}</div>
+              <div :class="project.step >= 6 ? 'bg-emerald-50 border-emerald-100' : 'bg-indigo-50 border-indigo-100'" class="p-4 rounded-2xl border text-center">
+                <div :class="project.step >= 6 ? 'text-emerald-600' : 'text-indigo-600'" class="font-bold text-sm mb-1">ขั้นตอนปัจจุบัน</div>
+                <div v-if="project.step >= 6" class="text-emerald-600 font-black text-xl">เสร็จสมบูรณ์</div>
+                <div v-else class="text-indigo-800 font-black text-xl">ขั้นตอนที่ {{ project.step }}</div>
               </div>
 
               <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700">
@@ -258,6 +262,7 @@ const finalExam = computed(() => project.value?.exams?.find(e => e.type === 'CP2
 
 // UI Helpers
 const getStatusText = (status) => {
+  if (project.value?.step >= 6) return 'เสร็จสมบูรณ์'
   const maps = {
     'pending': 'รอการตรวจสอบ',
     'approved': 'ผ่านการอนุมัติ',
@@ -268,6 +273,7 @@ const getStatusText = (status) => {
 }
 
 const getStatusBadgeClass = (status) => {
+  if (project.value?.step >= 6) return 'bg-emerald-50 text-emerald-600 border-emerald-100'
   if (status === 'approved') return 'bg-emerald-50 text-emerald-600 border-emerald-100'
   if (status === 'revision') return 'bg-amber-50 text-amber-600 border-amber-100'
   if (status === 'rejected') return 'bg-rose-50 text-rose-500 border-rose-100'

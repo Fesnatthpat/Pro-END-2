@@ -151,7 +151,7 @@ export default defineEventHandler(async (event) => {
     })
 
     // Reset rate limit on successful login
-    resetLoginRateLimit(ip)
+    resetLoginRateLimit(identifier)
 
     return {
       success: true,

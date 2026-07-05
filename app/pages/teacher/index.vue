@@ -212,8 +212,8 @@ const projects = computed(() => projectsData.value?.projects || [])
 // สถิติแบบรวมทุกปี (แสดงเลขบนการ์ด)
 const statTotalAll = computed(() => projects.value.filter(p => p.academicYear === selectedYear.value).length)
 const statProgressAll = computed(() => projects.value.filter(p => p.academicYear === selectedYear.value && (p.step === 2 || p.step === 3)).length)
-const statPendingAll = computed(() => projects.value.filter(p => p.academicYear === selectedYear.value && p.step === 4).length)
-const statCompletedAll = computed(() => projects.value.filter(p => p.academicYear === selectedYear.value && p.step === 5).length)
+const statPendingAll = computed(() => projects.value.filter(p => p.academicYear === selectedYear.value && (p.step === 4 || p.step === 5)).length)
+const statCompletedAll = computed(() => projects.value.filter(p => p.academicYear === selectedYear.value && p.step >= 6).length)
 
 // ฟังก์ชันกรองหลัก
 const filteredProjects = computed(() => {
@@ -227,8 +227,8 @@ const filteredProjects = computed(() => {
 
     let matchStatus = true
     if (selectedStatus.value === 'progress') matchStatus = (p.step === 2 || p.step === 3)
-    if (selectedStatus.value === 'pending') matchStatus = (p.step === 4)
-    if (selectedStatus.value === 'completed') matchStatus = (p.step === 5)
+    if (selectedStatus.value === 'pending') matchStatus = (p.step === 4 || p.step === 5)
+    if (selectedStatus.value === 'completed') matchStatus = (p.step >= 6)
 
     return matchYear && matchSearch && matchStatus
   })
@@ -257,14 +257,14 @@ const getStatusDisplay = (status) => {
 }
 
 const getTheme = (step) => {
-  if (step === 5) return {
+  if (step >= 6) return {
     card: 'border-emerald-200 hover:border-emerald-400 hover:shadow-emerald-100',
     topBar: 'bg-emerald-500', badge: 'bg-emerald-100 text-emerald-700',
     icon: 'bi-check-circle-fill text-emerald-500',
     btn: 'bg-emerald-50 text-emerald-700 hover:bg-emerald-500 hover:text-white',
     avatarBg: 'bg-emerald-500'
   }
-  if (step === 4) return {
+  if (step === 4 || step === 5) return {
     card: 'border-amber-200 hover:border-amber-400 hover:shadow-amber-100',
     topBar: 'bg-amber-500', badge: 'bg-amber-100 text-amber-700',
     icon: 'bi-exclamation-circle-fill text-amber-500',
@@ -288,7 +288,8 @@ const getTheme = (step) => {
 }
 
 const getStatusText = (step) => {
-  if (step === 5) return 'เสร็จสมบูรณ์'
+  if (step >= 6) return 'เสร็จสมบูรณ์'
+  if (step === 5) return 'ส่งเล่มฉบับสมบูรณ์'
   if (step === 4) return 'รอสอบจบ'
   if (step >= 2) return 'กำลังดำเนินงาน'
   return 'อนุมัติหัวข้อแล้ว'

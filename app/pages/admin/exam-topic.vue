@@ -41,11 +41,11 @@
               <td class="py-4 px-4 font-bold text-slate-800 text-[15px] max-w-[300px] truncate" :title="item.titleTh">{{ item.titleTh }}</td>
               <td class="py-4 text-slate-600">
                 <div class="flex flex-col gap-1">
-                  <div class="text-xs">{{ item.student1?.fullname }}</div>
-                  <div class="text-xs" v-if="item.student2">{{ item.student2.fullname }}</div>
+                  <div class="text-md">{{ item.student1?.fullname }}</div>
+                  <div class="text-md" v-if="item.student2">{{ item.student2.fullname }}</div>
                 </div>
               </td>
-              <td class="py-4 text-slate-500 text-sm">{{ formatDate(item.updatedAt) }}</td>
+              <td class="py-4 text-slate-500 text-md">{{ formatDate(item.updatedAt) }}</td>
               <td class="py-4 text-center">
                 <NuxtLink :to="`/student/cp1?projectId=${item.id}`" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-lg text-sm font-bold shadow-sm transition-colors">
                   <i class="bi bi-file-earmark-pdf text-rose-500 text-base"></i> View
@@ -75,6 +75,7 @@
               <th class="pb-4 font-medium">เวลา</th>
               <th class="pb-4 font-medium text-center">ห้อง</th>
               <th class="pb-4 font-medium">ผู้วิจัย</th>
+              <th class="pb-4 font-medium text-center">เอกสาร (CP1)</th>
               <th class="pb-4 font-medium text-center">จัดการ</th>
             </tr>
           </thead>
@@ -87,9 +88,14 @@
               </td>
               <td class="py-4 text-slate-600">
                 <div class="flex flex-col gap-1">
-                  <div class="text-xs">{{ item.student1?.fullname }}</div>
-                  <div class="text-xs" v-if="item.student2">{{ item.student2.fullname }}</div>
+                  <div class="text-md">{{ item.student1?.fullname }}</div>
+                  <div class="text-md" v-if="item.student2">{{ item.student2.fullname }}</div>
                 </div>
+              </td>
+              <td class="py-4 text-center">
+                <NuxtLink :to="`/student/cp1?projectId=${item.id}`" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-lg text-sm font-bold shadow-sm transition-colors">
+                  <i class="bi bi-file-earmark-pdf text-rose-500 text-base"></i> View
+                </NuxtLink>
               </td>
               <td class="py-4 text-center">
                 <button @click="openResultModal(item)" class="bg-[#1a1a40] hover:bg-emerald-600 text-white px-5 py-1.5 rounded-full text-sm font-bold transition-all shadow-sm flex items-center gap-2 mx-auto">
@@ -98,7 +104,7 @@
               </td>
             </tr>
             <tr v-if="scheduleList.length === 0">
-              <td colspan="5" class="py-10 text-center text-slate-400 font-medium">ยังไม่มีตารางนัดสอบ</td>
+              <td colspan="6" class="py-10 text-center text-slate-400 font-medium">ยังไม่มีตารางนัดสอบ</td>
             </tr>
           </tbody>
         </table>
@@ -234,7 +240,7 @@ const { data: projectsData, pending, refresh } = await useFetch('/api/admin/proj
 const projects = computed(() => projectsData.value?.projects || [])
 
 // แบ่งกลุ่มข้อมูล
-const waitList = computed(() => projects.value.filter(p => !p.exams || p.exams.length === 0))
+const waitList = computed(() => projects.value.filter(p => p.status === 'pending' && (!p.exams || p.exams.length === 0)))
 const scheduleList = computed(() => projects.value.filter(p => p.exams && p.exams.some(e => e.type === 'CP1' && e.status === 'pending')))
 
 const openScheduleModal = (item) => {

@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
       data: {
         thesisUrl: thesisUrl,
         step: {
-          set: Math.max(3, (await prisma.project.findUnique({ where: { id: parsedProjectId } }))?.step || 0)
+          set: Math.max(3, existingProject.step || 0)
         }
       }
     })
