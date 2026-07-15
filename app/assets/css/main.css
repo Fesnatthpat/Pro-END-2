@@ -1,13 +1,13 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 
 @theme {
   --font-sans: 'Prompt', sans-serif;
 }
 
 @variant dark (&:where(.dark, .dark *));
-@layer utilities {
+@layer utilities { */
   /* Optimize rendering on low-end devices */
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     .optimize-gpu {
       transform: translate3d(0, 0, 0);
       backface-visibility: hidden;
@@ -36,4 +36,4 @@
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #cbd5e1;
-}
+} */
