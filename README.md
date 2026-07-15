@@ -16,6 +16,23 @@
 
 ---
 
+## 🚀 เทคโนโลยีที่ใช้ (Tech Stack)
+
+**💻 ส่วนหน้าบ้าน (Frontend):**
+- **Framework:** Nuxt 4 (Vue.js)
+- **Styling:** TailwindCSS v4
+- **State Management:** Pinia
+- **UI & Components:** SweetAlert2 (สำหรับ Popup แจ้งเตือน), Vue Datepicker
+- **BaaS / Service:** Supabase (Auth / Storage)
+
+**⚙️ ส่วนหลังบ้านและฐานข้อมูล (Backend & Database):**
+- **Database:** PostgreSQL
+- **ORM:** Prisma
+- **Security & Auth:** JSON Web Token (JWT), bcryptjs
+- **Realtime:** WebSocket (ws)
+
+---
+
 ## 👥 บทบาทผู้ใช้งานในระบบ (User Roles)
 
 ระบบประกอบด้วย 3 บทบาทหลักที่มีสิทธิ์และหน้าที่แตกต่างกัน:
